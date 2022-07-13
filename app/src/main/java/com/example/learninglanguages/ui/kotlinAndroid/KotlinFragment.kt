@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.App
 import com.example.learninglanguages.R
+import com.example.learninglanguages.domain.kotlin.KotlinRepo
 
 class KotlinFragment : Fragment() {
     private val add: App by lazy { requireActivity().application as App }
 
-    private lateinit var kotlinFragment: KotlinFragment//экземпляр класса, для того чтобы получить данные
+    private lateinit var kotlinRepo: KotlinRepo//экземпляр класса, для того чтобы получить данные
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +27,7 @@ class KotlinFragment : Fragment() {
 
         initViews(view)
 
-        kotlinFragment = add.kotlinRepo//достали из репо application (class App)
+        kotlinRepo = add.kotlinRepo//достали из репо application (class App)
 
     }
 
