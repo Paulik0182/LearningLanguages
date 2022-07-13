@@ -49,4 +49,8 @@ class KotlinFragment : Fragment() {
         answerKotlinTv4 = view.findViewById(R.id.answer4_kotlin_text_view)
 
     }
+
+    private fun getRandomTaskKotlin() {
+
+    }
 }

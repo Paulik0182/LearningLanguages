@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.App
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.english.EnglishRepo
+import kotlin.random.Random
 
 class EnglishFragment : Fragment() {
 
@@ -36,7 +38,7 @@ class EnglishFragment : Fragment() {
         initViews(view)
 
         englishRepo = add.englishRepo//достали из репо application (class App)
-
+        getRandomTaskEnglish()
     }
 
     private fun initViews(view: View) {
@@ -47,5 +49,15 @@ class EnglishFragment : Fragment() {
         answerEnglishTv3 = view.findViewById(R.id.answer3_english_text_view)
         answerEnglishTv4 = view.findViewById(R.id.answer4_english_text_view)
 
+    }
+
+    private fun getRandomTaskEnglish() {
+
+        val task = arrayOf(1, 2, 4, 5, 6)
+        val arraySize: Int = task.size
+
+        val random: Int = Random.nextInt(arraySize)
+
+        Toast.makeText(context, random, Toast.LENGTH_SHORT).show()
     }
 }
