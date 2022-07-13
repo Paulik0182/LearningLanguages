@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui
+package com.example.learninglanguages
 
 object Key {
 
