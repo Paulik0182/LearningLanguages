@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.english.EnglishFragment">
+
+    <TextView
+        android:id="@+id/task_english_text_view"
+        style="@style/task_english_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:text="@string/task_english_fragment" />
+
+    <TextView
+        android:id="@+id/answer1_english_text_view"
+        style="@style/answer_english_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/answer_option_english_fragment" />
+
+    <TextView
+        android:id="@+id/answer2_english_text_view"
+        style="@style/answer_english_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/answer_option_english_fragment" />
+
+    <TextView
+        android:id="@+id/answer3_english_text_view"
+        style="@style/answer_english_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/answer_option_english_fragment" />
+
+    <TextView
+        android:id="@+id/answer4_english_text_view"
+        style="@style/answer_english_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/answer_option_english_fragment" />
+
+</LinearLayout>
