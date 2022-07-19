@@ -48,10 +48,27 @@ class TaskFragment : Fragment() {
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
         }
 
-        taskEntity = taskRepo.getTask()[0]
+        taskEntity = taskRepo.getTask().random()
 
         fillView(taskEntity)
+
+        answerTv1.setOnClickListener {
+            checkingAnswer()
+        }
+
+        answerTv2.setOnClickListener {
+            checkingAnswer()
+        }
+
+        answerTv3.setOnClickListener {
+            checkingAnswer()
+        }
+
+        answerTv4.setOnClickListener {
+            checkingAnswer()
+        }
     }
+
 
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
@@ -61,6 +78,13 @@ class TaskFragment : Fragment() {
         answerTv3.text = taskEntity.variantsAnswer[2]
         answerTv4.text = taskEntity.variantsAnswer[3]
 
+    }
+
+    private fun checkingAnswer() {
+
+        val answerNum = taskEntity.rightAnswerNum
+        val variantsAnswerNum = arguments?.getInt(taskEntity.variantsAnswer.toString())
+
         //верный ответ textView
         val rightAnswerTv = when (taskEntity.rightAnswerNum) {
             0 -> answerTv1
@@ -69,7 +93,12 @@ class TaskFragment : Fragment() {
             3 -> answerTv4
             else -> null
         }
-        rightAnswerTv?.setBackgroundColor(Color.GREEN)
+
+        if (answerNum == variantsAnswerNum) {
+            rightAnswerTv?.setBackgroundColor(Color.GREEN)
+        } else {
+            rightAnswerTv?.setBackgroundColor(Color.BLACK)
+        }
     }
 
     private fun initViews(view: View) {
