@@ -19,8 +19,8 @@ class KotlinTaskRepoImpl : TaskRepo {
         addTask(
             TaskEntity(
                 1,
-                "Good afternoon",
-                listOf("Добрый день", "Привет", "Добрый вечер", "До свидания"),
+                "Что такое object в Kotlin?",
+                listOf("Синглтон", "Базовый класс Java", "Поток", "Переменная"),
                 0
             )
         )

@@ -1,10 +1,9 @@
 package com.example.learninglanguages
 
 import android.app.Application
-import com.example.learninglanguages.data.EnglishRepoImpl
-import com.example.learninglanguages.data.KotlinRepoImpl
-import com.example.learninglanguages.domain.english.EnglishRepo
-import com.example.learninglanguages.domain.kotlin.KotlinRepo
+import com.example.learninglanguages.data.EnglishTaskRepoImpl
+import com.example.learninglanguages.data.KotlinTaskRepoImpl
+import com.example.learninglanguages.domain.TaskRepo
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
@@ -14,7 +13,6 @@ import com.example.learninglanguages.domain.kotlin.KotlinRepo
  */
 class App : Application() {
 
-    val englishRepo: EnglishRepo = EnglishRepoImpl()
-
-    val kotlinRepo: KotlinRepo = KotlinRepoImpl()
+    val englishTaskRepo: TaskRepo = EnglishTaskRepoImpl()
+    val kotlinTaskRepo: TaskRepo = KotlinTaskRepoImpl()
 }
