@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LearningLanguages</string>
+    <string name="hello_kotlin_fragment">Hello Kotlin fragment</string>
+    <string name="answer_option_english_fragment">Вариант ответа</string>
+    <string name="task_english_fragment">Задание</string>
+    <string name="english_name_button">ENGLISH</string>
+    <string name="kotlin_name_button">KOTLIN</string>
 </resources>
