@@ -58,6 +58,6 @@ class EnglishFragment : Fragment() {
 
         val random: Int = Random.nextInt(arraySize)
 
-        Toast.makeText(context, random, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, random.toString(), Toast.LENGTH_SHORT).show()
     }
 }
