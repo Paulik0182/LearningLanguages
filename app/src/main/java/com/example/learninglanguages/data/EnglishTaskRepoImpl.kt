@@ -21,7 +21,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 1,
                 "Good afternoon",
                 listOf("Добрый день", "Привет", "Добрый вечер", "До свидания"),
-                0
+                "Добрый день"
             )
         )
         addTask(
@@ -29,7 +29,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 2,
                 "Table",
                 listOf("Стул", "Стол", "Ручка", "Таблица"),
-                1
+                "Стол"
             )
         )
         addTask(
@@ -37,7 +37,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 3,
                 "Sofa",
                 listOf("Стол", "Кресло", "Диван", "Ваза"),
-                2
+                "Диван"
             )
         )
         addTask(
@@ -45,7 +45,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 4,
                 "Chair",
                 listOf("Стул", "Диван", "Ваза", "Ручка"),
-                0
+                "Стул"
             )
         )
         addTask(
@@ -53,7 +53,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 5,
                 "Pencil",
                 listOf("Ручка", "Линейка", "Пенал", "Карандаш"),
-                3
+                "Карандаш"
             )
         )
         addTask(
@@ -61,7 +61,7 @@ class EnglishTaskRepoImpl : TaskRepo {
                 1,
                 "Telephone",
                 listOf("Телега", "Телефон", "Ручка", "Телевизор"),
-                1
+                "Телефон"
             )
         )
     }

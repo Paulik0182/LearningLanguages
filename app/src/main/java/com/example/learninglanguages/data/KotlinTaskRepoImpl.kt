@@ -21,15 +21,15 @@ class KotlinTaskRepoImpl : TaskRepo {
                 1,
                 "Что такое object в Kotlin?",
                 listOf("Синглтон", "Базовый класс Java", "Поток", "Переменная"),
-                0
+                "Синглтон"
             )
         )
         addTask(
             TaskEntity(
                 2,
-                "Table",
-                listOf("Стул", "Стол", "Ручка", "Таблица"),
-                1
+                "Проверка на равенство позволяющая сравнивать данные, содержащиеся в переменных",
+                listOf("toString", "equals", "true", "argument"),
+                "equals"
             )
         )
         addTask(
@@ -37,7 +37,7 @@ class KotlinTaskRepoImpl : TaskRepo {
                 3,
                 "Sofa",
                 listOf("Стол", "Кресло", "Диван", "Ваза"),
-                2
+                "Диван"
             )
         )
         addTask(
@@ -45,7 +45,7 @@ class KotlinTaskRepoImpl : TaskRepo {
                 4,
                 "Chair",
                 listOf("Стул", "Диван", "Ваза", "Ручка"),
-                0
+                "Стул"
             )
         )
         addTask(
@@ -53,7 +53,7 @@ class KotlinTaskRepoImpl : TaskRepo {
                 5,
                 "Pencil",
                 listOf("Ручка", "Линейка", "Пенал", "Карандаш"),
-                3
+                "Карандаш"
             )
         )
         addTask(
@@ -61,7 +61,7 @@ class KotlinTaskRepoImpl : TaskRepo {
                 1,
                 "Telephone",
                 listOf("Телега", "Телефон", "Ручка", "Телевизор"),
-                1
+                "Телефон"
             )
         )
     }

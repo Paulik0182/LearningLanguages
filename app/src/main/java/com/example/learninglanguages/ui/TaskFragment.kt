@@ -1,11 +1,11 @@
 package com.example.learninglanguages.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
@@ -39,7 +39,6 @@ class TaskFragment : Fragment() {
 
         initViews(view)
 
-        //времменная логика
         val original = arguments?.getInt(Key.THEME_ARGS_KEY) ?: 0
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
@@ -83,21 +82,25 @@ class TaskFragment : Fragment() {
     private fun checkingAnswer() {
 
         val answerNum = taskEntity.rightAnswerNum
-        val variantsAnswerNum = arguments?.getInt(taskEntity.variantsAnswer.toString())
+//        val variantsAnswerNum = arguments?.getInt(taskEntity.variantsAnswer.toString())
+        val variantsAnswerNum = taskEntity.variantsAnswer.toString()
 
         //верный ответ textView
-        val rightAnswerTv = when (taskEntity.rightAnswerNum) {
-            0 -> answerTv1
-            1 -> answerTv2
-            2 -> answerTv3
-            3 -> answerTv4
-            else -> null
-        }
+//        val rightAnswerTv = when (answerNum) {
+//            answerNum -> answerTv1
+//            answerNum -> answerTv2
+//            answerNum -> answerTv3
+//            answerNum -> answerTv4
+//            else -> null
+//        }
 
-        if (answerNum == variantsAnswerNum) {
-            rightAnswerTv?.setBackgroundColor(Color.GREEN)
+        if (answerNum != variantsAnswerNum) {
+//            rightAnswerTv?.setBackgroundColor(Color.GREEN)
+            taskEntity = taskRepo.getTask().random()
+            fillView(taskEntity)
         } else {
-            rightAnswerTv?.setBackgroundColor(Color.BLACK)
+//            rightAnswerTv?.setBackgroundColor(Color.BLACK)
+            Toast.makeText(context, "Выошиблись, попробуйте еще раз!!!", Toast.LENGTH_SHORT).show()
         }
     }
 
