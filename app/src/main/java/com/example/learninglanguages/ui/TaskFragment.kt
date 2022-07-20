@@ -79,7 +79,12 @@ class TaskFragment : Fragment() {
     }
 
     //рандомный метод получающий список (новый список)
-    private fun getNextTask(): TaskEntity = taskList.random()
+    private fun getNextTask(): TaskEntity? {
+        val nextTask =
+            taskList.randomOrNull()//означает что рандом может принимать null. Знак ? у TaskEntity обязателен
+        taskList.remove(nextTask) //удаляем из списка одно отобнанное рандомным способом задание
+        return nextTask
+    }
 
     // selectedAnswer - это приходит нажатие на кнопку
     private fun checkingAnswer(selectedAnswer: String) {
