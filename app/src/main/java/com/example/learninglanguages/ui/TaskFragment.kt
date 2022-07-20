@@ -47,7 +47,7 @@ class TaskFragment : Fragment() {
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
         }
 
-        taskEntity = taskRepo.getTask().random()
+        taskEntity = taskRepo.getTasks().random()
 
         fillView(taskEntity)
 
@@ -81,9 +81,10 @@ class TaskFragment : Fragment() {
 
     private fun checkingAnswer() {
 
-        val answerNum = taskEntity.rightAnswerNum
+        val answerNum = taskEntity.rightAnswer
 //        val variantsAnswerNum = arguments?.getInt(taskEntity.variantsAnswer.toString())
         val variantsAnswerNum = taskEntity.variantsAnswer.toString()
+        val numberTasks = taskEntity
 
         //верный ответ textView
 //        val rightAnswerTv = when (answerNum) {
@@ -96,7 +97,7 @@ class TaskFragment : Fragment() {
 
         if (answerNum != variantsAnswerNum) {
 //            rightAnswerTv?.setBackgroundColor(Color.GREEN)
-            taskEntity = taskRepo.getTask().random()
+            taskEntity = taskRepo.getTasks().random()
             fillView(taskEntity)
         } else {
 //            rightAnswerTv?.setBackgroundColor(Color.BLACK)

@@ -11,7 +11,7 @@ class KotlinTaskRepoImpl : TaskRepo {
         data.add(taskEntity)//добавили заметку
     }
 
-    override fun getTask(): List<TaskEntity> {
+    override fun getTasks(): List<TaskEntity> {
         return ArrayList(data)
     }
 

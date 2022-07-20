@@ -43,7 +43,7 @@ class RootActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun initViews() {
+    private fun initViews() {
         englishButton = findViewById(R.id.english_button)
         kotlinButton = findViewById(R.id.kotlin_button)
     }

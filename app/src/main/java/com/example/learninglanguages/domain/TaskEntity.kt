@@ -8,5 +8,5 @@ data class TaskEntity(
     val id: Long,
     val task: String,
     val variantsAnswer: List<String>,
-    var rightAnswerNum: String
+    val rightAnswer: String
 ) : Parcelable
