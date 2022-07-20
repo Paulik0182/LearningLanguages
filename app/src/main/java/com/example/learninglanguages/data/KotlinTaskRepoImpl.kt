@@ -32,37 +32,5 @@ class KotlinTaskRepoImpl : TaskRepo {
                 "equals"
             )
         )
-        addTask(
-            TaskEntity(
-                3,
-                "Sofa",
-                listOf("Стол", "Кресло", "Диван", "Ваза"),
-                "Диван"
-            )
-        )
-        addTask(
-            TaskEntity(
-                4,
-                "Chair",
-                listOf("Стул", "Диван", "Ваза", "Ручка"),
-                "Стул"
-            )
-        )
-        addTask(
-            TaskEntity(
-                5,
-                "Pencil",
-                listOf("Ручка", "Линейка", "Пенал", "Карандаш"),
-                "Карандаш"
-            )
-        )
-        addTask(
-            TaskEntity(
-                1,
-                "Telephone",
-                listOf("Телега", "Телефон", "Ручка", "Телевизор"),
-                "Телефон"
-            )
-        )
     }
 }

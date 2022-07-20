@@ -23,7 +23,6 @@ class TaskFragment : Fragment() {
     private val app: App by lazy { requireActivity().application as App }
 
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
-    private lateinit var taskEntity: TaskEntity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,9 +45,9 @@ class TaskFragment : Fragment() {
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
         }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
 
-        taskEntity = getNextTask()
 
-        fillView(taskEntity)
+        // если придет null обработается исключение, выполнится код после ?:
+        fillView(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))
 
     }
 
@@ -61,21 +60,59 @@ class TaskFragment : Fragment() {
         answerTv4.text = taskEntity.variantsAnswer[3]
 
         answerTv1.setOnClickListener {
-            checkingAnswer(taskEntity.variantsAnswer[0])// передали нажатие на кнопку
+            handleAnswerClick(
+                taskEntity.rightAnswer,
+                taskEntity.variantsAnswer[0]
+            )// передали нажатие на кнопку
         }
 
         answerTv2.setOnClickListener {
-            checkingAnswer(taskEntity.variantsAnswer[1])
+            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[1])
         }
 
         answerTv3.setOnClickListener {
-            checkingAnswer(taskEntity.variantsAnswer[2])
+            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[2])
         }
 
         answerTv4.setOnClickListener {
-            checkingAnswer(taskEntity.variantsAnswer[3])
+            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[3])
         }
+    }
 
+    // обработка нажатия на кнопку
+    private fun handleAnswerClick(rightAnswer: String, selectedAnswer: String) {
+        //верный ответ textView
+//        val rightAnswerTv = when (answerNum) {
+//            answerNum -> answerTv1
+//            answerNum -> answerTv2
+//            answerNum -> answerTv3
+//            answerNum -> answerTv4
+//            else -> null
+//        }
+        val isCorrect = checkingAnswer(rightAnswer, selectedAnswer)
+
+        if (isCorrect) {
+//            rightAnswerTv?.setBackgroundColor(Color.GREEN)
+            val taskEntity = getNextTask()
+            if (taskEntity == null) {//обязательно должна быть обработка null
+                finishLesson()
+            } else {
+                fillView(taskEntity)
+            }
+        } else {
+//            rightAnswerTv?.setBackgroundColor(Color.BLACK)
+            Toast.makeText(
+                requireContext(),
+                "Вы ошиблись, попробуйте еще раз!!!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun finishLesson() {
+        //todo
+        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
+            .show()
     }
 
     //рандомный метод получающий список (новый список)
@@ -86,29 +123,11 @@ class TaskFragment : Fragment() {
         return nextTask
     }
 
-    // selectedAnswer - это приходит нажатие на кнопку
-    private fun checkingAnswer(selectedAnswer: String) {
-
-        val rightAnswer = taskEntity.rightAnswer// правильный ответ
-
-        //верный ответ textView
-//        val rightAnswerTv = when (answerNum) {
-//            answerNum -> answerTv1
-//            answerNum -> answerTv2
-//            answerNum -> answerTv3
-//            answerNum -> answerTv4
-//            else -> null
-//        }
-
-        if (rightAnswer == selectedAnswer) {
-//            rightAnswerTv?.setBackgroundColor(Color.GREEN)
-            taskEntity = getNextTask()
-            fillView(taskEntity)
-        } else {
-//            rightAnswerTv?.setBackgroundColor(Color.BLACK)
-            Toast.makeText(context, "Вы ошиблись, попробуйте еще раз!!!", Toast.LENGTH_SHORT).show()
-        }
+    //  это сравнение двух переменных на равенство. Возвращается true & false
+    private fun checkingAnswer(rightAnswer: String, selectedAnswer: String): Boolean {
+        return rightAnswer == selectedAnswer
     }
+
 
     private fun initViews(view: View) {
 
