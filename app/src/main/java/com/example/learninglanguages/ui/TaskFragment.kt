@@ -11,7 +11,6 @@ import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.TaskEntity
-import com.example.learninglanguages.domain.TaskRepo
 import com.example.learninglanguages.domain.ThemeTask
 
 class TaskFragment : Fragment() {
@@ -23,7 +22,6 @@ class TaskFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
 
-    private lateinit var taskRepo: TaskRepo//экземпляр класса, для того чтобы получить данные
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
     private lateinit var taskEntity: TaskEntity
 
@@ -43,13 +41,11 @@ class TaskFragment : Fragment() {
         val original = arguments?.getInt(Key.THEME_ARGS_KEY) ?: 0
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
-        taskRepo = when (ThemeTask.values()[original]) {
+        taskList = when (ThemeTask.values()[original]) {
             ThemeTask.ENGLISH -> app.englishTaskRepo
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
-        }
+        }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
 
-        taskList =
-            taskRepo.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
         taskEntity = getNextTask()
 
         fillView(taskEntity)
@@ -83,7 +79,7 @@ class TaskFragment : Fragment() {
     }
 
     //рандомный метод получающий список (новый список)
-    private fun getNextTask(): TaskEntity = taskRepo.getTasks().random()
+    private fun getNextTask(): TaskEntity = taskList.random()
 
     // selectedAnswer - это приходит нажатие на кнопку
     private fun checkingAnswer(selectedAnswer: String) {
