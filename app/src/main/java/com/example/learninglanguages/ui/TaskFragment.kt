@@ -47,27 +47,11 @@ class TaskFragment : Fragment() {
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
         }
 
-        taskEntity = taskRepo.getTasks().random()
+        taskEntity = getNextTask()
 
         fillView(taskEntity)
 
-        answerTv1.setOnClickListener {
-            checkingAnswer()
-        }
-
-        answerTv2.setOnClickListener {
-            checkingAnswer()
-        }
-
-        answerTv3.setOnClickListener {
-            checkingAnswer()
-        }
-
-        answerTv4.setOnClickListener {
-            checkingAnswer()
-        }
     }
-
 
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
@@ -77,14 +61,31 @@ class TaskFragment : Fragment() {
         answerTv3.text = taskEntity.variantsAnswer[2]
         answerTv4.text = taskEntity.variantsAnswer[3]
 
+        answerTv1.setOnClickListener {
+            checkingAnswer(taskEntity.variantsAnswer[0])// передали нажатие на кнопку
+        }
+
+        answerTv2.setOnClickListener {
+            checkingAnswer(taskEntity.variantsAnswer[1])
+        }
+
+        answerTv3.setOnClickListener {
+            checkingAnswer(taskEntity.variantsAnswer[2])
+        }
+
+        answerTv4.setOnClickListener {
+            checkingAnswer(taskEntity.variantsAnswer[3])
+        }
+
     }
 
-    private fun checkingAnswer() {
+    //рандомный метод получающий список (новый список)
+    private fun getNextTask(): TaskEntity = taskRepo.getTasks().random()
 
-        val answerNum = taskEntity.rightAnswer
-//        val variantsAnswerNum = arguments?.getInt(taskEntity.variantsAnswer.toString())
-        val variantsAnswerNum = taskEntity.variantsAnswer.toString()
-        val numberTasks = taskEntity
+    // selectedAnswer - это приходит нажатие на кнопку
+    private fun checkingAnswer(selectedAnswer: String) {
+
+        val rightAnswer = taskEntity.rightAnswer// правильный ответ
 
         //верный ответ textView
 //        val rightAnswerTv = when (answerNum) {
@@ -95,13 +96,13 @@ class TaskFragment : Fragment() {
 //            else -> null
 //        }
 
-        if (answerNum != variantsAnswerNum) {
+        if (rightAnswer == selectedAnswer) {
 //            rightAnswerTv?.setBackgroundColor(Color.GREEN)
-            taskEntity = taskRepo.getTasks().random()
+            taskEntity = getNextTask()
             fillView(taskEntity)
         } else {
 //            rightAnswerTv?.setBackgroundColor(Color.BLACK)
-            Toast.makeText(context, "Выошиблись, попробуйте еще раз!!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Вы ошиблись, попробуйте еще раз!!!", Toast.LENGTH_SHORT).show()
         }
     }
 
