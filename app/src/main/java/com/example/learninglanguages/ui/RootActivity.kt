@@ -48,7 +48,13 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller {
         kotlinButton = findViewById(R.id.kotlin_button)
     }
 
+    //открываем фрагмент при завершении заданий
     override fun showSuccessScreen() {
-        //todo
+        val successFragment: Fragment = SuccessFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container_layout, successFragment, Key.TEG_SUCCESS_CONTAINER_KEY)
+            .addToBackStack(null)
+            .commit()
     }
 }
