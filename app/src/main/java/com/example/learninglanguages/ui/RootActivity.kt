@@ -8,7 +8,7 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.ThemeTask
 
-class RootActivity : AppCompatActivity(), TaskFragment.Controller {
+class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragment.Controller {
 
     private lateinit var englishButton: Button
     private lateinit var kotlinButton: Button
@@ -50,11 +50,22 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller {
 
     //открываем фрагмент при завершении заданий
     override fun showSuccessScreen() {
+        supportFragmentManager.popBackStack()//чистит стэк, после появления данного фрагмента нельзя будет вернутся
+
         val successFragment: Fragment = SuccessFragment()
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, successFragment, Key.TEG_SUCCESS_CONTAINER_KEY)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun finishSuccessFragment() {
+        supportFragmentManager.findFragmentByTag(Key.TEG_SUCCESS_CONTAINER_KEY)?.let {
+            supportFragmentManager
+                .beginTransaction()
+                .remove(it)
+                .commit()
+        }
     }
 }
