@@ -24,6 +24,7 @@ class TaskFragment : Fragment() {
     private val app: App by lazy { requireActivity().application as App }
 
     private lateinit var taskRepo: TaskRepo//экземпляр класса, для того чтобы получить данные
+    private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
     private lateinit var taskEntity: TaskEntity
 
     override fun onCreateView(
@@ -47,6 +48,8 @@ class TaskFragment : Fragment() {
             ThemeTask.KOTLIN -> app.kotlinTaskRepo
         }
 
+        taskList =
+            taskRepo.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
         taskEntity = getNextTask()
 
         fillView(taskEntity)
