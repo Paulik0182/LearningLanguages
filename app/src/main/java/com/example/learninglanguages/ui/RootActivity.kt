@@ -8,7 +8,7 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.ThemeTask
 
-class RootActivity : AppCompatActivity() {
+class RootActivity : AppCompatActivity(), TaskFragment.Controller {
 
     private lateinit var englishButton: Button
     private lateinit var kotlinButton: Button
@@ -46,5 +46,9 @@ class RootActivity : AppCompatActivity() {
     private fun initViews() {
         englishButton = findViewById(R.id.english_button)
         kotlinButton = findViewById(R.id.kotlin_button)
+    }
+
+    override fun showSuccessScreen() {
+        //todo
     }
 }

@@ -1,5 +1,6 @@
 package com.example.learninglanguages.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -113,6 +114,21 @@ class TaskFragment : Fragment() {
         //todo
         Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
             .show()
+        getController().showSuccessScreen()
+    }
+
+    private fun getController(): Controller = activity as Controller
+
+//    private fun getController(): Controller = activity as? Controller
+//        ?: throw IllegalStateException("Активити должна наследовать контроллер!!!")//вариант1.  проверки, наследует или нет активити контроллер
+
+    interface Controller {
+        fun showSuccessScreen()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
     }
 
     //рандомный метод получающий список (новый список)
