@@ -12,6 +12,7 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragme
 
     private lateinit var englishButton: Button
     private lateinit var kotlinButton: Button
+    var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,4 +68,15 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragme
                 .commit()
         }
     }
+
+    //это перехват нажатия на BackStack
+//    override fun onBackPressed() {
+//        if (backPressedTime + 3000 >= System.currentTimeMillis()) {
+//            super.onBackPressed()
+//            finish()
+//        } else {
+//            Toast.makeText(this, "Нажмите еще раз, чтобы выйти из приложения", Toast.LENGTH_LONG).show()
+//        }
+//        backPressedTime = System.currentTimeMillis()
+//    }
 }

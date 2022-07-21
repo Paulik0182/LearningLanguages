@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.R
 
@@ -26,10 +27,27 @@ class SuccessFragment : Fragment() {
             getController().finishSuccessFragment()
         }
 
-        //это перехват нажатия на клавиатуре
+        pressingBackStackButton(view)
+    }
+
+    //это перехват нажатия на BackStack
+    private fun pressingBackStackButton(view: View) {
         view.isFocusableInTouchMode = true
         view.requestFocus()
-        view.setOnKeyListener { _, keyCode, _ -> keyCode == KeyEvent.KEYCODE_BACK }
+        var clickedBack = true
+        view.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && clickedBack) {
+                clickedBack = false
+                Toast.makeText(
+                    requireContext(),
+                    "Нажмите еще раз, чтобы выйти из приложения",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnKeyListener true
+            } else {
+                return@setOnKeyListener false
+            }
+        }
     }
 
     private fun getController(): Controller = activity as? Controller

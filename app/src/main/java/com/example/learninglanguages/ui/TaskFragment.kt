@@ -111,9 +111,8 @@ class TaskFragment : Fragment() {
     }
 
     private fun finishLesson() {
-        //todo
-        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
-            .show()
+//        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
+//            .show()
         getController().showSuccessScreen()
     }
 
