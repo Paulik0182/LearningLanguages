@@ -1,8 +1,8 @@
 package com.example.learninglanguages.ui
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
@@ -10,8 +10,17 @@ import com.example.learninglanguages.domain.ThemeTask
 
 class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragment.Controller {
 
-    private lateinit var englishButton: Button
-    private lateinit var kotlinButton: Button
+    private lateinit var englishCv1: CardView
+    private lateinit var englishCv2: CardView
+    private lateinit var kotlinCv1: CardView
+    private lateinit var kotlinCv2: CardView
+    private lateinit var javaCv1: CardView
+    private lateinit var javaCv2: CardView
+    private lateinit var nameCv1: CardView
+    private lateinit var nameCv2: CardView
+
+    //    private lateinit var englishButton: Button
+//    private lateinit var kotlinButton: Button
     var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +29,21 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragme
 
         initViews()
 
-        englishButton.setOnClickListener {
+        englishCv1.setOnClickListener {
             openTaskFragment(ThemeTask.ENGLISH)
         }
 
-        kotlinButton.setOnClickListener {
+        kotlinCv1.setOnClickListener {
             openTaskFragment(ThemeTask.KOTLIN)
         }
+
+//        englishButton.setOnClickListener {
+//            openTaskFragment(ThemeTask.ENGLISH)
+//        }
+//
+//        kotlinButton.setOnClickListener {
+//            openTaskFragment(ThemeTask.KOTLIN)
+//        }
     }
 
     private fun openTaskFragment(themeTask: ThemeTask) {
@@ -45,8 +62,20 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragme
     }
 
     private fun initViews() {
-        englishButton = findViewById(R.id.english_button)
-        kotlinButton = findViewById(R.id.kotlin_button)
+//        englishButton = findViewById(R.id.english1_text_view)
+//        kotlinButton = findViewById(R.id.kotlin1_text_view)
+
+        englishCv1 = findViewById(R.id.english1_card_view)
+        englishCv2 = findViewById(R.id.english2_card_view)
+
+        kotlinCv1 = findViewById(R.id.kotlin1_card_view)
+        kotlinCv2 = findViewById(R.id.kotlin2_card_view)
+
+        javaCv1 = findViewById(R.id.java1_card_view)
+        javaCv2 = findViewById(R.id.java2_card_view)
+
+        nameCv1 = findViewById(R.id.name1_card_view)
+        nameCv2 = findViewById(R.id.name2_card_view)
     }
 
     //открываем фрагмент при завершении заданий
