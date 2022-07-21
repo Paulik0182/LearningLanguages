@@ -2,6 +2,7 @@ package com.example.learninglanguages.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,11 @@ class SuccessFragment : Fragment() {
         view.findViewById<View>(R.id.finish_button).setOnClickListener {
             getController().finishSuccessFragment()
         }
+
+        //это перехват нажатия на клавиатуре
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { _, keyCode, _ -> keyCode == KeyEvent.KEYCODE_BACK }
     }
 
     private fun getController(): Controller = activity as? Controller

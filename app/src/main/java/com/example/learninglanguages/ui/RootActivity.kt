@@ -56,7 +56,6 @@ class RootActivity : AppCompatActivity(), TaskFragment.Controller, SuccessFragme
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, successFragment, Key.TEG_SUCCESS_CONTAINER_KEY)
-            .addToBackStack(null)
             .commit()
     }
 
