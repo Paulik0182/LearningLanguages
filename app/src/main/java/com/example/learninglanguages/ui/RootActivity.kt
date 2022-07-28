@@ -1,6 +1,7 @@
 package com.example.learninglanguages.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
@@ -69,18 +70,19 @@ class RootActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+//        super.onBackPressed()
         title = defaultTitle
+        exitingApplicationDoubleClick()
     }
 
-    //это перехват нажатия на BackStack
-//    override fun onBackPressed() {
-//        if (backPressedTime + 3000 >= System.currentTimeMillis()) {
-//            super.onBackPressed()
-//            finish()
-//        } else {
-//            Toast.makeText(this, "Нажмите еще раз, чтобы выйти из приложения", Toast.LENGTH_LONG).show()
-//        }
-//        backPressedTime = System.currentTimeMillis()
-//    }
+    //выход из приложения по двойному нажатию на кнопку
+    private fun exitingApplicationDoubleClick() {
+        if (backPressedTime + 3000 >= System.currentTimeMillis()) {
+            super.onBackPressed()
+        } else {
+            Toast.makeText(this, "Нажмите еще раз, чтобы выйти из приложения", Toast.LENGTH_LONG)
+                .show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
 }
