@@ -46,13 +46,11 @@ class LessonsFragment : Fragment() {
         generateImageView()
 
         englishCv1.setOnClickListener {
-            getController().openLesson(ThemeTask.ENGLISH)
-//            supportActionBar?.title = getText(R.string.english_level_1)
+            getController().openLesson(ThemeTask.ENGLISH, R.string.english_level_1)
         }
 
         kotlinCv1.setOnClickListener {
-            getController().openLesson(ThemeTask.KOTLIN)
-//            supportActionBar?.title = getText(R.string.kotlin_level_1)
+            getController().openLesson(ThemeTask.KOTLIN, R.string.kotlin_level_1)
         }
     }
 
@@ -103,7 +101,7 @@ class LessonsFragment : Fragment() {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(themeTask: ThemeTask)
+        fun openLesson(themeTask: ThemeTask, stringResId: Int)
     }
 
     override fun onAttach(context: Context) {

@@ -12,11 +12,16 @@ class RootActivity : AppCompatActivity(),
     SuccessFragment.Controller,
     LessonsFragment.Controller {
 
+    private val defaultTitle: String by lazy { getString(R.string.app_name) }
+
     var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+
+        title = defaultTitle
+
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, LessonsFragment())
@@ -58,8 +63,14 @@ class RootActivity : AppCompatActivity(),
         }
     }
 
-    override fun openLesson(themeTask: ThemeTask) {
+    override fun openLesson(themeTask: ThemeTask, stringResId: Int) {
         openTaskFragment(themeTask)
+        setTitle(stringResId)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        title = defaultTitle
     }
 
     //это перехват нажатия на BackStack
