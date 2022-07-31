@@ -14,39 +14,13 @@
         style="@style/task_tv_style"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="4"
         android:text="@string/task_english_fragment" />
 
-    <TextView
-        android:id="@+id/answer1_text_view"
-        style="@style/answer_task_tv_style"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/answer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/answer_option_english_fragment" />
-
-    <TextView
-        android:id="@+id/answer2_text_view"
-        style="@style/answer_task_tv_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/answer_option_english_fragment" />
-
-    <TextView
-        android:id="@+id/answer3_text_view"
-        style="@style/answer_task_tv_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/answer_option_english_fragment" />
-
-    <TextView
-        android:id="@+id/answer4_text_view"
-        style="@style/answer_task_tv_style"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/answer_option_english_fragment" />
+        android:layout_weight="3" />
 
 </LinearLayout>

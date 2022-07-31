@@ -8,22 +8,27 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.TaskEntity
 import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.ui.answer.AnswerAdapter
 
 class TaskFragment : Fragment() {
     private lateinit var taskTv: TextView
-    private lateinit var answerTv1: TextView
-    private lateinit var answerTv2: TextView
-    private lateinit var answerTv3: TextView
-    private lateinit var answerTv4: TextView
 
     private val app: App by lazy { requireActivity().application as App }
 
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
+
+    private lateinit var adapter: AnswerAdapter
+    private val listener = { taskEntity: TaskEntity ->
+        fillView(taskEntity)
+    }
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,47 +54,29 @@ class TaskFragment : Fragment() {
 
         // если придет null обработается исключение, выполнится код после ?:
         fillView(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))
-
     }
 
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
         taskTv.text = taskEntity.task
-        answerTv1.text = taskEntity.variantsAnswer[0]
-        answerTv2.text = taskEntity.variantsAnswer[1]
-        answerTv3.text = taskEntity.variantsAnswer[2]
-        answerTv4.text = taskEntity.variantsAnswer[3]
+        adapter.setData(taskList)
 
-        answerTv1.setOnClickListener {
+        adapter.setOnItemClickListener {
             handleAnswerClick(
                 taskEntity.rightAnswer,
                 taskEntity.variantsAnswer[0]
             )// передали нажатие на кнопку
-        }
-
-        answerTv2.setOnClickListener {
-            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[1])
-        }
-
-        answerTv3.setOnClickListener {
-            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[2])
-        }
-
-        answerTv4.setOnClickListener {
-            handleAnswerClick(taskEntity.rightAnswer, taskEntity.variantsAnswer[3])
         }
     }
 
     // обработка нажатия на кнопку
     private fun handleAnswerClick(rightAnswer: String, selectedAnswer: String) {
         //верный ответ textView
-//        val rightAnswerTv = when (answerNum) {
-//            answerNum -> answerTv1
-//            answerNum -> answerTv2
-//            answerNum -> answerTv3
-//            answerNum -> answerTv4
+//        val rightAnswerTv = when (adapter) {
+//            adapter -> adapter.setData(taskList)
 //            else -> null
 //        }
+
         val isCorrect = checkingAnswer(rightAnswer, selectedAnswer)
 
         if (isCorrect) {
@@ -145,13 +132,12 @@ class TaskFragment : Fragment() {
 
 
     private fun initViews(view: View) {
-
         taskTv = view.findViewById(R.id.task_text_view)
-        answerTv1 = view.findViewById(R.id.answer1_text_view)
-        answerTv2 = view.findViewById(R.id.answer2_text_view)
-        answerTv3 = view.findViewById(R.id.answer3_text_view)
-        answerTv4 = view.findViewById(R.id.answer4_text_view)
-
+        recyclerView = view.findViewById(R.id.answer_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = AnswerAdapter(emptyList(), listener)
+//        adapter = AnswerAdapter(emptyList())
+        recyclerView.adapter = adapter
     }
 
     //вариант 4 Более по Kotlin (оптимальный)

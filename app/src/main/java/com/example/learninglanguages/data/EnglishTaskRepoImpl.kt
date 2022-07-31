@@ -58,10 +58,18 @@ class EnglishTaskRepoImpl : TaskRepo {
         )
         addTask(
             TaskEntity(
-                1,
+                6,
                 "Telephone",
                 listOf("Телега", "Телефон", "Ручка", "Телевизор"),
                 "Телефон"
+            )
+        )
+        addTask(
+            TaskEntity(
+                7,
+                "Mouse",
+                listOf("Мышь", "Собака", "Скунс", "Змея"),
+                "Мышь"
             )
         )
     }
