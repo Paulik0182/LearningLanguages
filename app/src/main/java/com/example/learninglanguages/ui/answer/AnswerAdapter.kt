@@ -27,7 +27,6 @@ class AnswerAdapter(
         return AnswerViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_answer, parent, false), listener
-//            listener
         )
     }
 

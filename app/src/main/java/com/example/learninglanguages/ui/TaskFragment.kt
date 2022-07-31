@@ -71,16 +71,10 @@ class TaskFragment : Fragment() {
 
     // обработка нажатия на кнопку
     private fun handleAnswerClick(rightAnswer: String, selectedAnswer: String) {
-        //верный ответ textView
-//        val rightAnswerTv = when (adapter) {
-//            adapter -> adapter.setData(taskList)
-//            else -> null
-//        }
 
         val isCorrect = checkingAnswer(rightAnswer, selectedAnswer)
 
         if (isCorrect) {
-//            rightAnswerTv?.setBackgroundColor(Color.GREEN)
             val taskEntity = getNextTask()
             if (taskEntity == null) {//обязательно должна быть обработка null
                 finishLesson()
@@ -88,7 +82,6 @@ class TaskFragment : Fragment() {
                 fillView(taskEntity)
             }
         } else {
-//            rightAnswerTv?.setBackgroundColor(Color.BLACK)
             Toast.makeText(
                 requireContext(),
                 "Вы ошиблись, попробуйте еще раз!!!",
@@ -136,7 +129,6 @@ class TaskFragment : Fragment() {
         recyclerView = view.findViewById(R.id.answer_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = AnswerAdapter(emptyList(), listener)
-//        adapter = AnswerAdapter(emptyList())
         recyclerView.adapter = adapter
     }
 

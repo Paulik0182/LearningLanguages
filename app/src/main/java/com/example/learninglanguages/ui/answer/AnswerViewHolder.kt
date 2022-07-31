@@ -14,7 +14,7 @@ class AnswerViewHolder(itemView: View, listener: (TaskEntity) -> Unit) :
 
     fun bind(taskEntity: TaskEntity) {
         answer = taskEntity
-        answerTextView.text = taskEntity.rightAnswer
+        answerTextView.text = taskEntity.variantsAnswer.randomOrNull()
     }
 
     init {
