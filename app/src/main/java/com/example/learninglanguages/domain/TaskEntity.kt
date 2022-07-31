@@ -1,13 +1,16 @@
 package com.example.learninglanguages.domain
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TaskEntity(
     val id: Long,
     val task: String,
+    @SerializedName("variants_answer")
     val variantsAnswer: List<String>,
+    @SerializedName("right_answer")
     val rightAnswer: String,
     val level: Int
 ) : Parcelable

@@ -1,8 +1,7 @@
 package com.example.learninglanguages
 
 import android.app.Application
-import com.example.learninglanguages.data.EnglishTaskRepoImpl
-import com.example.learninglanguages.data.KotlinTaskRepoImpl
+import com.example.learninglanguages.data.AssetsTaskRepoImpl
 import com.example.learninglanguages.domain.TaskRepo
 
 /**
@@ -13,6 +12,17 @@ import com.example.learninglanguages.domain.TaskRepo
  */
 class App : Application() {
 
-    val englishTaskRepo: TaskRepo = EnglishTaskRepoImpl()
-    val kotlinTaskRepo: TaskRepo = KotlinTaskRepoImpl()
+    val englishAssetsTaskRepo: TaskRepo by lazy {
+        AssetsTaskRepoImpl(
+            this,
+            "english_task.json"
+        )
+    }
+
+    val kotlinAssetsTaskRepo: TaskRepo by lazy {
+        AssetsTaskRepoImpl(
+            this,
+            "kotlin_task.json"
+        )
+    }
 }

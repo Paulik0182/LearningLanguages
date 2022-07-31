@@ -47,8 +47,8 @@ class TaskFragment : Fragment() {
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
         taskList = when (ThemeTask.values()[original]) {
-            ThemeTask.ENGLISH -> app.englishTaskRepo
-            ThemeTask.KOTLIN -> app.kotlinTaskRepo
+            ThemeTask.ENGLISH -> app.englishAssetsTaskRepo
+            ThemeTask.KOTLIN -> app.kotlinAssetsTaskRepo
         }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
 
 
