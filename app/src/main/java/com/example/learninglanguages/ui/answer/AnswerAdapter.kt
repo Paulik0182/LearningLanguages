@@ -25,12 +25,12 @@ class AnswerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerViewHolder {
         return AnswerViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_answer, parent, false), listener
+                .inflate(R.layout.item_answer, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: AnswerViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
     }
 
     private fun getItem(pos: Int): String = data[pos]

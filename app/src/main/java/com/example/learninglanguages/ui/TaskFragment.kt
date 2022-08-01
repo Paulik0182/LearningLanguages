@@ -25,9 +25,7 @@ class TaskFragment : Fragment() {
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
 
     private lateinit var adapter: AnswerAdapter
-    private val listener = { answer: String ->
-//        fillView(taskEntity)
-    }
+
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
