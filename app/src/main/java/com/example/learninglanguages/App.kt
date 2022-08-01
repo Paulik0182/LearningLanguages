@@ -2,7 +2,7 @@ package com.example.learninglanguages
 
 import android.app.Application
 import com.example.learninglanguages.data.AssetsTaskRepoImpl
-import com.example.learninglanguages.domain.TaskRepo
+import com.example.learninglanguages.domain.repos.TaskRepo
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.

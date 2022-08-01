@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.TaskEntity
 import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.answer.AnswerAdapter
 
 class TaskFragment : Fragment() {

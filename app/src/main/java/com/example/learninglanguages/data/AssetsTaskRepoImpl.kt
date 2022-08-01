@@ -1,8 +1,8 @@
 package com.example.learninglanguages.data
 
 import android.content.Context
-import com.example.learninglanguages.domain.TaskEntity
-import com.example.learninglanguages.domain.TaskRepo
+import com.example.learninglanguages.domain.entities.TaskEntity
+import com.example.learninglanguages.domain.repos.TaskRepo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

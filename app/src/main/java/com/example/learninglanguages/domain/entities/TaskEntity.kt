@@ -1,4 +1,4 @@
-package com.example.learninglanguages.domain
+package com.example.learninglanguages.domain.entities
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
