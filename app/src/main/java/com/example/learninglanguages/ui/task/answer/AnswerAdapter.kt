@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.answer
+package com.example.learninglanguages.ui.task.answer
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

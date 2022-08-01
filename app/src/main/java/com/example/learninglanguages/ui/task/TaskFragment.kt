@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui
+package com.example.learninglanguages.ui.task
 
 import android.content.Context
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.ThemeTask
 import com.example.learninglanguages.domain.entities.TaskEntity
-import com.example.learninglanguages.ui.answer.AnswerAdapter
+import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 
 class TaskFragment : Fragment() {
     private lateinit var taskTv: TextView

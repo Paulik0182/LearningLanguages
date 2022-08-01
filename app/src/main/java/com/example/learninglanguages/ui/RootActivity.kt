@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.ui.lessons.LessonsFragment
+import com.example.learninglanguages.ui.task.TaskFragment
 
 class RootActivity : AppCompatActivity(),
     TaskFragment.Controller,
