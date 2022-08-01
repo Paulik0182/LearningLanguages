@@ -25,8 +25,8 @@ class TaskFragment : Fragment() {
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
 
     private lateinit var adapter: AnswerAdapter
-    private val listener = { taskEntity: TaskEntity ->
-        fillView(taskEntity)
+    private val listener = { answer: String ->
+//        fillView(taskEntity)
     }
     private lateinit var recyclerView: RecyclerView
 
@@ -59,13 +59,10 @@ class TaskFragment : Fragment() {
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
         taskTv.text = taskEntity.task
-        adapter.setData(taskList)
+        adapter.setData(taskEntity.variantsAnswer)
 
         adapter.setOnItemClickListener {
-            handleAnswerClick(
-                taskEntity.rightAnswer,
-                taskEntity.variantsAnswer[0]
-            )// передали нажатие на кнопку
+            handleAnswerClick(taskEntity.rightAnswer, it)// передали нажатие на кнопку
         }
     }
 
@@ -128,7 +125,7 @@ class TaskFragment : Fragment() {
         taskTv = view.findViewById(R.id.task_text_view)
         recyclerView = view.findViewById(R.id.answer_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = AnswerAdapter(emptyList(), listener)
+        adapter = AnswerAdapter()
         recyclerView.adapter = adapter
     }
 

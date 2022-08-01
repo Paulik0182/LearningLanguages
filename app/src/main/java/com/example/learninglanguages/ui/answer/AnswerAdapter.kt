@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.TaskEntity
 
 class AnswerAdapter(
-    private var data: List<TaskEntity>,
-    private var listener: (TaskEntity) -> Unit
+    private var data: List<String> = emptyList(),
+    private var listener: (String) -> Unit = {}
 ) : RecyclerView.Adapter<AnswerViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(answer: List<TaskEntity>) {
-        data = answer
+    fun setData(answers: List<String>) {
+        data = answers
         notifyDataSetChanged()//для обнавления
     }
 
     //сохраняем слушитель и передаем его в onCreateViewHolder
-    fun setOnItemClickListener(listener: (TaskEntity) -> Unit) {
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         this.listener = listener
     }
 
@@ -34,7 +33,7 @@ class AnswerAdapter(
         holder.bind(getItem(position))
     }
 
-    private fun getItem(pos: Int): TaskEntity = data[pos]
+    private fun getItem(pos: Int): String = data[pos]
 
     override fun getItemCount(): Int = data.size
 
