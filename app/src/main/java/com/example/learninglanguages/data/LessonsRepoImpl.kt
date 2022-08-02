@@ -24,13 +24,13 @@ class LessonsRepoImpl(
             1,
             "english_task.json",
             "English",
-            "https://proekt-obk.com/UploadedFiles/Blogs/Categories/2560_3d9c9ccce-6f07-4613-98bf-bfb448c984a9.jpg"
+            "https://miro.medium.com/max/1200/1*C7t9v834_fJtFnHa9CSJbQ.jpeg"
         ),
         LessonEntity(
             2,
             "kotlin_task.json",
             "Kotlin",
-            "https://avatars.mds.yandex.net/get-zen_doc/1885679/pub_5e1b791e4e057700b19fdb30_5e1b79526f5f6f00ae02e9ab/scale_1200"
+            "https://kotlinarabic.files.wordpress.com/2017/05/logo-text1.png?w=1629"
         )
     )
 }

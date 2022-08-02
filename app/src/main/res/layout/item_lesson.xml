@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="55dp"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="10dp"
-    android:backgroundTint="#88F88C"
+    android:layout_margin="5dp"
+    android:backgroundTint="#F5F6DB"
     android:clickable="true"
     android:focusable="true"
     android:padding="15dp">
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="1dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cover_image_view"
