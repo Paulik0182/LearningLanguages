@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.data.AssetsTaskRepoImpl
+import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 
@@ -41,13 +42,16 @@ class TaskFragment : Fragment() {
 
         initViews(view)
 
-        val original = arguments?.getInt(Key.THEME_ARGS_KEY) ?: 0
+        val lessonEntity: LessonEntity = arguments?.get(Key.THEME_ARGS_KEY) as LessonEntity
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
-        taskList = when (ThemeTask.values()[original]) {
-            ThemeTask.ENGLISH -> app.englishAssetsTaskRepo
-            ThemeTask.KOTLIN -> app.kotlinAssetsTaskRepo
-        }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
+        taskList =
+            AssetsTaskRepoImpl(requireContext(), lessonEntity.fileName).getTasks() as MutableList
+
+//        taskList = when (ThemeTask.values()[original]) {
+//            ThemeTask.ENGLISH -> app.englishAssetsTaskRepo
+//            ThemeTask.KOTLIN -> app.kotlinAssetsTaskRepo
+//        }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
 
 
         // если придет null обработается исключение, выполнится код после ?:
@@ -130,9 +134,9 @@ class TaskFragment : Fragment() {
     //вариант 4 Более по Kotlin (оптимальный)
     companion object {
         @JvmStatic
-        fun newInstance(themeTask: ThemeTask) = TaskFragment().apply {
+        fun newInstance(lessonEntity: LessonEntity) = TaskFragment().apply {
             arguments = Bundle().apply {
-                putInt(Key.THEME_ARGS_KEY, themeTask.ordinal)
+                putParcelable(Key.THEME_ARGS_KEY, lessonEntity)
             }
         }
     }

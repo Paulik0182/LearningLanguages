@@ -6,13 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.learninglanguages.App
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.repos.LessonRepo
 
 class LessonsFragment : Fragment() {
 
+    private val app: App by lazy { requireActivity().application as App }
+
+    private val adapter: LessonsAdapter = LessonsAdapter()
+
     private lateinit var lessonsRecyclerView: RecyclerView
+    private val lessonsRepo: LessonRepo by lazy {
+        app.lessonRepo
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +37,12 @@ class LessonsFragment : Fragment() {
 
         initViews()
 
+        adapter.setData(lessonsRepo.getLessons())
+
+        adapter.setOnItemClickListener {
+            getController().openLesson(it)
+        }
+
     }
 
     private fun initViews() {
@@ -37,12 +53,14 @@ class LessonsFragment : Fragment() {
         view?.apply {
             lessonsRecyclerView = findViewById(R.id.lessons_recycler_view)
         }
+        lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
+        lessonsRecyclerView.adapter = adapter
     }
 
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(themeTask: ThemeTask, stringResId: Int)
+        fun openLesson(lessonEntity: LessonEntity)
     }
 
     override fun onAttach(context: Context) {

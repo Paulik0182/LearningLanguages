@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.ThemeTask
+import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.ui.lessons.LessonsFragment
 import com.example.learninglanguages.ui.task.TaskFragment
 
@@ -31,14 +31,14 @@ class RootActivity : AppCompatActivity(),
             .commit()
     }
 
-    private fun openTaskFragment(themeTask: ThemeTask) {
+    private fun openTaskFragment(lessonEntity: LessonEntity) {
         //читается когда (when) ThemeTask это ThemeTask.ENGLISH тогда запустить этот фрагмент
 //        val fragment: Fragment = when (themeTask) {
 //            ThemeTask.KOTLIN -> TaskFragment()
 //            ThemeTask.ENGLISH -> TaskFragment()
 //        }
 
-        val fragment: Fragment = TaskFragment.newInstance(themeTask)
+        val fragment: Fragment = TaskFragment.newInstance(lessonEntity)
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.TEG_TASK_CONTAINER_KEY)
@@ -66,11 +66,6 @@ class RootActivity : AppCompatActivity(),
         }
     }
 
-    override fun openLesson(themeTask: ThemeTask, stringResId: Int) {
-        openTaskFragment(themeTask)
-        setTitle(stringResId)
-    }
-
     override fun onBackPressed() {
 //        super.onBackPressed()
         title = defaultTitle
@@ -86,5 +81,10 @@ class RootActivity : AppCompatActivity(),
                 .show()
         }
         backPressedTime = System.currentTimeMillis()
+    }
+
+    override fun openLesson(lessonEntity: LessonEntity) {
+        openTaskFragment(lessonEntity)
+        title = lessonEntity.name
     }
 }

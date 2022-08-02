@@ -2,6 +2,8 @@ package com.example.learninglanguages
 
 import android.app.Application
 import com.example.learninglanguages.data.AssetsTaskRepoImpl
+import com.example.learninglanguages.data.LessonsRepoImpl
+import com.example.learninglanguages.domain.repos.LessonRepo
 import com.example.learninglanguages.domain.repos.TaskRepo
 
 /**
@@ -24,5 +26,9 @@ class App : Application() {
             this,
             "kotlin_task.json"
         )
+    }
+
+    val lessonRepo: LessonRepo by lazy {
+        LessonsRepoImpl()
     }
 }
