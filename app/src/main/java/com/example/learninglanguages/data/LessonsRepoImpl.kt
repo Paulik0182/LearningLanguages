@@ -10,6 +10,9 @@ class LessonsRepoImpl(
 
     private lateinit var data: List<LessonEntity>
 
+//    private val dirAsset = File(object {}.javaClass.getResource("file:///android_asset/assets")?.file ?:
+//    throw IllegalArgumentException("Не правильный адрес ресурса"))
+
     //в данном случае мы не можем добавлять новые значения в репозиторий
     override fun addLesson(lessonEntity: LessonEntity) {
         throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
@@ -33,4 +36,14 @@ class LessonsRepoImpl(
             "https://kotlinarabic.files.wordpress.com/2017/05/logo-text1.png?w=1629"
         )
     )
+
+//    fun getResAsset(){
+//        dirAsset.walk().forEach { file ->
+//            if (file.isFile){
+//                // TODO:
+//            }else{
+//                // TODO:
+//            }
+//        }
+//    }
 }

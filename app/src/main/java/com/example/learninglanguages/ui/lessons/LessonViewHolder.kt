@@ -4,9 +4,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
+import com.squareup.picasso.Picasso
 
 class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
@@ -18,7 +18,8 @@ class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
     fun bind(lessonEntity: LessonEntity) {
         this.lessonEntity = lessonEntity
         titleTextView.text = lessonEntity.name
-        coverImageView.load(lessonEntity.imageUrl)
+//        coverImageView.load(lessonEntity.imageUrl)
+        Picasso.get().load(lessonEntity.imageUrl).into(coverImageView)
     }
 
     init {

@@ -63,6 +63,7 @@ class RootActivity : AppCompatActivity(),
                 .beginTransaction()
                 .remove(it)
                 .commit()
+            title = defaultTitle
         }
     }
 
@@ -81,6 +82,7 @@ class RootActivity : AppCompatActivity(),
                 .show()
         }
         backPressedTime = System.currentTimeMillis()
+        finishSuccessFragment()
     }
 
     override fun openLesson(lessonEntity: LessonEntity) {
