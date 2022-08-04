@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+android
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdk 32
@@ -35,5 +37,23 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    //шрифты
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    implementation "io.coil-kt:coil:2.1.0"
+
+    //json
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //CardView
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation "androidx.cardview:cardview:1.0.0"
+
 }
