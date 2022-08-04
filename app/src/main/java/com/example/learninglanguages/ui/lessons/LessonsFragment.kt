@@ -17,8 +17,6 @@ class LessonsFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
 
-    private val adapter: LessonsAdapter = LessonsAdapter()
-
     private lateinit var lessonsRecyclerView: RecyclerView
     private val lessonsRepo: LessonRepo by lazy {
         app.lessonRepo
@@ -37,12 +35,6 @@ class LessonsFragment : Fragment() {
 
         initViews()
 
-        adapter.setData(lessonsRepo.getLessons())
-
-        adapter.setOnItemClickListener {
-            getController().openLesson(it)
-        }
-
     }
 
     private fun initViews() {
@@ -54,7 +46,13 @@ class LessonsFragment : Fragment() {
             lessonsRecyclerView = findViewById(R.id.lessons_recycler_view)
         }
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
-        lessonsRecyclerView.adapter = adapter
+        lessonsRecyclerView.adapter = LessonsAdapter().apply {
+            setData(lessonsRepo.getLessons())//передаем значения которые получили из репозитория
+            //обозначаем то что должно выполнятся по нажатию на элемент
+            setOnItemClickListener {
+                getController().openLesson(it)
+            }
+        }
     }
 
     private fun getController(): Controller = activity as Controller
