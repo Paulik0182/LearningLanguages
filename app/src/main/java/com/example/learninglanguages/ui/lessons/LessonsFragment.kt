@@ -45,13 +45,12 @@ class LessonsFragment : Fragment() {
         view?.apply {
             lessonsRecyclerView = findViewById(R.id.lessons_recycler_view)
         }
+
+        //это два параметра которые принимаем на вход. Это слушатель и данные
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
-        lessonsRecyclerView.adapter = LessonsAdapter().apply {
-            setData(lessonsRepo.getLessons())//передаем значения которые получили из репозитория
-            //обозначаем то что должно выполнятся по нажатию на элемент
-            setOnItemClickListener {
-                getController().openLesson(it)
-            }
+        lessonsRecyclerView.adapter = LessonsAdapter(lessonsRepo.getLessons()) {
+            getController().openLesson(it)
+
         }
     }
 
