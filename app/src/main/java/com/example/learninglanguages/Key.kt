@@ -9,4 +9,8 @@ object Key {
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
 
+    //res
+    internal const val ASSETS_LESSONS_DIR_NAME_KEY =
+        "lessons"//lessons потому что мы сканируем эту папку
+
 }
