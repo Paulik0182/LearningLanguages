@@ -17,10 +17,11 @@ class AssetsLessonsRepoImpl(
 
     override fun getLessons(): List<LessonEntity> {
         // В kotlin все колекции не изменяемые и их нужно преобразовывать на изменяемые. в реализации List нет методов add и т.д.
-        val lessons = emptyList<LessonEntity>().toMutableList() // список уроков
+        val lessons = emptyList<LessonEntity>().toMutableList() // создали пустой список
         //считываем папку assets/lesson
-        val filesNameList = context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)
-        //проходим по папке asset/lesson
+        val filesNameList =
+            context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)//обращаемся ко всем файлам в asset
+        //проходим по папке asset/lesson и распознаем файлы и преобразуем в объект
         filesNameList?.forEach { fileName ->
             val rawJson: String = context.assets
                 .open("$ASSETS_LESSONS_DIR_NAME_KEY/$fileName")
@@ -28,9 +29,10 @@ class AssetsLessonsRepoImpl(
                     it.readText()
                 }
 
+            //преобразуем в объект
             val lesson = Gson().fromJson(rawJson, LessonEntity::class.java)
 
-            lessons.add(lesson)// кладем полученные данные
+            lessons.add(lesson)// кладем полученные данные (кладем в список)
         }
         return lessons
     }

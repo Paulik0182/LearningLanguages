@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
@@ -19,8 +18,6 @@ import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 
 class TaskFragment : Fragment() {
     private lateinit var taskTv: TextView
-
-    private val app: App by lazy { requireActivity().application as App }
 
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
 
