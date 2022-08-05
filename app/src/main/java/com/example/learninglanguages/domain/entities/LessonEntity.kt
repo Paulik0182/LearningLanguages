@@ -7,9 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LessonEntity(
     val id: Long,
-    @SerializedName("file_name")
-    val fileName: String,
     val name: String,
     @SerializedName("image_url")
-    val imageUrl: String
+    val imageUrl: String,
+    val tasks: List<TaskEntity>
 ) : Parcelable

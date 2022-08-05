@@ -1,0 +1,31 @@
+{
+  "id": 2,
+  "name": "English Lesson 2",
+  "image_url": "https://miro.medium.com/max/1200/1*C7t9v834_fJtFnHa9CSJbQ.jpeg",
+  "tasks": [
+    {
+      "id": 1,
+      "task": "Telephone",
+      "right_answer": "Телефон",
+      "variants_answer": [
+        "Телега",
+        "Телефон",
+        "Ручка",
+        "Телевизор"
+      ],
+      "level": 2
+    },
+    {
+      "id": 2,
+      "task": "Mouse",
+      "right_answer": "Мышь",
+      "variants_answer": [
+        "Мышь",
+        "Собака",
+        "Скунс",
+        "Змея"
+      ],
+      "level": 2
+    }
+  ]
+}

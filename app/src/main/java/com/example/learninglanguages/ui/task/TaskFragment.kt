@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.data.AssetsTaskRepoImpl
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
@@ -46,13 +45,7 @@ class TaskFragment : Fragment() {
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
         taskList =
-            AssetsTaskRepoImpl(requireContext(), lessonEntity.fileName).getTasks() as MutableList
-
-//        taskList = when (ThemeTask.values()[original]) {
-//            ThemeTask.ENGLISH -> app.englishAssetsTaskRepo
-//            ThemeTask.KOTLIN -> app.kotlinAssetsTaskRepo
-//        }.getTasks() as MutableList //инициализировали taskList, то-есть получили себе репо (все данные)
-
+            ArrayList(lessonEntity.tasks)//создали копию всех элементов. Так как мы удаляем по одному заданию делаем так
 
         // если придет null обработается исключение, выполнится код после ?:
         fillView(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))

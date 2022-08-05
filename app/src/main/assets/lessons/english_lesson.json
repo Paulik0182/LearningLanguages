@@ -2,5 +2,90 @@
   "id": 0,
   "name": "English Lesson 1",
   "image_url": "https://miro.medium.com/max/1200/1*C7t9v834_fJtFnHa9CSJbQ.jpeg",
-  "file_name": "english_tasks.json"
+  "tasks": [
+    {
+      "id": 1,
+      "task": "Good afternoon",
+      "right_answer": "Добрый день",
+      "variants_answer": [
+        "Добрый день",
+        "Привет",
+        "Добрый вечер",
+        "До свидания"
+      ],
+      "level": 1
+    },
+    {
+      "id": 2,
+      "task": "Table",
+      "right_answer": "Стол",
+      "variants_answer": [
+        "Стул",
+        "Стол",
+        "Ручка",
+        "Таблица"
+      ],
+      "level": 1
+    },
+    {
+      "id": 3,
+      "task": "Sofa",
+      "right_answer": "Диван",
+      "variants_answer": [
+        "Стол",
+        "Кресло",
+        "Диван",
+        "Ваза"
+      ],
+      "level": 1
+    },
+    {
+      "id": 4,
+      "task": "Chair",
+      "right_answer": "Стул",
+      "variants_answer": [
+        "Стул",
+        "Диван",
+        "Ваза",
+        "Ручка"
+      ],
+      "level": 2
+    },
+    {
+      "id": 5,
+      "task": "Pencil",
+      "right_answer": "Карандаш",
+      "variants_answer": [
+        "Ручка",
+        "Линейка",
+        "Пенал",
+        "Карандаш"
+      ],
+      "level": 2
+    },
+    {
+      "id": 6,
+      "task": "Telephone",
+      "right_answer": "Телефон",
+      "variants_answer": [
+        "Телега",
+        "Телефон",
+        "Ручка",
+        "Телевизор"
+      ],
+      "level": 2
+    },
+    {
+      "id": 7,
+      "task": "Mouse",
+      "right_answer": "Мышь",
+      "variants_answer": [
+        "Мышь",
+        "Собака",
+        "Скунс",
+        "Змея"
+      ],
+      "level": 2
+    }
+  ]
 }
