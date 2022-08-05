@@ -15,25 +15,16 @@ class AssetsLessonsRepoImpl(
         throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
     }
 
-    override fun getLessons(): List<LessonEntity> {
-        // В kotlin все колекции не изменяемые и их нужно преобразовывать на изменяемые. в реализации List нет методов add и т.д.
-        val lessons = emptyList<LessonEntity>().toMutableList() // создали пустой список
-        //считываем папку assets/lesson
-        val filesNameList =
-            context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)//обращаемся ко всем файлам в asset
-        //проходим по папке asset/lesson и распознаем файлы и преобразуем в объект
-        filesNameList?.forEach { fileName ->
+    override fun getLessons(): List<LessonEntity> = context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)
+        ?.map { fileName ->
+            //обращаемся ко всем файлам в asset
+            //проходим по папке asset/lesson и распознаем файлы и преобразуем в объект
             val rawJson: String = context.assets
                 .open("$ASSETS_LESSONS_DIR_NAME_KEY/$fileName")
                 .bufferedReader().use {
                     it.readText()
                 }
-
             //преобразуем в объект
-            val lesson = Gson().fromJson(rawJson, LessonEntity::class.java)
-
-            lessons.add(lesson)// кладем полученные данные (кладем в список)
-        }
-        return lessons
-    }
+            return@map Gson().fromJson(rawJson, LessonEntity::class.java)
+        } ?: emptyList()
 }

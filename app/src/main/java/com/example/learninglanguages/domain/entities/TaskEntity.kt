@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class TaskEntity(
     val id: Long,
     val task: String,
+    val taskImageUrl: String? = null,
     @SerializedName("variants_answer")
     val variantsAnswer: List<String>,
     @SerializedName("right_answer")
