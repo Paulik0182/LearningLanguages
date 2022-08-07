@@ -1,7 +1,7 @@
 {
   "id": 0,
   "name": "English Lesson 1",
-  "image_url": "https://miro.medium.com/max/1200/1*C7t9v834_fJtFnHa9CSJbQ.jpeg",
+  "image_url": "https://static.daktilo.com/sites/827/uploads/2021/03/10/rumeli-universitesi-yetiskinler-icin-ingilizce-programi-1615375243.jpg",
   "tasks": [
     {
       "id": 1,
@@ -41,18 +41,6 @@
     },
     {
       "id": 4,
-      "task": "Chair",
-      "right_answer": "Стул",
-      "variants_answer": [
-        "Стул",
-        "Диван",
-        "Ваза",
-        "Ручка"
-      ],
-      "level": 2
-    },
-    {
-      "id": 5,
       "task": "Pencil",
       "right_answer": "Карандаш",
       "variants_answer": [
@@ -64,7 +52,7 @@
       "level": 2
     },
     {
-      "id": 6,
+      "id": 5,
       "task": "Telephone",
       "right_answer": "Телефон",
       "variants_answer": [
@@ -76,7 +64,7 @@
       "level": 2
     },
     {
-      "id": 7,
+      "id": 6,
       "task": "Mouse",
       "right_answer": "Мышь",
       "variants_answer": [

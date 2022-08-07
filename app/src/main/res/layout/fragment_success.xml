@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D5FAD8"
+    android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -13,12 +13,20 @@
         style="@style/task_tv_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="УРА!!!  Вы ответили на все вопросы правильно!" />
+        android:text="УРА!!!\nВсе правильно!" />
 
     <Button
         android:id="@+id/finish_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="FINISH" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/victory_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:adjustViewBounds="true"
+        android:clickable="true" />
 
 </LinearLayout>

@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
+import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
+import com.squareup.picasso.Picasso
 
 class SuccessFragment : Fragment() {
+
+    private lateinit var victoryImageView: AppCompatImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,11 +28,16 @@ class SuccessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<View>(R.id.finish_button).setOnClickListener {
+        initView(view)
+
+        view.findViewById<View>(R.id.victory_image_view).setOnClickListener {
             getController().finishSuccessFragment()
         }
 
         pressingBackStackButton(view)
+
+        Picasso.get().load(Key.VICTORY_FINISH_IMAGE_KEY).into(victoryImageView)
+
     }
 
     //это перехват нажатия на BackStack
@@ -60,5 +70,9 @@ class SuccessFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         getController()  // агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
+    }
+
+    private fun initView(view: View) {
+        victoryImageView = view.findViewById(R.id.victory_image_view)
     }
 }

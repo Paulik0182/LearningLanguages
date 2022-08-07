@@ -1,7 +1,7 @@
 {
   "id": 2,
   "name": "English Lesson 2",
-  "image_url": "https://miro.medium.com/max/1200/1*C7t9v834_fJtFnHa9CSJbQ.jpeg",
+  "image_url": "https://avatars.mds.yandex.net/get-zen_doc/1244179/pub_5c7f8fe55b0ac200b3abd1ad_5c7f912362b23d00b4837dc3/scale_1200",
   "tasks": [
     {
       "id": 1,
@@ -26,6 +26,18 @@
         "Собака",
         "Скунс",
         "Змея"
+      ],
+      "level": 2
+    },
+    {
+      "id": 3,
+      "task": "Chair",
+      "right_answer": "Стул",
+      "variants_answer": [
+        "Стул",
+        "Диван",
+        "Ваза",
+        "Ручка"
       ],
       "level": 2
     }
