@@ -5,7 +5,7 @@
     android:layout_height="160dp"
     android:layout_gravity="center_horizontal"
     android:layout_margin="5dp"
-    android:backgroundTint="#B9FDF2"
+    android:backgroundTint="#34CF37"
     android:clickable="true"
     android:focusable="true"
     android:padding="15dp">
@@ -21,6 +21,7 @@
             android:id="@+id/cover_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="3dp"
             android:layout_gravity="end"
             android:adjustViewBounds="true" />
 

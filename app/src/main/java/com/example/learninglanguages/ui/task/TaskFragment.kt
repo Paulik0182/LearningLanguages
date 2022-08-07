@@ -54,7 +54,10 @@ class TaskFragment : Fragment() {
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
         taskTv.text = taskEntity.task
+        //работа с картинками
         Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
+        taskImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
+
         adapter.setData(taskEntity.variantsAnswer)
 
         adapter.setOnItemClickListener {
@@ -80,6 +83,8 @@ class TaskFragment : Fragment() {
                 "Вы ошиблись, попробуйте еще раз!!!",
                 Toast.LENGTH_SHORT
             ).show()
+
+
         }
     }
 

@@ -18,4 +18,5 @@
     <string name="name_level_1_card_view">NO NAME 1</string>
     <string name="name_level_2_card_view">NO NAME 2</string>
     <string name="repeat_button">Повторить</string>
+    <string name="victory_finish">УРА!!!\nВсе правильно!</string>
 </resources>

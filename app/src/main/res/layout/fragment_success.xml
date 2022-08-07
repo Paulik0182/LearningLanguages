@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.task.TaskFragment">
 
@@ -13,12 +15,13 @@
         style="@style/task_tv_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="УРА!!!\nВсе правильно!" />
+        android:text="@string/victory_finish" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/repeat_button"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
         android:text="@string/repeat_button" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -26,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:adjustViewBounds="true"
-        android:clickable="true" />
+        android:adjustViewBounds="true" />
 
 </LinearLayout>
