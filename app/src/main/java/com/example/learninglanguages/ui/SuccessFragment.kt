@@ -30,14 +30,17 @@ class SuccessFragment : Fragment() {
 
         initView(view)
 
-        view.findViewById<View>(R.id.victory_image_view).setOnClickListener {
+        view.findViewById<View>(R.id.repeat_button).setOnClickListener {
+            getController().finishSuccessFragment()
+        }
+
+        victoryImageView.setOnClickListener {
             getController().finishSuccessFragment()
         }
 
         pressingBackStackButton(view)
 
         Picasso.get().load(Key.VICTORY_FINISH_IMAGE_KEY).into(victoryImageView)
-
     }
 
     //это перехват нажатия на BackStack

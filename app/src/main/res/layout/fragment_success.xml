@@ -16,10 +16,10 @@
         android:text="УРА!!!\nВсе правильно!" />
 
     <Button
-        android:id="@+id/finish_button"
+        android:id="@+id/repeat_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FINISH" />
+        android:text="@string/repeat_button" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/victory_image_view"

@@ -10,5 +10,7 @@ data class LessonEntity(
     val name: String,
     @SerializedName("image_url")
     val imageUrl: String,
+    @SerializedName("victory_image_url")
+    val victoryImageUrl: String? = null,
     val tasks: List<TaskEntity>
 ) : Parcelable

@@ -1,11 +1,13 @@
 {
   "id": 0,
   "name": "English Lesson 1",
-  "image_url": "https://static.daktilo.com/sites/827/uploads/2021/03/10/rumeli-universitesi-yetiskinler-icin-ingilizce-programi-1615375243.jpg",
+  "image_url": "https://i.pinimg.com/originals/1a/57/9d/1a579d0d2f0996d38482b2591e9af850.png",
+  "victory_image_url": "https://avatars.mds.yandex.net/get-zen_doc/1244179/pub_5c7f8fe55b0ac200b3abd1ad_5c7f912362b23d00b4837dc3/scale_1200",
   "tasks": [
     {
       "id": 1,
       "task": "Good afternoon",
+      "task_image_url": "https://yur-gazeta.ru/wp-content/uploads/2021/02/sposoby-privetstvija-v-raznyh-stranah-mira-46d45df.jpg",
       "right_answer": "Добрый день",
       "variants_answer": [
         "Добрый день",
@@ -18,6 +20,7 @@
     {
       "id": 2,
       "task": "Table",
+      "task_image_url": "https://garantanapa.ru/wp-content/uploads/2021/02/xt_120213_02.jpg",
       "right_answer": "Стол",
       "variants_answer": [
         "Стул",
@@ -30,6 +33,7 @@
     {
       "id": 3,
       "task": "Sofa",
+      "task_image_url": "https://www.sunhome.ru/i/wallpapers/60/oranzhevii-divan.orig.jpg",
       "right_answer": "Диван",
       "variants_answer": [
         "Стол",
@@ -42,6 +46,7 @@
     {
       "id": 4,
       "task": "Pencil",
+      "task_image_url": "https://all-t-shirts.ru/goods_images/ru130894II000cb37cd61f64c542399c1a831c84de5d5.jpg",
       "right_answer": "Карандаш",
       "variants_answer": [
         "Ручка",
@@ -54,6 +59,7 @@
     {
       "id": 5,
       "task": "Telephone",
+      "task_image_url": "https://fotodes.ru/upload/img1342087661.jpg",
       "right_answer": "Телефон",
       "variants_answer": [
         "Телега",
@@ -66,6 +72,7 @@
     {
       "id": 6,
       "task": "Mouse",
+      "task_image_url": "https://grizun-off.ru/wp-content/uploads/f/8/5/f85b86be6fa0485eb4178cf26a9ac35f.jpg",
       "right_answer": "Мышь",
       "variants_answer": [
         "Мышь",

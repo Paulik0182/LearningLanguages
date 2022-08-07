@@ -17,4 +17,5 @@
     <string name="java_level_2_card_view">Level 2</string>
     <string name="name_level_1_card_view">NO NAME 1</string>
     <string name="name_level_2_card_view">NO NAME 2</string>
+    <string name="repeat_button">Повторить</string>
 </resources>
