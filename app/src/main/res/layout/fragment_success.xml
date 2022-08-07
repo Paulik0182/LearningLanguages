@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.task.TaskFragment">
+
+    <TextView
+        style="@style/task_tv_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/victory_finish" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/repeat_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
+        android:text="@string/repeat_button" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/victory_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:adjustViewBounds="true" />
+
+</LinearLayout>
