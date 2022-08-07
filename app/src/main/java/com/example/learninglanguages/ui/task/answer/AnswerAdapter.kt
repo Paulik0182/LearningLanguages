@@ -36,8 +36,4 @@ class AnswerAdapter(
     private fun getItem(pos: Int): String = data[pos]
 
     override fun getItemCount(): Int = data.size
-
-    interface OnItemClickListener : (OnItemClickListener) -> UInt {
-        fun onItemClick()
-    }
 }

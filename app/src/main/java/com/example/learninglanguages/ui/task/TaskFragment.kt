@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,9 +16,11 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
+import com.squareup.picasso.Picasso
 
 class TaskFragment : Fragment() {
     private lateinit var taskTv: TextView
+    private lateinit var taskImageView: ImageView
 
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
 
@@ -51,6 +54,7 @@ class TaskFragment : Fragment() {
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
         taskTv.text = taskEntity.task
+        Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
         adapter.setData(taskEntity.variantsAnswer)
 
         adapter.setOnItemClickListener {
@@ -115,6 +119,7 @@ class TaskFragment : Fragment() {
 
     private fun initViews(view: View) {
         taskTv = view.findViewById(R.id.task_text_view)
+        taskImageView = view.findViewById(R.id.task_image_view)
         recyclerView = view.findViewById(R.id.answer_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = AnswerAdapter()
