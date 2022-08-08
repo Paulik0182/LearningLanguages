@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
@@ -16,12 +15,14 @@
         style="@style/task_tv_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/pomidorko_cyr_ru"
         android:text="@string/victory_finish" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/repeat_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/pomidorko_cyr_ru"
         app:cornerRadius="20dp"
         android:text="@string/repeat_button" />
 
