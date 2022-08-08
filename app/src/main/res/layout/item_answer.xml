@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
-    android:layout_height="55dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="8dp"
-    android:backgroundTint="#88F88C"
+    android:layout_margin="@dimen/margin_answer"
+    android:backgroundTint="@color/green_wave"
     android:clickable="true"
     android:focusable="true"
-    android:padding="10dp">
+    android:padding="@dimen/default_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/default_padding">
 
         <TextView
             android:id="@+id/answer_text_view"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/default_text"
             android:textStyle="bold"
             tools:text="answer" />
     </LinearLayout>

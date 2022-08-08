@@ -20,10 +20,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/repeat_button"
-        android:layout_width="300dp"
+        android:layout_width="@dimen/button_finish_width_size"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pomidorko_cyr_ru"
-        app:cornerRadius="20dp"
+        app:cornerRadius="@dimen/radius_button_default"
         android:text="@string/repeat_button" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true" />
 
 </LinearLayout>

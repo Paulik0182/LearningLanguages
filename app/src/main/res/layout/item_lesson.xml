@@ -4,26 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:layout_gravity="center_horizontal"
-    android:layout_margin="5dp"
-    android:backgroundTint="#34CF37"
+    android:layout_margin="@dimen/margin_lesson"
+    android:backgroundTint="@color/light_green2"
     android:clickable="true"
-    android:focusable="true"
-    android:padding="15dp">
+    android:focusable="true">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="1dp">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cover_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="3dp"
             android:layout_gravity="end"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/title_text_view"
@@ -31,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/default_text"
             android:textStyle="bold"
             android:visibility="invisible"
             tools:text="Lesson" />

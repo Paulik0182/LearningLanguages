@@ -33,7 +33,7 @@ class TaskFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_task, container, false)
+        return inflater.inflate(R.layout.fragment_task_v2, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,8 +83,6 @@ class TaskFragment : Fragment() {
                 "Вы ошиблись, попробуйте еще раз!!!",
                 Toast.LENGTH_SHORT
             ).show()
-
-
         }
     }
 
