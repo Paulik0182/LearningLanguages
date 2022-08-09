@@ -69,5 +69,7 @@ dependencies {
     //Firebase -> crashlytics, analytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase -> database
+    implementation 'com.google.firebase:firebase-database-ktx'
 
 }
