@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android
@@ -62,7 +63,11 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
 
     //Firebase
+    implementation platform ('com.google.firebase:firebase-bom:30.3.1')
     implementation "com.google.firebase:firebase-auth:21.0.7"
     implementation 'com.google.firebase:firebase-database:20.0.5'
+    //Firebase -> crashlytics, analytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 }
