@@ -44,6 +44,9 @@ class TaskFragment : Fragment() {
         val lessonEntity: LessonEntity = arguments?.get(Key.THEME_ARGS_KEY) as LessonEntity
         //enum передать нельзя это полноценный объект. Поэтому кладем порядковый номер и потом его достаем
 
+        //тест. Свалить приложение
+//        throw RuntimeException("Crash!")
+
         taskList =
             ArrayList(lessonEntity.tasks)//создали копию всех элементов. Так как мы удаляем по одному заданию делаем так
 
