@@ -10,12 +10,13 @@ class AssetsLessonsRepoImpl(
     private val context: Context
 ) : LessonRepo {
 
+    //от этого кода можно отказатся
     //в данном случае мы не можем добавлять новые значения в репозиторий
-    override fun addLesson(taskEntity: LessonEntity) {
-        throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
-    }
+//    override fun addLesson(taskEntity: LessonEntity) {
+//        throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
+//    }
 
-    override fun getLessons(): List<LessonEntity> = context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)
+    private fun getLessons(): List<LessonEntity> = context.assets.list(ASSETS_LESSONS_DIR_NAME_KEY)
         ?.map { fileName ->
             //обращаемся ко всем файлам в asset
             //проходим по папке asset/lesson и распознаем файлы и преобразуем в объект
@@ -29,6 +30,6 @@ class AssetsLessonsRepoImpl(
         } ?: emptyList()
 
     override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
-        TODO("Not yet implemented")
+        onSuccess.invoke(getLessons())
     }
 }

@@ -9,13 +9,13 @@ import kotlinx.parcelize.Parcelize
 data class LessonEntity(
     val id: Long = 0,
     val name: String = "",
-    @SerializedName("image_url")
-    @PropertyName("image_url")
     @get: PropertyName("image_url")
+    @field: PropertyName("image_url")
+    @SerializedName("image_url")
     val imageUrl: String = "",
-    @SerializedName("victory_image_url")
-    @PropertyName("victory_image_url")
     @get: PropertyName("victory_image_url")
+    @field: PropertyName("victory_image_url")
+    @SerializedName("victory_image_url")
     val victoryImageUrl: String? = null,
     val tasks: List<TaskEntity> = emptyList()
 ) : Parcelable

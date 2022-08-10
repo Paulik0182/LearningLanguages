@@ -16,6 +16,8 @@ import com.example.learninglanguages.domain.repos.LessonRepo
 class LessonsFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
+    private lateinit var adapter: LessonsAdapter
+
 
     private lateinit var lessonsRecyclerView: RecyclerView
     private val lessonsRepo: LessonRepo by lazy {
@@ -34,7 +36,17 @@ class LessonsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+        initDate()
 
+    }
+
+    private fun initDate() {
+        //todo show progress
+        // кулбек
+        lessonsRepo.getLessons {
+            //todo hide progress
+            adapter.setData(it)// пополнение адаптера данными
+        }
     }
 
     private fun initViews() {
@@ -48,10 +60,12 @@ class LessonsFragment : Fragment() {
 
         //это два параметра которые принимаем на вход. Это слушатель и данные
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
-        lessonsRecyclerView.adapter = LessonsAdapter(lessonsRepo.getLessons()) {
-            getController().openLesson(it)
 
+        //кэшируем адаптер чтобы его потом вызвать
+        adapter = LessonsAdapter {
+            getController().openLesson(it)
         }
+        lessonsRecyclerView.adapter = adapter
     }
 
     private fun getController(): Controller = activity as Controller

@@ -19,8 +19,11 @@ class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
         this.lessonEntity = lessonEntity
         titleTextView.text = lessonEntity.name
 //        coverImageView.load(lessonEntity.imageUrl)
-        Picasso.get().load(lessonEntity.imageUrl).into(coverImageView)
+        //проверка на наличие катинки
+        if (lessonEntity.imageUrl.isNotBlank()) {
+            Picasso.get().load(lessonEntity.imageUrl).into(coverImageView)
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
+        }
     }
 
     init {

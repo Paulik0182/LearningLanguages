@@ -9,20 +9,17 @@ import com.google.firebase.ktx.Firebase
 
 class FirebaseLessonsRepoImpl : LessonRepo {
 
-    private var data: List<LessonEntity> = emptyList()
+//    private var data: List<LessonEntity> = emptyList()
 
-    private var successListener: ((List<LessonEntity>) -> Unit)? = null
-
+    //от этого кода можно отказатся
     //в данном случае мы не можем добавлять новые значения в репозиторий
-    override fun addLesson(taskEntity: LessonEntity) {
-        throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
-    }
+//    override fun addLesson(taskEntity: LessonEntity) {
+//        throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
+//    }
 
     override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
-        //ссылка на бд
-        Firebase.database(Key.DATABASE_URL_KEY)
-            .reference
-            .get()
+        //ссылка на бд. reference - это ссылка на значение
+        Firebase.database(Key.DATABASE_URL_KEY).reference.get()
             .addOnSuccessListener {
                 val lessons: MutableList<LessonEntity> = mutableListOf()// собираем колекцию
                 it.children.forEach { snapshot ->
@@ -38,10 +35,9 @@ class FirebaseLessonsRepoImpl : LessonRepo {
                         exc.printStackTrace()
                     }
                 }
-                data = lessons
-                successListener?.invoke(data)
+                onSuccess.invoke(lessons)
             }
     }
 
-    override fun getLessons(): List<LessonEntity> = data
+//    override fun getLessons(): List<LessonEntity> = data
 }

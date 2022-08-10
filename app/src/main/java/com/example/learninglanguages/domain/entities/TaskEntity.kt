@@ -9,17 +9,17 @@ import kotlinx.parcelize.Parcelize
 data class TaskEntity(
     val id: Long = 0,
     val task: String = "",
-    @SerializedName("task_image_url")
-    @PropertyName("task_image_url")
     @get: PropertyName("task_image_url")
+    @field: PropertyName("task_image_url")
+    @SerializedName("task_image_url")
     val taskImageUrl: String? = null,
-    @SerializedName("variants_answer")
-    @PropertyName("variants_answer")
     @get: PropertyName("variants_answer")
+    @field: PropertyName("variants_answer")
+    @SerializedName("variants_answer")
     val variantsAnswer: List<String> = emptyList(),
-    @SerializedName("right_answer")
-    @PropertyName("right_answer")
     @get: PropertyName("right_answer")
+    @field: PropertyName("right_answer")
+    @SerializedName("right_answer")
     val rightAnswer: String = "",
     val level: Int = 0
 ) : Parcelable

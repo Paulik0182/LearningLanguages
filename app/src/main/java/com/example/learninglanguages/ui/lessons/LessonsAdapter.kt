@@ -12,6 +12,11 @@ class LessonsAdapter(
     private var listener: (LessonEntity) -> Unit = {}
 ) : RecyclerView.Adapter<LessonViewHolder>() {
 
+    fun setData(newData: List<LessonEntity>) {
+        data = newData
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
         return LessonViewHolder(
             LayoutInflater.from(parent.context)
