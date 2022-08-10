@@ -17,5 +17,5 @@ data class LessonEntity(
     @PropertyName("victory_image_url")
     @get: PropertyName("victory_image_url")
     val victoryImageUrl: String? = null,
-    val tasks: List<TaskEntity>? = null
+    val tasks: List<TaskEntity> = emptyList()
 ) : Parcelable

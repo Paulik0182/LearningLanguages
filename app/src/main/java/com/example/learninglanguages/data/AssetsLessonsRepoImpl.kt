@@ -27,4 +27,8 @@ class AssetsLessonsRepoImpl(
             //преобразуем в объект
             return@map Gson().fromJson(rawJson, LessonEntity::class.java)
         } ?: emptyList()
+
+    override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
+        TODO("Not yet implemented")
+    }
 }

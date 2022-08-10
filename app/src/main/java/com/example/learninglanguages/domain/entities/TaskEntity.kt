@@ -16,7 +16,7 @@ data class TaskEntity(
     @SerializedName("variants_answer")
     @PropertyName("variants_answer")
     @get: PropertyName("variants_answer")
-    val variantsAnswer: List<String>? = null,
+    val variantsAnswer: List<String> = emptyList(),
     @SerializedName("right_answer")
     @PropertyName("right_answer")
     @get: PropertyName("right_answer")

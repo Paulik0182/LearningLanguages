@@ -1,7 +1,7 @@
 package com.example.learninglanguages
 
 import android.app.Application
-import com.example.learninglanguages.data.AssetsLessonsRepoImpl
+import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.LessonRepo
 
 /**
@@ -13,7 +13,7 @@ import com.example.learninglanguages.domain.repos.LessonRepo
 class App : Application() {
 
     val lessonRepo: LessonRepo by lazy {
-        AssetsLessonsRepoImpl(this)
-//        FirebaseLessonsRepoImpl()
+//        AssetsLessonsRepoImpl(this)
+        FirebaseLessonsRepoImpl()
     }
 }
