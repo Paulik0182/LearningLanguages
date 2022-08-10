@@ -19,7 +19,12 @@ class FirebaseLessonsRepoImpl : LessonRepo {
 
     override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
         //ссылка на бд. reference - это ссылка на значение
-        Firebase.database(Key.DATABASE_URL_KEY).reference.get()
+        val database = Firebase.database(Key.DATABASE_URL_KEY)
+
+        database.setPersistenceEnabled(true)//для возможной работы без интернета
+        database.reference.keepSynced(true)//для синхранизации данных (кешируем данные)
+
+        database.reference.get()
             .addOnSuccessListener {
                 val lessons: MutableList<LessonEntity> = mutableListOf()// собираем колекцию
                 it.children.forEach { snapshot ->
