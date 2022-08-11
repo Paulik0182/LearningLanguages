@@ -21,5 +21,6 @@ data class TaskEntity(
     @field: PropertyName("right_answer")
     @SerializedName("right_answer")
     val rightAnswer: String = "",
-    val level: Int = 0
+    val level: Int = 0,
+    val favourites: Boolean = false
 ) : Parcelable
