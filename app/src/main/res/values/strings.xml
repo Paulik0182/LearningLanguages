@@ -19,4 +19,8 @@
     <string name="name_level_2_card_view">NO NAME 2</string>
     <string name="repeat_button">Повторить</string>
     <string name="victory_finish">УРА!!!\nВсе правильно!</string>
+    <string name="favourites">Избраное</string>
+    <string name="statistics">Статистика</string>
+    <string name="settings">Настройки</string>
+    <string name="about_app">О приложении</string>
 </resources>
