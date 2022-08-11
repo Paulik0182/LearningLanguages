@@ -1,6 +1,7 @@
 package com.example.learninglanguages.ui
 
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -29,6 +30,12 @@ class RootActivity : AppCompatActivity(),
             .beginTransaction()
             .add(R.id.container_layout, LessonsFragment())
             .commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun openTaskFragment(lessonEntity: LessonEntity) {
