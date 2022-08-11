@@ -15,7 +15,8 @@
         "Ручка",
         "Телевизор"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     },
     {
       "id": 2,
@@ -28,7 +29,8 @@
         "Скунс",
         "Змея"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     },
     {
       "id": 3,
@@ -41,7 +43,8 @@
         "Ваза",
         "Ручка"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     }
   ]
 }

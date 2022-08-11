@@ -15,7 +15,8 @@
         "Добрый вечер",
         "До свидания"
       ],
-      "level": 1
+      "level": 1,
+      "favourites": false
     },
     {
       "id": 2,
@@ -28,7 +29,8 @@
         "Ручка",
         "Таблица"
       ],
-      "level": 1
+      "level": 1,
+      "favourites": false
     },
     {
       "id": 3,
@@ -41,7 +43,8 @@
         "Диван",
         "Ваза"
       ],
-      "level": 1
+      "level": 1,
+      "favourites": false
     },
     {
       "id": 4,
@@ -54,7 +57,8 @@
         "Пенал",
         "Карандаш"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     },
     {
       "id": 5,
@@ -67,7 +71,8 @@
         "Ручка",
         "Телевизор"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     },
     {
       "id": 6,
@@ -80,7 +85,8 @@
         "Скунс",
         "Змея"
       ],
-      "level": 2
+      "level": 2,
+      "favourites": false
     }
   ]
 }
