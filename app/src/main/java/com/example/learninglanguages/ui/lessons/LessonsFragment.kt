@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +23,7 @@ class LessonsFragment : Fragment() {
 
 
     private lateinit var lessonsRecyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
     private val lessonsRepo: LessonRepo by lazy {
         app.lessonRepo
     }
@@ -41,10 +45,10 @@ class LessonsFragment : Fragment() {
     }
 
     private fun initDate() {
-        //todo show progress
+        showProgress(true)
         // кулбек
         lessonsRepo.getLessons {
-            //todo hide progress
+            showProgress(false)
             adapter.setData(it)// пополнение адаптера данными
         }
     }
@@ -56,6 +60,7 @@ class LessonsFragment : Fragment() {
         // передается this. это такая комбинация где вместо this подставляется то что слево от apply)
         view?.apply {
             lessonsRecyclerView = findViewById(R.id.lessons_recycler_view)
+            progressBar = findViewById(R.id.progress_lessons_bar)
         }
 
         //это два параметра которые принимаем на вход. Это слушатель и данные
@@ -77,5 +82,15 @@ class LessonsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
+    }
+
+    private fun showProgress(shouldShow: Boolean) {
+        if (shouldShow) {
+            lessonsRecyclerView.visibility = GONE //скрываем view со списком
+            progressBar.visibility = VISIBLE //показываем прогресс загрузки
+        } else {
+            lessonsRecyclerView.visibility = VISIBLE //показываем view со списком
+            progressBar.visibility = GONE //скрываем прогресс загрузки
+        }
     }
 }

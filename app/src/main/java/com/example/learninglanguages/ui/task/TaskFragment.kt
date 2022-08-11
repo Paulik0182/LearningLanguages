@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +23,8 @@ class TaskFragment : Fragment() {
     private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущность
 
     private lateinit var adapter: AnswerAdapter
+    private lateinit var progressBar: ProgressBar
+    private lateinit var linearLayout: LinearLayout
 
     private lateinit var recyclerView: RecyclerView
 
@@ -56,13 +56,17 @@ class TaskFragment : Fragment() {
 
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
+
+        showProgress(true)
+
         taskTv.text = taskEntity.task
         //работа с картинками
         Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
         taskImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
 
-        adapter.setData(taskEntity.variantsAnswer)
+        showProgress(false)
 
+        adapter.setData(taskEntity.variantsAnswer)
         adapter.setOnItemClickListener {
             handleAnswerClick(taskEntity.rightAnswer, it)// передали нажатие на кнопку
         }
@@ -124,9 +128,11 @@ class TaskFragment : Fragment() {
 
 
     private fun initViews(view: View) {
+        linearLayout = view.findViewById(R.id.task_liner_layout)
         taskTv = view.findViewById(R.id.task_text_view)
         taskImageView = view.findViewById(R.id.task_image_view)
         recyclerView = view.findViewById(R.id.answer_recycler_view)
+        progressBar = view.findViewById(R.id.progress_task_bar)
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = AnswerAdapter()
         recyclerView.adapter = adapter
@@ -139,6 +145,16 @@ class TaskFragment : Fragment() {
             arguments = Bundle().apply {
                 putParcelable(Key.THEME_ARGS_KEY, lessonEntity)
             }
+        }
+    }
+
+    private fun showProgress(shouldShow: Boolean) {
+        if (shouldShow) {
+            linearLayout.visibility = View.GONE //скрываем view со списком
+            progressBar.visibility = View.VISIBLE //показываем прогресс загрузки
+        } else {
+            linearLayout.visibility = View.VISIBLE //показываем view со списком
+            progressBar.visibility = View.GONE //скрываем прогресс загрузки
         }
     }
 
