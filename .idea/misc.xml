@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.245" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/drawable/ic_launcher_background.xml" value="0.245" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/drawable/mybutton.xml" value="0.122" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/drawable/rounded_corner_view.xml" value="0.245" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/activity_root.xml" value="0.3563218390804598" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/activity_root2.xml" value="0.1762917933130699" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_english.xml" value="0.16" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_kotlin.xml" value="0.25" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_lessons.xml" value="0.3614583333333333" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_success.xml" value="0.3614583333333333" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_task.xml" value="0.25" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/fragment_task_v2.xml" value="0.3625" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/item_answer.xml" value="0.3614583333333333" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/layout/item_lesson.xml" value="0.33" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/menu/menu.xml" value="0.3614583333333333" />
+        <entry key="..\:/ProjectAndroid/LearningLanguages/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.122" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
