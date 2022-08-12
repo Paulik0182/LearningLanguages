@@ -19,16 +19,17 @@ class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
     private lateinit var lessonEntity: LessonEntity
 
     fun bind(lessonEntity: LessonEntity) {
-        showProgress(true)
         this.lessonEntity = lessonEntity
         titleTextView.text = lessonEntity.name
 //        coverImageView.load(lessonEntity.imageUrl)
         //проверка на наличие катинки
         if (lessonEntity.imageUrl.isNotBlank()) {
-            Picasso.get().load(lessonEntity.imageUrl).into(coverImageView)
+            Picasso.get()
+                .load(lessonEntity.imageUrl)
+                .placeholder(R.drawable.uploading_images_5)
+                .into(coverImageView)
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
         }
-        showProgress(false)
     }
 
     init {
@@ -36,15 +37,4 @@ class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
             listener.invoke(lessonEntity)
         }
     }
-
-    private fun showProgress(shouldShow: Boolean) {
-        if (shouldShow) {
-            coverImageView.visibility = View.GONE //скрываем view со списком
-            progressBar.visibility = View.VISIBLE //показываем прогресс загрузки
-        } else {
-            coverImageView.visibility = View.VISIBLE //показываем view со списком
-            progressBar.visibility = View.GONE //скрываем прогресс загрузки
-        }
-    }
-
 }
