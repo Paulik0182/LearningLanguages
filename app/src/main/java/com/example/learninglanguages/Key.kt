@@ -19,6 +19,12 @@ object Key {
         "lessons"//lessons потому что мы сканируем эту папку
 
     //ссылка на бд
+    internal const val ASSETS_LESSONS_TASK_KEY =
+        "lesson_task.json"
+
+    //ссылка на бд
     internal const val DATABASE_URL_KEY =
         "https://lessons-147e1-default-rtdb.europe-west1.firebasedatabase.app/"
+
+
 }
