@@ -98,17 +98,20 @@ class RootActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        title = defaultTitle
         exitingApplicationDoubleClick()
     }
 
     //выход из приложения по двойному нажатию на кнопку
     private fun exitingApplicationDoubleClick() {
-        if (backPressedTime + 3000 >= System.currentTimeMillis()) {
+        if (System.currentTimeMillis() - backPressedTime <= 3_000) {
             super.onBackPressed()
+            title = defaultTitle
+            backPressedTime = 0//обнуляем время если вышли из фрагмента
         } else {
-            Toast.makeText(this, "Нажмите еще раз, чтобы выйти из приложения", Toast.LENGTH_LONG)
+            Toast.makeText(
+                this,
+                "Нажмите еще раз, чтобы выйти из приложения", Toast.LENGTH_LONG
+            )
                 .show()
         }
         backPressedTime = System.currentTimeMillis()
