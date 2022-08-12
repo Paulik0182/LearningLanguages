@@ -5,6 +5,21 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/favourites_icon_menu_items"
+        android:orderInCategory="100"
+        android:title="@string/favourites"
+        android:icon="@drawable/favourites_icon"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/favourites_icon_filled_menu_items"
+        android:icon="@drawable/favourites_icon_filled"
+        android:orderInCategory="100"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/favourites_menu_items"
         android:orderInCategory="100"
         android:title="@string/favourites"
