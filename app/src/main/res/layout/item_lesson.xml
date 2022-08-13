@@ -15,12 +15,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_cover_image_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/cover_image_view"
             android:layout_width="match_parent"
