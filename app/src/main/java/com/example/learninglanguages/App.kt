@@ -1,8 +1,8 @@
 package com.example.learninglanguages
 
 import android.app.Application
-import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
-import com.example.learninglanguages.domain.repos.LessonRepo
+import com.example.learninglanguages.data.AssetsCoursesRepoImpl
+import com.example.learninglanguages.domain.repos.CourseRepo
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
@@ -12,8 +12,7 @@ import com.example.learninglanguages.domain.repos.LessonRepo
  */
 class App : Application() {
 
-    val lessonRepo: LessonRepo by lazy {
-//        AssetsLessonsRepoImpl(this)
-        FirebaseLessonsRepoImpl()
+    val courseRepo: CourseRepo by lazy {
+        AssetsCoursesRepoImpl(this)
     }
 }

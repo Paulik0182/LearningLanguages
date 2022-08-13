@@ -4,28 +4,28 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.domain.repos.LessonRepo
+import com.example.learninglanguages.domain.entities.CourseEntity
+import com.example.learninglanguages.domain.repos.CourseRepo
 
-class LessonsFragment : Fragment() {
+class CoursesFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
-    private lateinit var adapter: LessonsAdapter
+    private lateinit var adapter: CoursesAdapter
 
 
-    private lateinit var lessonsRecyclerView: RecyclerView
+    private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private val lessonsRepo: LessonRepo by lazy {
-        app.lessonRepo
+
+    private val courseRepo: CourseRepo by lazy {
+        app.courseRepo
     }
 
     override fun onCreateView(
@@ -33,7 +33,7 @@ class LessonsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_lessons, container, false)
+        return inflater.inflate(R.layout.fragment_courses, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class LessonsFragment : Fragment() {
     private fun initDate() {
         showProgress(true)
         // кулбек
-        lessonsRepo.getLessons {
+        courseRepo.getCourse {
             showProgress(false)
             adapter.setData(it)// пополнение адаптера данными
         }
@@ -59,24 +59,25 @@ class LessonsFragment : Fragment() {
         //это значит, если view существует то выполнить следующее (apply это где аргумент
         // передается this. это такая комбинация где вместо this подставляется то что слево от apply)
         view?.apply {
-            lessonsRecyclerView = findViewById(R.id.lessons_recycler_view)
-            progressBar = findViewById(R.id.progress_lessons_bar)
+            coursesRecyclerView = findViewById(R.id.courses_recycler_view)
+            progressBar = findViewById(R.id.progress_courses_bar)
         }
 
         //это два параметра которые принимаем на вход. Это слушатель и данные
-        lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
+        coursesRecyclerView.layoutManager = LinearLayoutManager(context)
 
         //кэшируем адаптер чтобы его потом вызвать
-        adapter = LessonsAdapter {
-            getController().openLesson(it)
-        }
-        lessonsRecyclerView.adapter = adapter
+        adapter = CoursesAdapter()
+//        {
+//            getController().openCourse(it)
+//        }
+        coursesRecyclerView.adapter = adapter
     }
 
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(lessonEntity: LessonEntity)
+        fun openCourse(courseEntity: CourseEntity)
     }
 
     override fun onAttach(context: Context) {
@@ -85,12 +86,7 @@ class LessonsFragment : Fragment() {
     }
 
     private fun showProgress(shouldShow: Boolean) {
-        if (shouldShow) {
-            lessonsRecyclerView.visibility = GONE //скрываем view со списком
-            progressBar.visibility = VISIBLE //показываем прогресс загрузки
-        } else {
-            lessonsRecyclerView.visibility = VISIBLE //показываем view со списком
-            progressBar.visibility = GONE //скрываем прогресс загрузки
-        }
+        coursesRecyclerView.isVisible = !shouldShow
+        progressBar.isVisible = shouldShow
     }
 }
