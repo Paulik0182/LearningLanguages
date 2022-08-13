@@ -68,7 +68,7 @@ class CoursesFragment : Fragment() {
         //кэшируем адаптер чтобы его потом вызвать
         adapter = CoursesAdapter()
 //        {
-//            getController().openLesson(it)
+//            getController().openCourse(it)
 //        }
         coursesRecyclerView.adapter = adapter
     }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 
-class CourseViewHolder(itemView: View) :
+class CourseViewHolder(itemView: View, listener: (CourseEntity) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
 
     private val lessonsAdapter: LessonsAdapter = LessonsAdapter()
@@ -22,6 +22,7 @@ class CourseViewHolder(itemView: View) :
         }
     private lateinit var courseEntity: CourseEntity
 
+
     fun bind(courseEntity: CourseEntity) {
         this.courseEntity = courseEntity
         titleTextView.text = courseEntity.name
@@ -30,4 +31,9 @@ class CourseViewHolder(itemView: View) :
         lessonsAdapter.setData(courseEntity.lessons)
     }
 
+    init {
+        itemView.setOnClickListener {
+            listener.invoke(courseEntity)
+        }
+    }
 }

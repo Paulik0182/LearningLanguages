@@ -9,6 +9,7 @@ import com.example.learninglanguages.domain.entities.CourseEntity
 class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = emptyList(),
+    private var listener: (CourseEntity) -> Unit = {}
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     fun setData(newData: List<CourseEntity>) {
@@ -19,7 +20,7 @@ class CoursesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         return CourseViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_course, parent, false)
+                .inflate(R.layout.item_course, parent, false), listener
         )
     }
 
