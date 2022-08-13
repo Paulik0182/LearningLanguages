@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.ui.lessons.LessonsFragment
+import com.example.learninglanguages.ui.lessons.CoursesFragment
 import com.example.learninglanguages.ui.task.TaskFragment
 
 class RootActivity : AppCompatActivity(),
     TaskFragment.Controller,
     SuccessFragment.Controller,
-    LessonsFragment.Controller {
+    CoursesFragment.Controller {
 
     private val defaultTitle: String by lazy { getString(R.string.app_name) }
 
@@ -29,7 +29,7 @@ class RootActivity : AppCompatActivity(),
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.container_layout, LessonsFragment())
+            .add(R.id.container_layout, CoursesFragment())
             .commit()
     }
 

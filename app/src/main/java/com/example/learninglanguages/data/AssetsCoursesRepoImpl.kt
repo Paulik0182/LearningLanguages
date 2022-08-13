@@ -1,21 +1,21 @@
 package com.example.learninglanguages.data
 
 import android.content.Context
-import com.example.learninglanguages.Key
+import com.example.learninglanguages.Key.ASSETS_LESSONS_TASK_KEY
 import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.repos.CourseRepo
+import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class AssetsCoursesRepoImpl(
     private val context: Context
-) : CourseRepo {
-
+) : CoursesRepo {
 
     override fun getCourse(onSuccess: (List<CourseEntity>) -> Unit) {
 
-        val databaseJson: String = context.assets.open(Key.ASSETS_LESSONS_TASK_KEY)
-            .bufferedReader().use {
+        val databaseJson: String = context.assets.open(ASSETS_LESSONS_TASK_KEY)
+            .bufferedReader()
+            .use {
                 it.readText()
             }
 
