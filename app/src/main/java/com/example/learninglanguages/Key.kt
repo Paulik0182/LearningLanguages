@@ -20,7 +20,7 @@ object Key {
 
     //ссылка на бд
     internal const val ASSETS_LESSONS_TASK_KEY =
-        "lesson_task.json"
+        "lessons_task.json"
 
     //ссылка на бд
     internal const val DATABASE_URL_KEY =
