@@ -2,7 +2,9 @@ package com.example.learninglanguages
 
 import android.app.Application
 import com.example.learninglanguages.data.AssetsCoursesRepoImpl
+import com.example.learninglanguages.data.AssetsLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import com.example.learninglanguages.domain.repos.LessonRepo
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
@@ -14,5 +16,9 @@ class App : Application() {
 
     val coursesRepo: CoursesRepo by lazy {
         AssetsCoursesRepoImpl(this)
+    }
+
+    val lessonRepo: LessonRepo by lazy {
+        AssetsLessonsRepoImpl(this)
     }
 }
