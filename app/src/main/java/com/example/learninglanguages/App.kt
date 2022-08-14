@@ -14,6 +14,7 @@ class App : Application() {
 
     val coursesRepo: CoursesRepo by lazy {
         AssetsCoursesRepoImpl(this)
+//        FirebaseLessonsRepoImpl()
     }
 
 }
