@@ -13,7 +13,7 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 class CourseViewHolder(
     itemView: View,
     onLessonClick: (LessonEntity) -> Unit,
-    listener: (CourseEntity) -> Unit
+    showAll: (CourseEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
@@ -23,6 +23,7 @@ class CourseViewHolder(
     }
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
+    private val showAllTextView = itemView.findViewById<TextView>(R.id.show_all_text_view)
 
     //создаем и иницилизируем второй (вложенный) recyclerView (горизонтальный)
     private val recyclerView = itemView.findViewById<RecyclerView>(R.id.lessons_recycler_view)
@@ -47,8 +48,8 @@ class CourseViewHolder(
     }
 
     init {
-        itemView.setOnClickListener {
-            listener.invoke(courseEntity)
+        showAllTextView.setOnClickListener {
+            showAll.invoke(courseEntity)
         }
     }
 }

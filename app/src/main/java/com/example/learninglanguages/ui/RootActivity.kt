@@ -10,6 +10,7 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.ui.lessons.CoursesFragment
+import com.example.learninglanguages.ui.lessons.LessonFragment
 import com.example.learninglanguages.ui.task.TaskFragment
 
 class RootActivity : AppCompatActivity(),
@@ -62,16 +63,19 @@ class RootActivity : AppCompatActivity(),
     }
 
     private fun openTaskFragment(lessonEntity: LessonEntity) {
-        //читается когда (when) ThemeTask это ThemeTask.ENGLISH тогда запустить этот фрагмент
-//        val fragment: Fragment = when (themeTask) {
-//            ThemeTask.KOTLIN -> TaskFragment()
-//            ThemeTask.ENGLISH -> TaskFragment()
-//        }
-
         val fragment: Fragment = TaskFragment.newInstance(lessonEntity)
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.TEG_TASK_CONTAINER_KEY)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun openShowAllFragment(lessonEntity: LessonEntity) {
+        val fragment: Fragment = LessonFragment.newInstance(lessonEntity)
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container_layout, fragment, Key.SHOW_ALL_CONTAINER_KEY)
             .addToBackStack(null)
             .commit()
     }
@@ -122,4 +126,9 @@ class RootActivity : AppCompatActivity(),
         openTaskFragment(lessonEntity)
         title = lessonEntity.name
     }
+
+//    override fun openShowAllLesson(lessonEntity: LessonEntity) {
+//        openShowAllFragment(lessonEntity)
+//        title = lessonEntity.name
+//    }
 }

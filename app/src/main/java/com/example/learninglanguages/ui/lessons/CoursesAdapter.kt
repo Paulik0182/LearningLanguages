@@ -10,7 +10,7 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = emptyList(),
-    private var listener: (CourseEntity) -> Unit = {},
+    private var showAllListener: (CourseEntity) -> Unit = {},
     private var onLessonClickListener: (LessonEntity) -> Unit = {}
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
@@ -24,7 +24,7 @@ class CoursesAdapter(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_course, parent, false),
             onLessonClickListener,
-            listener
+            showAllListener
         )
     }
 

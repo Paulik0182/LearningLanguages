@@ -5,9 +5,11 @@ object Key {
     //TEG open fragment
     internal const val TEG_TASK_CONTAINER_KEY = "TEG_TASK_CONTROLLER_LAYOUT_KEY"
     internal const val TEG_SUCCESS_CONTAINER_KEY = "TEG_SUCCESS_CONTAINER_KEY"
+    internal const val SHOW_ALL_CONTAINER_KEY = "SHOW_ALL_CONTAINER_KEY"
 
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
+    internal const val SHOW_ALL_KEY = "SHOW_ALL_KEY"
 
 
     //Image
@@ -25,6 +27,4 @@ object Key {
     //ссылка на бд
     internal const val DATABASE_URL_KEY =
         "https://lessons-147e1-default-rtdb.europe-west1.firebasedatabase.app/"
-
-
 }
