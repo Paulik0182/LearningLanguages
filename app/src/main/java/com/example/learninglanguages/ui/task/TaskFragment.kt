@@ -157,42 +157,4 @@ class TaskFragment : Fragment() {
             progressBar.visibility = View.GONE //скрываем прогресс загрузки
         }
     }
-
-    //вариант 1
-//    companion object{
-//        @JvmStatic
-//        fun newInstance(themeTask: ThemeTask): Fragment{
-//            val args = Bundle()
-//            args.putInt(Key.THEME_ARGS_KEY, themeTask.ordinal)
-//            val fragment = TaskFragment()
-//            fragment.arguments = args
-//            return fragment
-//        }
-//    }
-
-    //вариант 2 Более по Kotlin
-//    companion object {
-//        @JvmStatic
-//        fun newInstance(themeTask: ThemeTask): Fragment {
-//            return TaskFragment().apply {
-//                val args = Bundle().apply {
-//                    putInt(Key.THEME_ARGS_KEY, themeTask.ordinal)
-//                }
-//                arguments = args
-//            }
-//        }
-//    }
-
-    //вариант 3 Более по Kotlin
-//    companion object {
-//        @JvmStatic
-//        fun newInstance(themeTask: ThemeTask): Fragment {
-//            return TaskFragment().apply {
-//                arguments = Bundle().apply {
-//                    putInt(Key.THEME_ARGS_KEY, themeTask.ordinal)
-//                }
-//            }
-//        }
-//    }
-
 }

@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
+import com.example.learninglanguages.domain.entities.LessonEntity
 
 class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = emptyList(),
-    private var listener: (CourseEntity) -> Unit = {}
+    private var listener: (CourseEntity) -> Unit = {},
+    private var onLessonClickListener: (LessonEntity) -> Unit = {}
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     fun setData(newData: List<CourseEntity>) {
@@ -20,7 +22,9 @@ class CoursesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         return CourseViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_course, parent, false), listener
+                .inflate(R.layout.item_course, parent, false),
+            onLessonClickListener,
+            listener
         )
     }
 

@@ -1,29 +1,26 @@
 package com.example.learninglanguages.ui.lessons
 
-import android.app.Activity
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.example.learninglanguages.App
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.repos.LessonRepo
+import com.example.learninglanguages.domain.entities.LessonEntity
 
-class CourseViewHolder(itemView: View, listener: (CourseEntity) -> Unit) :
+class CourseViewHolder(
+    itemView: View,
+    onLessonClick: (LessonEntity) -> Unit,
+    listener: (CourseEntity) -> Unit
+) :
     RecyclerView.ViewHolder(itemView) {
 
-    private val app: App by lazy { Activity().application as App }
-
-
-    private lateinit var adapter: LessonsAdapter
-    private val lessonRepo: LessonRepo by lazy {
-        app.lessonRepo
+    private val lessonsAdapter: LessonsAdapter = LessonsAdapter {
+        //здесь нам должно быть сообщено id курса
+        onLessonClick.invoke(it)
     }
-
-    private val lessonsAdapter: LessonsAdapter = LessonsAdapter()
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
 

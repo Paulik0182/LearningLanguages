@@ -46,7 +46,7 @@ class CoursesFragment : Fragment() {
     private fun initDate() {
         showProgress(true)
         // кулбек
-        coursesRepo.getCourse {
+        coursesRepo.getCourses {
             showProgress(false)
             adapter.setData(it)// пополнение адаптера данными
         }
@@ -67,9 +67,9 @@ class CoursesFragment : Fragment() {
 
         //кэшируем адаптер чтобы его потом вызвать
         adapter = CoursesAdapter()
-//        {
-//            getController().openCourse(it)
-//        }
+        {
+            getController().openLesson(it)
+        }
         coursesRecyclerView.adapter = adapter
     }
 

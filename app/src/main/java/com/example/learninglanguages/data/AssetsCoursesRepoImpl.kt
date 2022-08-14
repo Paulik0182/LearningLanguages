@@ -11,7 +11,7 @@ class AssetsCoursesRepoImpl(
     private val context: Context
 ) : CoursesRepo {
 
-    override fun getCourse(onSuccess: (List<CourseEntity>) -> Unit) {
+    override fun getCourses(onSuccess: (List<CourseEntity>) -> Unit) {
 
         val databaseJson: String = context.assets.open(ASSETS_LESSONS_TASK_KEY)
             .bufferedReader()
@@ -25,5 +25,9 @@ class AssetsCoursesRepoImpl(
                 .fromJson(databaseJson, object : TypeToken<List<CourseEntity>>() {}
                     .type)
         onSuccess(courses)
+    }
+
+    override fun getCourse(id: Long): CourseEntity {
+        TODO("Not yet implemented")
     }
 }
