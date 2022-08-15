@@ -8,15 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
+import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.ui.lessons.CoursesFragment
+import com.example.learninglanguages.ui.courses.CoursesFragment
 import com.example.learninglanguages.ui.lessons.LessonFragment
 import com.example.learninglanguages.ui.task.TaskFragment
 
 class RootActivity : AppCompatActivity(),
     TaskFragment.Controller,
     SuccessFragment.Controller,
-    CoursesFragment.Controller {
+    CoursesFragment.Controller,
+    LessonFragment.Controller {
 
     private val defaultTitle: String by lazy { getString(R.string.app_name) }
 
@@ -71,11 +73,15 @@ class RootActivity : AppCompatActivity(),
             .commit()
     }
 
-    private fun openShowAllFragment(lessonEntity: LessonEntity) {
-        val fragment: Fragment = LessonFragment.newInstance(lessonEntity)
+    private fun openLessonFragment(courseEntity: CourseEntity) {
+        val fragment: Fragment = LessonFragment.newInstance(courseEntity)
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.SHOW_ALL_CONTAINER_KEY)
+
+            //заменить лояут другим лояутов (фрагментом) во избежания бага
+            // в представленим нового фрагмента на экране
+//            .replace(R.id.container_layout, fragment, Key.SHOW_ALL_CONTAINER_KEY)
             .addToBackStack(null)
             .commit()
     }
@@ -127,8 +133,8 @@ class RootActivity : AppCompatActivity(),
         title = lessonEntity.name
     }
 
-//    override fun openShowAllLesson(lessonEntity: LessonEntity) {
-//        openShowAllFragment(lessonEntity)
-//        title = lessonEntity.name
-//    }
+    override fun openCourse(courseEntity: CourseEntity) {
+        openLessonFragment(courseEntity)
+        title = courseEntity.name
+    }
 }

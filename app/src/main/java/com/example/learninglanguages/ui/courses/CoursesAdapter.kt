@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.lessons
+package com.example.learninglanguages.ui.courses
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,8 +10,9 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = emptyList(),
-    private var showAllListener: (CourseEntity) -> Unit = {},
-    private var onLessonClickListener: (LessonEntity) -> Unit = {}
+    private var onShowAllListener: (CourseEntity) -> Unit = {},
+    private var onLessonClickListener: (LessonEntity) -> Unit = {},
+    private val isFullWidth: Boolean = false//флажек для переключением между элементами на экране
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     fun setData(newData: List<CourseEntity>) {
@@ -24,7 +25,7 @@ class CoursesAdapter(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_course, parent, false),
             onLessonClickListener,
-            showAllListener
+            onShowAllListener
         )
     }
 

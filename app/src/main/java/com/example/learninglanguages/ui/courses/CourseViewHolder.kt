@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.lessons
+package com.example.learninglanguages.ui.courses
 
 import android.view.View
 import android.widget.TextView
@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.ui.lessons.LessonsAdapter
 
 class CourseViewHolder(
     itemView: View,
     onLessonClick: (LessonEntity) -> Unit,
-    showAll: (CourseEntity) -> Unit
+    onShowAllClick: (CourseEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
@@ -49,7 +50,7 @@ class CourseViewHolder(
 
     init {
         showAllTextView.setOnClickListener {
-            showAll.invoke(courseEntity)
+            onShowAllClick.invoke(courseEntity)
         }
     }
 }

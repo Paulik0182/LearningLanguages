@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
 class LessonFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
-    private lateinit var adapter: CoursesAdapter
+    private lateinit var adapter: LessonsAdapter
 
 
     private lateinit var lessonsRecyclerView: RecyclerView
@@ -37,13 +37,16 @@ class LessonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
-        initDate()
+        initData()
 
     }
 
-    private fun initDate() {
-        // кулбек
-        coursesRepo.getCourses {
+    private fun initData() {
+        //Достаем данные
+        val course = arguments?.getParcelable<CourseEntity>(Key.SHOW_ALL_KEY)
+        //Здесь указываем из какого поля мы берем массив данных
+        // (если есть курсы и есть есть уроки, выводим данные)
+        course?.lessons?.let {
             adapter.setData(it)// пополнение адаптера данными
         }
     }
@@ -56,16 +59,14 @@ class LessonFragment : Fragment() {
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         //кэшируем адаптер чтобы его потом вызвать
-        adapter = CoursesAdapter() {
-            getController().openShowAllLesson(it)
-        }
+        adapter = LessonsAdapter()
         lessonsRecyclerView.adapter = adapter
     }
 
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openShowAllLesson(lessonEntity: LessonEntity)
+//        fun openShowAllLesson(courseEntity: CourseEntity)
     }
 
     override fun onAttach(context: Context) {
@@ -75,9 +76,9 @@ class LessonFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(lessonEntity: LessonEntity) = LessonFragment().apply {
+        fun newInstance(courseEntity: CourseEntity) = LessonFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(Key.SHOW_ALL_KEY, lessonEntity)
+                putParcelable(Key.SHOW_ALL_KEY, courseEntity)
             }
         }
     }

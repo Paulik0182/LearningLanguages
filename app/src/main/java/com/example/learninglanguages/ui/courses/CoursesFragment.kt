@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.lessons
+package com.example.learninglanguages.ui.courses
 
 import android.content.Context
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.R
+import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
@@ -39,13 +40,13 @@ class CoursesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        initDate()
+        initData()
 
     }
 
-    private fun initDate() {
+    private fun initData() {
         showProgress(true)
-        // кулбек
+        // кулбе
         coursesRepo.getCourses {
             showProgress(false)
             adapter.setData(it)// пополнение адаптера данными
@@ -66,10 +67,13 @@ class CoursesFragment : Fragment() {
         coursesRecyclerView.layoutManager = LinearLayoutManager(context)
 
         //кэшируем адаптер чтобы его потом вызвать
-        adapter = CoursesAdapter()
-        {
-            getController().openLesson(it)
-        }
+        adapter = CoursesAdapter(
+            onLessonClickListener = {
+                getController().openLesson(it)
+            },
+            onShowAllListener = {
+                getController().openCourse(it)
+            })
         coursesRecyclerView.adapter = adapter
     }
 
@@ -77,6 +81,7 @@ class CoursesFragment : Fragment() {
 
     interface Controller {
         fun openLesson(lessonEntity: LessonEntity)
+        fun openCourse(courseEntity: CourseEntity)
     }
 
     override fun onAttach(context: Context) {
