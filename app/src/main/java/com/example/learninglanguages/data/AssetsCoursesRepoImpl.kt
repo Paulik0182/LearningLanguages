@@ -27,7 +27,11 @@ class AssetsCoursesRepoImpl(
         onSuccess(courses)
     }
 
-    override fun getCourse(id: Long): CourseEntity {
-        TODO("Not yet implemented")
+    //подгружаем данные по ID
+    override fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit) {
+        getCourses {
+            val searchResult = it.find { it.id == id }
+            onSuccess.invoke(searchResult)
+        }
     }
 }

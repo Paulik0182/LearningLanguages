@@ -73,8 +73,8 @@ class RootActivity : AppCompatActivity(),
             .commit()
     }
 
-    private fun openLessonFragment(courseEntity: CourseEntity) {
-        val fragment: Fragment = LessonFragment.newInstance(courseEntity)
+    private fun openLessonFragment(courseId: Long) {
+        val fragment: Fragment = LessonFragment.newInstance(courseId)
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.SHOW_ALL_CONTAINER_KEY)
@@ -134,7 +134,7 @@ class RootActivity : AppCompatActivity(),
     }
 
     override fun openCourse(courseEntity: CourseEntity) {
-        openLessonFragment(courseEntity)
+        openLessonFragment(courseEntity.id)
         title = courseEntity.name
     }
 }

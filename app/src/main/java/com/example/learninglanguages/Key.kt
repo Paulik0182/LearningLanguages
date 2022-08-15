@@ -9,7 +9,7 @@ object Key {
 
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
-    internal const val SHOW_ALL_KEY = "SHOW_ALL_KEY"
+    internal const val COURSE_ID_ARGS_KEY = "COURSE_ID_ARGS_KEY"
 
 
     //Image

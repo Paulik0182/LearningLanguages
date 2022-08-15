@@ -45,7 +45,7 @@ class FirebaseLessonsRepoImpl : CoursesRepo {
 
     }
 
-    override fun getCourse(id: Long): CourseEntity {
+    override fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit) {
         TODO("Not yet implemented")
     }
 

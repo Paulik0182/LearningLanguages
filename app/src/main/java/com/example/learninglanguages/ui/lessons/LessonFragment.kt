@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
@@ -44,12 +43,16 @@ class LessonFragment : Fragment() {
 
     private fun initData() {
         //Достаем данные
-        val course = arguments?.getParcelable<CourseEntity>(Key.SHOW_ALL_KEY)
+        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+        requireNotNull(courseId)//сваливаем приложение если придет null (не выполнимое условие)
+        coursesRepo.getCourse(courseId) {
+            adapter.setData(it?.lessons ?: emptyList())// пополнение адаптера данными
+        }
         //Здесь указываем из какого поля мы берем массив данных
         // (если есть курсы и есть есть уроки, выводим данные)
-        course?.lessons?.let {
-            adapter.setData(it)// пополнение адаптера данными
-        }
+//        course?.lessons?.let {
+//            adapter.setData(it)// пополнение адаптера данными
+//        }
     }
 
     private fun initViews(view: View) {
@@ -81,9 +84,9 @@ class LessonFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(courseEntity: CourseEntity) = LessonFragment().apply {
+        fun newInstance(courseId: Long) = LessonFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(Key.SHOW_ALL_KEY, courseEntity)
+                putLong(Key.COURSE_ID_ARGS_KEY, courseId)
             }
         }
     }

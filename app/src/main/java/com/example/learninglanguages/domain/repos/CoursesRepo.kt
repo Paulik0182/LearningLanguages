@@ -5,6 +5,6 @@ import com.example.learninglanguages.domain.entities.CourseEntity
 interface CoursesRepo {
 
     fun getCourses(onSuccess: (List<CourseEntity>) -> Unit)
-    fun getCourse(id: Long): CourseEntity
+    fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit)
 
 }
