@@ -11,8 +11,7 @@ class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = emptyList(),
     private var onShowAllListener: (CourseEntity) -> Unit = {},
-    private var onLessonClickListener: (LessonEntity) -> Unit = {},
-    private val isFullWidth: Boolean = false//флажек для переключением между элементами на экране
+    private var onLessonClickListener: (LessonEntity) -> Unit = {}
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     fun setData(newData: List<CourseEntity>) {

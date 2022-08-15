@@ -12,6 +12,7 @@ import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
+import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
 class LessonFragment : Fragment() {
@@ -58,15 +59,19 @@ class LessonFragment : Fragment() {
         //это два параметра которые принимаем на вход. Это слушатель и данные
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        //кэшируем адаптер чтобы его потом вызвать
-        adapter = LessonsAdapter()
+        //кэшируем адаптер чтобы его потом вызвать //флажек для разметки
+        adapter = LessonsAdapter(
+            isFullWidth = true
+        ) {
+            getController().openLesson(it)
+        }
         lessonsRecyclerView.adapter = adapter
     }
 
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-//        fun openShowAllLesson(courseEntity: CourseEntity)
+        fun openLesson(lessonEntity: LessonEntity)
     }
 
     override fun onAttach(context: Context) {

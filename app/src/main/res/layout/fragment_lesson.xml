@@ -12,6 +12,6 @@
         android:padding="@dimen/default_padding"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
-        tools:listitem="@layout/item_lesson_v2" />
+        tools:listitem="@layout/item_lesson_full_width" />
 
 </FrameLayout>
