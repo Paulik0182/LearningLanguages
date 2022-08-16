@@ -21,7 +21,7 @@ class FirebaseLessonsRepoImpl : CoursesRepo {
         //ссылка на бд. reference - это ссылка на значение
         val database = Firebase.database(Key.DATABASE_URL_KEY)
 
-        database.setPersistenceEnabled(true)//для возможной работы без интернета
+//        database.setPersistenceEnabled(true)//для возможной работы без интернета
         database.reference.keepSynced(true)//для синхранизации данных (кешируем данные)
 
         database.reference.get()
@@ -42,12 +42,12 @@ class FirebaseLessonsRepoImpl : CoursesRepo {
                 }
                 onSuccess.invoke(lessons)
             }
-
     }
 
     override fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit) {
-        TODO("Not yet implemented")
+        getCourses { courseEntity ->
+            val searchResult = courseEntity.find { it.id == id }
+            onSuccess.invoke(searchResult)
+        }
     }
-
-//    override fun getLessons(): List<LessonEntity> = data
 }
