@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
+import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
@@ -91,11 +92,17 @@ class LessonFragment : Fragment(), LessonsContract.View {
         }
     }
 
-    override fun setCourses(lesson: List<LessonEntity>) {
-        TODO("Not yet implemented")
+    override fun setCourses(lesson: CourseEntity) {
+        adapter.setData(lesson.lessons)// пополнение адаптера данными
+
+//        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+//        requireNotNull(courseId)//сваливаем приложение если придет null (не выполнимое условие)
+//        coursesRepo.getCourse(courseId) {
+//            adapter.setData(lesson?.lessons ?: emptyList())// пополнение адаптера данными
+//        }
     }
 
     override fun openLesson(lessonEntity: LessonEntity) {
-        TODO("Not yet implemented")
+        getController().openLesson(lessonEntity)
     }
 }

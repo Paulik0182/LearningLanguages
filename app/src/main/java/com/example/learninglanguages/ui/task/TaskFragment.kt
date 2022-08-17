@@ -97,7 +97,7 @@ class TaskFragment : Fragment(), TasksContract.View {
     private fun finishLesson() {
 //        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
 //            .show()
-        getController().showSuccessScreen()
+        getController().openSuccessScreen()
     }
 
     private fun getController(): Controller = activity as Controller
@@ -106,7 +106,7 @@ class TaskFragment : Fragment(), TasksContract.View {
 //        ?: throw IllegalStateException("Активити должна наследовать контроллер!!!")//вариант1.  проверки, наследует или нет активити контроллер
 
     interface Controller {
-        fun showSuccessScreen()
+        fun openSuccessScreen()
     }
 
     override fun onAttach(context: Context) {
@@ -159,7 +159,11 @@ class TaskFragment : Fragment(), TasksContract.View {
         }
     }
 
-    override fun setCourses(tasks: List<TaskEntity>) {
-        TODO("Not yet implemented")
+    override fun setTask(tasks: TaskEntity) {
+        adapter.setData(tasks.variantsAnswer)
+    }
+
+    override fun openSuccessScreen() {
+        getController().openSuccessScreen()
     }
 }

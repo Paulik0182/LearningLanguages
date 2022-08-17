@@ -7,9 +7,8 @@ interface TasksContract {
     //это для управления view
     interface View {
         fun showProgress(inProgress: Boolean)
-        fun setCourses(tasks: List<TaskEntity>)// данные (показать)
-//        fun openLesson(lessonEntity: LessonEntity)//открыть урок
-
+        fun setTask(tasks: TaskEntity)// данные (показать)
+        fun openSuccessScreen()//открываем финишный фрагмент
     }
 
     // это для того чтобы была возможность сообщить view о происходящем (некая логика)

@@ -95,14 +95,14 @@ class CoursesFragment : Fragment(), CoursesContract.View {
     }
 
     override fun setCourses(course: List<CourseEntity>) {
-        TODO("Not yet implemented")
+        adapter.setData(course)// пополнение адаптера данными
     }
 
     override fun openLesson(lessonEntity: LessonEntity) {
-        TODO("Not yet implemented")
+        getController().openLesson(lessonEntity)
     }
 
     override fun openCourse(courseEntity: CourseEntity) {
-        TODO("Not yet implemented")
+        getController().openCourse(courseEntity)
     }
 }
