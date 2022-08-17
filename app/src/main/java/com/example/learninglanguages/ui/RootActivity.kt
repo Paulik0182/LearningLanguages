@@ -87,7 +87,7 @@ class RootActivity : AppCompatActivity(),
     }
 
     //открываем фрагмент при завершении заданий
-    override fun showSuccessScreen() {
+    override fun openSuccessScreen() {
         supportFragmentManager.popBackStack()//чистит стэк, после появления данного фрагмента нельзя будет вернутся
 
         val successFragment: Fragment = SuccessFragment()

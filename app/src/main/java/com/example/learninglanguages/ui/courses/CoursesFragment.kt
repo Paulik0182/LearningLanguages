@@ -28,6 +28,9 @@ class CoursesFragment : Fragment(), CoursesContract.View {
         app.coursesRepo
     }
 
+    //создаем Presenter (экземпляр проезентора)
+    private lateinit var presenter: CoursesContract.Presenter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,17 +43,17 @@ class CoursesFragment : Fragment(), CoursesContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-        initData()
+
+        presenter = CoursesPresenter(coursesRepo)//инициализировали презентор и положили в него repo
+        //присоединили view
+        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
 
     }
 
-    private fun initData() {
-        showProgress(true)
-        // кулбе
-        coursesRepo.getCourses {
-            showProgress(false)
-            adapter.setData(it)// пополнение адаптера данными
-        }
+    //отсоединили view
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detach()
     }
 
     private fun initViews() {

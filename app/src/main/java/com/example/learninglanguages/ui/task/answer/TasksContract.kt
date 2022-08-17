@@ -16,7 +16,7 @@ interface TasksContract {
         fun attach(view: View)//присоединить view
         fun detach()//отсоединить, уничтожить view
 
-        fun onTaskClick(taskEntity: TaskEntity)// нажали и передали урок
+        fun onTaskClick()// нажали и передали задание
 
     }
 }
