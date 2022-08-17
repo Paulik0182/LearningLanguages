@@ -7,7 +7,7 @@ interface LessonsContract {
 
     //это для управления view
     interface View {
-        fun setCourses(lesson: CourseEntity)// данные (показать)
+        fun setCourse(lesson: CourseEntity)// данные (показать)
         fun openLesson(lessonEntity: LessonEntity)//открыть урок
 
     }

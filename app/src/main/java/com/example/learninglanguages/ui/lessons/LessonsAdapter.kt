@@ -9,11 +9,11 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 class LessonsAdapter(
     //адаптер принимает на вход данные и слушатель
     private val isFullWidth: Boolean = false,//флажек для переключением между элементами на экране
-    private var data: List<LessonEntity> = emptyList(),
+    private var data: MutableList<LessonEntity> = mutableListOf(),
     private var listener: (LessonEntity) -> Unit = {},
 ) : RecyclerView.Adapter<LessonViewHolder>() {
 
-    fun setData(newData: List<LessonEntity>) {
+    fun setData(newData: MutableList<LessonEntity>) {
         data = newData
         notifyDataSetChanged()
     }

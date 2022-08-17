@@ -97,7 +97,7 @@ class CoursesFragment : Fragment(), CoursesContract.View {
         progressBar.isVisible = inProgress
     }
 
-    override fun setCourses(course: List<CourseEntity>) {
+    override fun setCourses(course: MutableList<CourseEntity>) {
         adapter.setData(course)// пополнение адаптера данными
     }
 

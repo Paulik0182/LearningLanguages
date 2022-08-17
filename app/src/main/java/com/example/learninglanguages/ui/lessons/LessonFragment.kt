@@ -20,11 +20,13 @@ class LessonFragment : Fragment(), LessonsContract.View {
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
 
-
     private lateinit var lessonsRecyclerView: RecyclerView
     private val coursesRepo: CoursesRepo by lazy {
         app.coursesRepo
     }
+
+    //создаем Presenter (экземпляр проезентора)
+    private lateinit var presenter: LessonsContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +40,18 @@ class LessonFragment : Fragment(), LessonsContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
-        initData()
 
+        presenter = LessonsPresenter(coursesRepo)//инициализировали презентор и положили в него repo
+        //присоединили view
+        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
+
+//        initData()
+    }
+
+    //отсоединили view
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detach()
     }
 
     private fun initData() {
@@ -47,13 +59,8 @@ class LessonFragment : Fragment(), LessonsContract.View {
         val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
         requireNotNull(courseId)//сваливаем приложение если придет null (не выполнимое условие)
         coursesRepo.getCourse(courseId) {
-            adapter.setData(it?.lessons ?: emptyList())// пополнение адаптера данными
+            adapter.setData(it?.lessons ?: mutableListOf())// пополнение адаптера данными
         }
-        //Здесь указываем из какого поля мы берем массив данных
-        // (если есть курсы и есть есть уроки, выводим данные)
-//        course?.lessons?.let {
-//            adapter.setData(it)// пополнение адаптера данными
-//        }
     }
 
     private fun initViews(view: View) {
@@ -66,8 +73,8 @@ class LessonFragment : Fragment(), LessonsContract.View {
         //кэшируем адаптер чтобы его потом вызвать //флажек для разметки
         adapter = LessonsAdapter(
             isFullWidth = true
-        ) {
-            getController().openLesson(it)
+        ) { lesson ->
+            getController().openLesson(lesson)
         }
         lessonsRecyclerView.adapter = adapter
     }
@@ -92,7 +99,7 @@ class LessonFragment : Fragment(), LessonsContract.View {
         }
     }
 
-    override fun setCourses(lesson: CourseEntity) {
+    override fun setCourse(lesson: CourseEntity) {
         adapter.setData(lesson.lessons)// пополнение адаптера данными
 
 //        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)

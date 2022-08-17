@@ -11,7 +11,7 @@ class AssetsCoursesRepoImpl(
     private val context: Context
 ) : CoursesRepo {
 
-    override fun getCourses(onSuccess: (List<CourseEntity>) -> Unit) {
+    override fun getCourses(onSuccess: (MutableList<CourseEntity>) -> Unit) {
 
         val databaseJson: String = context.assets.open(ASSETS_LESSONS_TASK_KEY)
             .bufferedReader()
@@ -20,7 +20,7 @@ class AssetsCoursesRepoImpl(
             }
 
         //достаем массив уроков
-        val courses: List<CourseEntity> =
+        val courses: MutableList<CourseEntity> =
             Gson()
                 .fromJson(databaseJson, object : TypeToken<List<CourseEntity>>() {}
                     .type)

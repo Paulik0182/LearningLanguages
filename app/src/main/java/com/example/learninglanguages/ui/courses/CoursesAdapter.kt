@@ -9,12 +9,12 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 
 class CoursesAdapter(
     //адаптер принимает на вход данные
-    private var data: List<CourseEntity> = emptyList(),
+    private var data: MutableList<CourseEntity> = mutableListOf(),
     private var onShowAllListener: (CourseEntity) -> Unit = {},
     private var onLessonClickListener: (LessonEntity) -> Unit = {}
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
-    fun setData(newData: List<CourseEntity>) {
+    fun setData(newData: MutableList<CourseEntity>) {
         data = newData
         notifyDataSetChanged()
     }

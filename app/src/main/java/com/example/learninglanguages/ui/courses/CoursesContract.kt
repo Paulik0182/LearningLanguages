@@ -12,7 +12,7 @@ interface CoursesContract {
     //это для управления view
     interface View {
         fun showProgress(inProgress: Boolean)
-        fun setCourses(course: List<CourseEntity>)// данные (показать)
+        fun setCourses(course: MutableList<CourseEntity>)// данные (показать)
         fun openLesson(lessonEntity: LessonEntity)//открыть урок
         fun openCourse(courseEntity: CourseEntity)// открыть курсы
 
