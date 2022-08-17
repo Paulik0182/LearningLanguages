@@ -14,9 +14,10 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
+import com.example.learninglanguages.ui.task.answer.TasksContract
 import com.squareup.picasso.Picasso
 
-class TaskFragment : Fragment() {
+class TaskFragment : Fragment(), TasksContract.View {
     private lateinit var taskTv: TextView
     private lateinit var taskImageView: ImageView
 
@@ -148,13 +149,17 @@ class TaskFragment : Fragment() {
         }
     }
 
-    private fun showProgress(shouldShow: Boolean) {
-        if (shouldShow) {
+    override fun showProgress(inProgress: Boolean) {
+        if (inProgress) {
             linearLayout.visibility = View.GONE //скрываем view со списком
             progressBar.visibility = View.VISIBLE //показываем прогресс загрузки
         } else {
             linearLayout.visibility = View.VISIBLE //показываем view со списком
             progressBar.visibility = View.GONE //скрываем прогресс загрузки
         }
+    }
+
+    override fun setCourses(tasks: List<TaskEntity>) {
+        TODO("Not yet implemented")
     }
 }

@@ -14,7 +14,7 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
-class LessonFragment : Fragment() {
+class LessonFragment : Fragment(), LessonsContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
@@ -89,5 +89,13 @@ class LessonFragment : Fragment() {
                 putLong(Key.COURSE_ID_ARGS_KEY, courseId)
             }
         }
+    }
+
+    override fun setCourses(lesson: List<LessonEntity>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun openLesson(lessonEntity: LessonEntity) {
+        TODO("Not yet implemented")
     }
 }

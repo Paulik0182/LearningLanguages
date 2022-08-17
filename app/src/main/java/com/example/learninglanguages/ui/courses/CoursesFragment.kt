@@ -16,7 +16,7 @@ import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 
-class CoursesFragment : Fragment() {
+class CoursesFragment : Fragment(), CoursesContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: CoursesAdapter
@@ -89,8 +89,20 @@ class CoursesFragment : Fragment() {
         getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
     }
 
-    private fun showProgress(shouldShow: Boolean) {
-        coursesRecyclerView.isVisible = !shouldShow
-        progressBar.isVisible = shouldShow
+    override fun showProgress(inProgress: Boolean) {
+        coursesRecyclerView.isVisible = !inProgress
+        progressBar.isVisible = inProgress
+    }
+
+    override fun setCourses(course: List<CourseEntity>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun openLesson(lessonEntity: LessonEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun openCourse(courseEntity: CourseEntity) {
+        TODO("Not yet implemented")
     }
 }
