@@ -19,23 +19,15 @@ import com.example.learninglanguages.domain.repos.CoursesRepo
 class CoursesFragment : Fragment(), CoursesContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
-    private lateinit var adapter: CoursesAdapter
+    private val presenter: CoursesPresenter by lazy { CoursesPresenter(coursesRepo) }//поздняя инициализация презентора, положили в него repo
+    //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
 
+    private lateinit var adapter: CoursesAdapter
 
     private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private val coursesRepo: CoursesRepo by lazy {
         app.coursesRepo
-    }
-
-    //создаем Presenter (экземпляр проезентора)
-    private lateinit var presenter: CoursesContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true//флажек для сохранения состаяния экрана
-        //присоединили view
-        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
     }
 
     override fun onCreateView(
@@ -51,7 +43,7 @@ class CoursesFragment : Fragment(), CoursesContract.View {
 
         initViews()
 
-        presenter = CoursesPresenter(coursesRepo)//инициализировали презентор и положили в него repo
+        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
     }
 
     //отсоединили view
