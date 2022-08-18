@@ -11,16 +11,26 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
+import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import java.util.*
 
 class CoursesFragment : Fragment(), CoursesContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
-    private val presenter: CoursesPresenter by lazy { CoursesPresenter(coursesRepo) }//поздняя инициализация презентора, положили в него repo
+    private val presenter: CoursesContract.Presenter by lazy { extractPresenter() }//поздняя инициализация презентора, положили в него repo
     //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
+
+    //этот метод достает из MAP или создает новый презентер
+    private fun extractPresenter(): CoursesContract.Presenter {
+        val presenter = app.rotationFreeStorage[fragmentUid] as CoursesContract.Presenter?
+            ?: CoursesPresenter(coursesRepo)
+        app.rotationFreeStorage[fragmentUid] = presenter
+        return presenter
+    }
 
     private lateinit var adapter: CoursesAdapter
 
@@ -29,6 +39,23 @@ class CoursesFragment : Fragment(), CoursesContract.View {
     private val coursesRepo: CoursesRepo by lazy {
         app.coursesRepo
     }
+
+    //уникальный id (для того чтобы можно было сохранить состояние экрана за пределами класса
+    private lateinit var fragmentUid: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //проверка, есть ли это значение, если нет то создаем его
+        fragmentUid =
+            savedInstanceState?.getString(Key.FRAGMENT_UUID_KEY) ?: UUID.randomUUID().toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        //при сохроанении положить ID
+        outState.putString(Key.FRAGMENT_UUID_KEY, fragmentUid)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

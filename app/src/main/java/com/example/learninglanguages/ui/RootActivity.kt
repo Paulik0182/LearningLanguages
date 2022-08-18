@@ -37,6 +37,11 @@ class RootActivity : AppCompatActivity(),
                 .commit()
     }
 
+    //для созранения состояния экрана (как вариант)
+    override fun onRetainCustomNonConfigurationInstance(): Any? {
+        return super.onRetainCustomNonConfigurationInstance()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)

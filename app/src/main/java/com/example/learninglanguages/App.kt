@@ -3,6 +3,8 @@ package com.example.learninglanguages
 import android.app.Application
 import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import java.util.*
+
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
@@ -17,4 +19,6 @@ class App : Application() {
         FirebaseLessonsRepoImpl()
     }
 
+    // Any - это базовый объект, это тип для всего. Map это ключ - значение
+    val rotationFreeStorage: MutableMap<String, Any> = WeakHashMap()
 }
