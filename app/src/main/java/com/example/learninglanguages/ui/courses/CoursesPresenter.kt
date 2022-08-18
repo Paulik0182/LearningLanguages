@@ -11,13 +11,22 @@ class CoursesPresenter(
     // для то чтобы воспользоватся attach view необходимо ее запомнить
     private var view: CoursesContract.View? = null
 
+    private var courses: MutableList<CourseEntity>? = null//Кэшируем курсы
+
     override fun attach(view: CoursesContract.View) {
         this.view = view
 
-        view.showProgress(true)
-        coursesRepo.getCourses {
-            view.showProgress(false)
-            view.setCourses(it)// пополнение данных
+        view.showProgress(false)
+        val localCourses = courses//еще раз закэшировали курсы
+        if (localCourses == null) {// проверка если courses равно null, то мы качаем курсы, если нет то подставляем уже закэшированные курсы
+            view.showProgress(true)
+            coursesRepo.getCourses {
+                view.showProgress(false)
+                view.setCourses(it)// пополнение данных
+                courses = it
+            }
+        } else {
+            view.setCourses(localCourses)// пополнение данных
         }
     }
 

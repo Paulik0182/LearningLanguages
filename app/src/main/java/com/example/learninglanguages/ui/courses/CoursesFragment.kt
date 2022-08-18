@@ -31,6 +31,13 @@ class CoursesFragment : Fragment(), CoursesContract.View {
     //создаем Presenter (экземпляр проезентора)
     private lateinit var presenter: CoursesContract.Presenter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true//флажек для сохранения состаяния экрана
+        //присоединили view
+        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,9 +52,6 @@ class CoursesFragment : Fragment(), CoursesContract.View {
         initViews()
 
         presenter = CoursesPresenter(coursesRepo)//инициализировали презентор и положили в него repo
-        //присоединили view
-        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
-
     }
 
     //отсоединили view

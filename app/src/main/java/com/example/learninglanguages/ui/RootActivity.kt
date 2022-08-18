@@ -30,10 +30,11 @@ class RootActivity : AppCompatActivity(),
 
         title = defaultTitle
 
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.container_layout, CoursesFragment())
-            .commit()
+        if (savedInstanceState == null)//проверяем какой запуск первый или нет (например, после поворота экрана)
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container_layout, CoursesFragment())
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

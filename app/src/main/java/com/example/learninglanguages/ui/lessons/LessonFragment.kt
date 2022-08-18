@@ -28,6 +28,13 @@ class LessonFragment : Fragment(), LessonsContract.View {
     //создаем Presenter (экземпляр проезентора)
     private lateinit var presenter: LessonsContract.Presenter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true//флажек для сохранения состаяния экрана
+        installingLessonsPresenter()//для того чтобы все время не пересоздавался презентер создание его должно происходить здесь.
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +48,6 @@ class LessonFragment : Fragment(), LessonsContract.View {
 
         initViews(view)
 
-        presenter = LessonsPresenter(coursesRepo)//инициализировали презентор и положили в него repo
         //присоединили view
         presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
 
@@ -52,6 +58,14 @@ class LessonFragment : Fragment(), LessonsContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.detach()
+    }
+
+    private fun installingLessonsPresenter() {
+        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+        presenter = LessonsPresenter(
+            coursesRepo,
+            courseId
+        )//инициализировали презентор и положили в него repo и id
     }
 
     private fun initData() {
