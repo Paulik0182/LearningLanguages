@@ -11,20 +11,14 @@ import com.google.firebase.ktx.Firebase
 
 class FirebaseLessonsRepoImpl : CoursesRepo {
 
-//    private var data: List<LessonEntity> = emptyList()
-
-    //от этого кода можно отказатся
-    //в данном случае мы не можем добавлять новые значения в репозиторий
-//    override fun addLesson(taskEntity: LessonEntity) {
-//        throw IllegalStateException("Нельзя добавлять в репозиторий новые элементы")
-//    }
+    //ссылка на бд. reference - это ссылка на значение
+    private val database by lazy {
+        Firebase.database(Key.DATABASE_URL_KEY).apply { setPersistenceEnabled(true) }
+    }    //setPersistenceEnabled(true) для работы без интернета
 
     override fun getCourses(onSuccess: (MutableList<CourseEntity>) -> Unit) {
         Handler(Looper.getMainLooper()).postDelayed({
-            //ссылка на бд. reference - это ссылка на значение
-            val database = Firebase.database(Key.DATABASE_URL_KEY)
 
-//        database.setPersistenceEnabled(true)//для возможной работы без интернета
             database.reference.keepSynced(true)//для синхранизации данных (кешируем данные)
 
             database.reference.get()

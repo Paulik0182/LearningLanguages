@@ -5,7 +5,7 @@ import com.example.learninglanguages.domain.repos.CoursesRepo
 
 class LessonsPresenter(
     private val coursesRepo: CoursesRepo,//Экзепляр класса (достали repo) (ЭТО АРГУМЕНТ КОНСТРУКТОРА. private val - это автоматически делает членом класса)
-    private val lessonId: Long?
+    private val lessonId: Long
 ) : LessonsContract.Presenter {
 
     // для то чтобы воспользоватся attach view необходимо ее запомнить
@@ -15,12 +15,16 @@ class LessonsPresenter(
         this.view = view
 
         //Достаем данные
-        requireNotNull(lessonId)//сваливаем приложение если придет null (не выполнимое условие)
         coursesRepo.getCourse(lessonId) {
-            if (it != null) {
-                view.setCourse(it)
-            }
+            it?.let { view.setCourse(it) }
         }
+
+        //Достаем данные
+//        lessonId?.let {id ->
+//            coursesRepo.getCourse(id) {
+//                it?.let { view.setCourse(it) }
+//            }
+//        }
     }
 
     override fun detach() {

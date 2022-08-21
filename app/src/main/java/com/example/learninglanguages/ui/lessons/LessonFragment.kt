@@ -27,9 +27,13 @@ class LessonFragment : Fragment(), LessonsContract.View {
 
     //этот метод достает из MAP или создает новый презентер
     private fun extractPresenter(): LessonsContract.Presenter {
-        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+//        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+//        requireNotNull(arguments?.getLong(Key.COURSE_ID_ARGS_KEY))
         val presenter = app.rotationLessonFreeStorage[fragmentUid] as LessonsContract.Presenter?
-            ?: LessonsPresenter(coursesRepo, courseId)
+            ?: LessonsPresenter(
+                coursesRepo,
+                requireNotNull(arguments?.getLong(Key.COURSE_ID_ARGS_KEY))
+            )
         app.rotationLessonFreeStorage[fragmentUid] = presenter
         return presenter
     }
