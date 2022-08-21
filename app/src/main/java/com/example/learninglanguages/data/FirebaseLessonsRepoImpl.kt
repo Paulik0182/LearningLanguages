@@ -1,5 +1,6 @@
 package com.example.learninglanguages.data
 
+import android.os.Handler
 import android.os.Looper
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.domain.entities.CourseEntity
@@ -19,7 +20,7 @@ class FirebaseLessonsRepoImpl : CoursesRepo {
 //    }
 
     override fun getCourses(onSuccess: (MutableList<CourseEntity>) -> Unit) {
-        android.os.Handler(Looper.getMainLooper()).postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             //ссылка на бд. reference - это ссылка на значение
             val database = Firebase.database(Key.DATABASE_URL_KEY)
 
