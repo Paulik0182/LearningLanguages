@@ -21,4 +21,5 @@ class App : Application() {
 
     // Any - это базовый объект, это тип для всего. Map это ключ - значение
     val rotationFreeStorage: MutableMap<String, Any> = WeakHashMap()
+    val rotationLessonFreeStorage: MutableMap<String, Any> = WeakHashMap()
 }

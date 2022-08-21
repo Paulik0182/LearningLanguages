@@ -7,6 +7,7 @@ object Key {
     internal const val TEG_SUCCESS_CONTAINER_KEY = "TEG_SUCCESS_CONTAINER_KEY"
     internal const val SHOW_ALL_CONTAINER_KEY = "SHOW_ALL_CONTAINER_KEY"
     internal const val FRAGMENT_UUID_KEY = "FRAGMENT_UUID_KEY"
+    internal const val FRAGMENT_LESSON_UUID_KEY = "FRAGMENT_LESSON_UUID_KEY"
 
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"

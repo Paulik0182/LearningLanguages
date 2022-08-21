@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,25 +15,45 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import java.util.*
 
 class LessonFragment : Fragment(), LessonsContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
 
+    private val presenter: LessonsContract.Presenter by lazy { extractPresenter() }//поздняя инициализация презентора, положили в него repo
+    //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
+
+    //этот метод достает из MAP или создает новый презентер
+    private fun extractPresenter(): LessonsContract.Presenter {
+        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
+        val presenter = app.rotationLessonFreeStorage[fragmentUid] as LessonsContract.Presenter?
+            ?: LessonsPresenter(coursesRepo, courseId)
+        app.rotationLessonFreeStorage[fragmentUid] = presenter
+        return presenter
+    }
+
     private lateinit var lessonsRecyclerView: RecyclerView
     private val coursesRepo: CoursesRepo by lazy {
         app.coursesRepo
     }
 
-    //создаем Presenter (экземпляр проезентора)
-    private lateinit var presenter: LessonsContract.Presenter
+    //уникальный id (для того чтобы можно было сохранить состояние экрана за пределами класса
+    private lateinit var fragmentUid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true//флажек для сохранения состаяния экрана
-        installingLessonsPresenter()//для того чтобы все время не пересоздавался презентер создание его должно происходить здесь.
 
+        fragmentUid =
+            savedInstanceState?.getString(Key.FRAGMENT_LESSON_UUID_KEY) ?: UUID.randomUUID()
+                .toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        //при сохроанении положить ID
+        outState.putString(Key.FRAGMENT_LESSON_UUID_KEY, fragmentUid)
     }
 
     override fun onCreateView(
@@ -51,30 +72,13 @@ class LessonFragment : Fragment(), LessonsContract.View {
         //присоединили view
         presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
 
-//        initData()
+        Toast.makeText(context, fragmentUid, Toast.LENGTH_SHORT).show()
     }
 
     //отсоединили view
     override fun onDestroy() {
         super.onDestroy()
         presenter.detach()
-    }
-
-    private fun installingLessonsPresenter() {
-        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
-        presenter = LessonsPresenter(
-            coursesRepo,
-            courseId
-        )//инициализировали презентор и положили в него repo и id
-    }
-
-    private fun initData() {
-        //Достаем данные
-        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
-        requireNotNull(courseId)//сваливаем приложение если придет null (не выполнимое условие)
-        coursesRepo.getCourse(courseId) {
-            adapter.setData(it?.lessons ?: mutableListOf())// пополнение адаптера данными
-        }
     }
 
     private fun initViews(view: View) {
@@ -115,12 +119,6 @@ class LessonFragment : Fragment(), LessonsContract.View {
 
     override fun setCourse(lesson: CourseEntity) {
         adapter.setData(lesson.lessons)// пополнение адаптера данными
-
-//        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
-//        requireNotNull(courseId)//сваливаем приложение если придет null (не выполнимое условие)
-//        coursesRepo.getCourse(courseId) {
-//            adapter.setData(lesson?.lessons ?: emptyList())// пополнение адаптера данными
-//        }
     }
 
     override fun openLesson(lessonEntity: LessonEntity) {
