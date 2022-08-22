@@ -23,16 +23,17 @@ class CoursesViewModel(
     private val coursesRepo: CoursesRepo//Экзепляр класса (достали repo) (ЭТО АРГУМЕНТ КОНСТРУКТОРА. private val - это автоматически делает членом класса)
 ) {
 
-    //одно из решений над Mutable
+    //одно из решений над Mutable (это стандартно принятый этот метод)
+    private val _inProgressLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
-    val inProgressLiveData: LiveData<Boolean> = MutableLiveData(false)
+    val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
     val coursesLiveData: LiveData<List<CourseEntity>> = MutableLiveData()
     val selectedLessonsLiveData: LiveData<LessonEntity> = MutableLiveData()
     val selectedCoursesLiveData: LiveData<CourseEntity> = MutableLiveData()
 
     init {
-        inProgressLiveData.mutable().postValue(true)
+        _inProgressLiveData.postValue(true)
         coursesRepo.getCourses {
             inProgressLiveData.mutable().postValue(false)
             coursesLiveData.mutable().postValue(it)
