@@ -18,16 +18,16 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import java.util.*
 
-class CoursesFragment : Fragment(), CoursesContract.View {
+class CoursesFragment : Fragment() {
 
     private val app: App by lazy { requireActivity().application as App }
-    private val presenter: CoursesContract.Presenter by lazy { extractPresenter() }//поздняя инициализация презентора, положили в него repo
+    private val viewModel: CoursesViewModel by lazy { extractViewModel() }//поздняя инициализация презентора, положили в него repo
     //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
 
     //этот метод достает из MAP или создает новый презентер
-    private fun extractPresenter(): CoursesContract.Presenter {
-        val presenter = app.rotationFreeStorage[fragmentUid] as CoursesContract.Presenter?
-            ?: CoursesPresenter(coursesRepo)
+    private fun extractViewModel(): CoursesViewModel {
+        val presenter = app.rotationFreeStorage[fragmentUid] as CoursesViewModel?
+            ?: CoursesViewModel(coursesRepo)
         app.rotationFreeStorage[fragmentUid] = presenter
         return presenter
     }
@@ -70,13 +70,25 @@ class CoursesFragment : Fragment(), CoursesContract.View {
 
         initViews()
 
-        presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
-    }
+        //observe - это наблюдатель
+        // подписываемся на inProgressLiveData
+        viewModel.inProgressLiveData.observe(viewLifecycleOwner) { inProgress ->
+            //сюда приходит значение
+            coursesRecyclerView.isVisible = !inProgress
+            progressBar.isVisible = inProgress
+        }
 
-    //отсоединили view
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.detach()
+        viewModel.coursesLiveData.observe(viewLifecycleOwner) {
+            adapter.setData(it)// пополнение адаптера данными
+        }
+
+        viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
+            getController().openLesson(it)
+        }
+
+        viewModel.selectedCoursesLiveData.observe(viewLifecycleOwner) { courseEntity ->
+            getController().openCourse(courseEntity)
+        }
     }
 
     private fun initViews() {
@@ -95,10 +107,10 @@ class CoursesFragment : Fragment(), CoursesContract.View {
         //кэшируем адаптер чтобы его потом вызвать
         adapter = CoursesAdapter(
             onLessonClickListener = {
-                getController().openLesson(it)
+                viewModel.onLessonClick(it)
             },
             onShowAllListener = {
-                getController().openCourse(it)
+                viewModel.onCourseClick(it)
             })
         coursesRecyclerView.adapter = adapter
     }
@@ -113,22 +125,5 @@ class CoursesFragment : Fragment(), CoursesContract.View {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
-    }
-
-    override fun showProgress(inProgress: Boolean) {
-        coursesRecyclerView.isVisible = !inProgress
-        progressBar.isVisible = inProgress
-    }
-
-    override fun setCourses(course: MutableList<CourseEntity>) {
-        adapter.setData(course)// пополнение адаптера данными
-    }
-
-    override fun openLesson(lessonEntity: LessonEntity) {
-        getController().openLesson(lessonEntity)
-    }
-
-    override fun openCourse(courseEntity: CourseEntity) {
-        getController().openCourse(courseEntity)
     }
 }
