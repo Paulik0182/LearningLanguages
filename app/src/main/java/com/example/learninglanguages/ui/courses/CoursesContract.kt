@@ -1,30 +1,24 @@
 package com.example.learninglanguages.ui.courses
 
+import androidx.lifecycle.LiveData
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 
 /**
  * Условно это интерфейс где прописываются некие связи между view и ...
+ * liveData - это такой тип данных который позволяет подписатся на него и все время получать изменения
  */
 
 interface CoursesContract {
 
-    //это для управления view
-    interface View {
-        fun showProgress(inProgress: Boolean)
-        fun setCourses(course: MutableList<CourseEntity>)// данные (показать)
-        fun openLesson(lessonEntity: LessonEntity)//открыть урок
-        fun openCourse(courseEntity: CourseEntity)// открыть курсы
-
-    }
-
-    // это для того чтобы была возможность сообщить view о происходящем (некая логика), это вся логика
-    interface Presenter {
-        fun attach(view: View)//присоединить view
-        fun detach()//отсоединить, уничтожить view
+    interface ViewModel {
+        // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
+        val inProgressLiveData: LiveData<Boolean>
+        val coursesLiveData: LiveData<List<CourseEntity>>
+        val selectedLessonsLiveData: LiveData<LessonEntity>
+        val selectedCoursesLiveData: LiveData<CourseEntity>
 
         fun onLessonClick(lessonEntity: LessonEntity)// нажали и передали урок
         fun onCourseClick(courseEntity: CourseEntity)// нажали и передали курс
-
     }
 }
