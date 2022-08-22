@@ -10,13 +10,22 @@ class LessonsPresenter(
 
     // для то чтобы воспользоватся attach view необходимо ее запомнить
     private var view: LessonsContract.View? = null
+    private var inProgress: Boolean = false //кэшируем Progress
+        private set(value) {
+            field = value
+            view?.showProgress(value)
+        }
 
     override fun attach(view: LessonsContract.View) {
         this.view = view
 
+        inProgress = true
         //Достаем данные
         coursesRepo.getCourse(lessonId) {
-            it?.let { view.setCourse(it) }
+            it?.let {
+                view.setCourse(it)
+                inProgress = false
+            }
         }
 
         //Достаем данные

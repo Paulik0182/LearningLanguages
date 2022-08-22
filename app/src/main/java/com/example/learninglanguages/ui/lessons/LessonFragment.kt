@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,14 +23,13 @@ class LessonFragment : Fragment(), LessonsContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
+    private lateinit var progressBar: ProgressBar
 
     private val presenter: LessonsContract.Presenter by lazy { extractPresenter() }//поздняя инициализация презентора, положили в него repo
     //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
 
     //этот метод достает из MAP или создает новый презентер
     private fun extractPresenter(): LessonsContract.Presenter {
-//        val courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY)
-//        requireNotNull(arguments?.getLong(Key.COURSE_ID_ARGS_KEY))
         val presenter = app.rotationLessonFreeStorage[fragmentUid] as LessonsContract.Presenter?
             ?: LessonsPresenter(
                 coursesRepo,
@@ -88,6 +89,7 @@ class LessonFragment : Fragment(), LessonsContract.View {
     private fun initViews(view: View) {
 
         lessonsRecyclerView = view.findViewById(R.id.lessons_recycler_view)
+        progressBar = view.findViewById(R.id.lessons_progress_courses_bar)
 
         //это два параметра которые принимаем на вход. Это слушатель и данные
         lessonsRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -119,6 +121,11 @@ class LessonFragment : Fragment(), LessonsContract.View {
                 putLong(Key.COURSE_ID_ARGS_KEY, courseId)
             }
         }
+    }
+
+    override fun showProgress(inProgress: Boolean) {
+        lessonsRecyclerView.isVisible = !inProgress
+        progressBar.isVisible = inProgress
     }
 
     override fun setCourse(lesson: CourseEntity) {
