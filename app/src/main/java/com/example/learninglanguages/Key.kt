@@ -17,7 +17,7 @@ object Key {
 
     //Image
     internal const val VICTORY_FINISH_IMAGE_KEY =
-        "https://i.ytimg.com/vi/7-FerItw8hY/maxresdefault.jpg"
+        "https://avatars.mds.yandex.net/get-altay/2447509/2a0000017406f520b2f2412e0e106be83078/XXL"
 
     //res
     internal const val ASSETS_LESSONS_DIR_NAME_KEY =
