@@ -8,6 +8,7 @@ object Key {
     internal const val SHOW_ALL_CONTAINER_KEY = "SHOW_ALL_CONTAINER_KEY"
     internal const val FRAGMENT_UUID_KEY = "FRAGMENT_UUID_KEY"
     internal const val FRAGMENT_LESSON_UUID_KEY = "FRAGMENT_LESSON_UUID_KEY"
+    internal const val KEY_VIEW_MODEL_ID = "KEY_VIEW_MODEL_ID"
 
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
@@ -16,7 +17,7 @@ object Key {
 
     //Image
     internal const val VICTORY_FINISH_IMAGE_KEY =
-        "https://avatars.mds.yandex.net/get-zen_doc/1244179/pub_5c7f8fe55b0ac200b3abd1ad_5c7f912362b23d00b4837dc3/scale_1200"
+        "https://i.ytimg.com/vi/7-FerItw8hY/maxresdefault.jpg"
 
     //res
     internal const val ASSETS_LESSONS_DIR_NAME_KEY =

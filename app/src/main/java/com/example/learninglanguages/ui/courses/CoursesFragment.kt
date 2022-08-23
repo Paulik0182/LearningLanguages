@@ -19,6 +19,8 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
     private val app: App by lazy { requireActivity().application as App }
     private val viewModel: CoursesViewModel by viewModels()
+//    private val viewModel: CoursesViewModel by viewModelsFactory{ExampleViewModel(requireActivity().getString(
+//    Key.KEY_VIEW_MODEL_ID))}
 //    private val _viewModel: ViewModel = ViewModelProviders.of(this).get(CoursesViewModel::class.java)
     //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
 

@@ -72,8 +72,11 @@ dependencies {
     //Firebase -> database
     implementation 'com.google.firebase:firebase-database-ktx'
 
-// ViewModel
+    // ViewModel
     implementation "androidx.fragment:fragment-ktx:1.5.2"
+//    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0-alpha01"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
 //    implementation "android.arch.lifecycle:extensions:1.1.1"
 //    implementation "android.arch.lifecycle:viewmodel:1.1.1"
 
