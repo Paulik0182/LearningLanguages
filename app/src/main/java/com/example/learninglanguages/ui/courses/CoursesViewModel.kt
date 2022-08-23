@@ -2,6 +2,7 @@ package com.example.learninglanguages.ui.courses
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
@@ -19,9 +20,7 @@ import com.example.learninglanguages.domain.repos.CoursesRepo
  * liveData нельзя создать (это абстрактный класс), но у него есть несколько наследников
  */
 
-class CoursesViewModel(
-    private val coursesRepo: CoursesRepo//Экзепляр класса (достали repo) (ЭТО АРГУМЕНТ КОНСТРУКТОРА. private val - это автоматически делает членом класса)
-) {
+class CoursesViewModel() : ViewModel() {
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
     private val _inProgressLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -32,7 +31,7 @@ class CoursesViewModel(
     val selectedLessonsLiveData: LiveData<LessonEntity> = MutableLiveData()
     val selectedCoursesLiveData: LiveData<CourseEntity> = MutableLiveData()
 
-    init {
+    fun setCoursesRepo(coursesRepo: CoursesRepo) {
         _inProgressLiveData.postValue(true)
         coursesRepo.getCourses {
             inProgressLiveData.mutable().postValue(false)
