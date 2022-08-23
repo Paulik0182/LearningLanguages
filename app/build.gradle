@@ -1,7 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
+
+android
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdk 32
@@ -35,5 +40,36 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //recyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    //шрифты
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    implementation "io.coil-kt:coil:2.1.0"
+
+    //json
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //CardView
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //Firebase
+    implementation platform ('com.google.firebase:firebase-bom:30.3.1')
+    implementation "com.google.firebase:firebase-auth:21.0.7"
+    implementation 'com.google.firebase:firebase-database:20.0.5'
+    //Firebase -> crashlytics, analytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase -> database
+    implementation 'com.google.firebase:firebase-database-ktx'
+
 }
