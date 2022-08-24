@@ -48,7 +48,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         }
 
         viewModel.coursesLiveData.observe(viewLifecycleOwner) {
-            adapter.setData(listOf())// пополнение адаптера данными
+            it?.let { adapter.setData(listOf()) }// пополнение адаптера данными
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {

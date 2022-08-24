@@ -27,7 +27,7 @@ class LessonsViewModel(
 
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
-    val coursesLiveData: LiveData<List<CourseEntity>> = MutableLiveData()
+    val coursesLiveData: LiveData<CourseEntity> = MutableLiveData()
     val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
 
     init {
@@ -37,20 +37,7 @@ class LessonsViewModel(
             coursesRepo.getCourse(lessonId) {
                 it?.let {
                     inProgressLiveData.mutable().postValue(false)
-                    coursesLiveData.mutable().postValue(listOf(it))
-                }
-            }
-        }
-    }
-
-    fun setLessonsRepo(coursesRepo: CoursesRepo) {
-        //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте не данные не закачивались заново (это костыль)
-        if (coursesLiveData.value == null) {
-            _inProgressLiveData.postValue(true)
-            coursesRepo.getCourse(lessonId) {
-                it?.let {
-                    inProgressLiveData.mutable().postValue(false)
-                    coursesLiveData.mutable().postValue(listOf(it))
+                    coursesLiveData.mutable().postValue(it)
                 }
             }
         }
