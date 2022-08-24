@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -77,6 +78,7 @@ class LessonFragment : Fragment(), LessonsContract.View {
         //присоединили view
         presenter.attach(this)//в призентаре вызываем функцию attach и передаем себя
 
+        view.findViewById<TextView>(R.id.fragment_id_text_view).text = fragmentUid
         Toast.makeText(context, fragmentUid, Toast.LENGTH_SHORT).show()
     }
 

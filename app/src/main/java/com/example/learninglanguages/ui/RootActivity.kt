@@ -80,6 +80,7 @@ class RootActivity : AppCompatActivity(),
     }
 
     private fun openLessonFragment(courseId: Long) {
+        Toast.makeText(this, "openLessonFragment", Toast.LENGTH_SHORT).show()
         val fragment: Fragment = LessonFragment.newInstance(courseId)
         supportFragmentManager
             .beginTransaction()
