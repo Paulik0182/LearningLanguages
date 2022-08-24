@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import com.example.learninglanguages.utils.SingleLiveEvent
 
 /**
  * Проблемы MVP
@@ -28,14 +29,17 @@ class CoursesViewModel() : ViewModel() {
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
     val coursesLiveData: LiveData<List<CourseEntity>> = MutableLiveData()
-    val selectedLessonsLiveData: LiveData<LessonEntity> = MutableLiveData()
-    val selectedCoursesLiveData: LiveData<CourseEntity> = MutableLiveData()
+    val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
+    val selectedCoursesLiveData: LiveData<CourseEntity> = SingleLiveEvent()
 
     fun setCoursesRepo(coursesRepo: CoursesRepo) {
-        _inProgressLiveData.postValue(true)
-        coursesRepo.getCourses {
-            inProgressLiveData.mutable().postValue(false)
-            coursesLiveData.mutable().postValue(it)
+        //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте не данные не закачивались заново (это костыль)
+        if (coursesLiveData.value == null) {
+            _inProgressLiveData.postValue(true)
+            coursesRepo.getCourses {
+                inProgressLiveData.mutable().postValue(false)
+                coursesLiveData.mutable().postValue(it)
+            }
         }
     }
 

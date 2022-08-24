@@ -30,4 +30,7 @@ object Key {
     //ссылка на бд
     internal const val DATABASE_URL_KEY =
         "https://lessons-147e1-default-rtdb.europe-west1.firebasedatabase.app/"
+
+    //TEG для SingleLiveEvent
+    internal const val TAG = "SingleLiveEvent"
 }
