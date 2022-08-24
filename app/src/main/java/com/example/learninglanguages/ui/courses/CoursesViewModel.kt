@@ -3,6 +3,7 @@ package com.example.learninglanguages.ui.courses
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
@@ -21,7 +22,16 @@ import com.example.learninglanguages.utils.SingleLiveEvent
  * liveData нельзя создать (это абстрактный класс), но у него есть несколько наследников
  */
 
-class CoursesViewModel() : ViewModel() {
+class CoursesViewModel(
+    private val coursesRepo: CoursesRepo
+) : ViewModel() {
+
+    //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
+    class Factory(private val coursesRepo: CoursesRepo) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return CoursesViewModel(coursesRepo) as T
+        }
+    }
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
     private val _inProgressLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -32,7 +42,7 @@ class CoursesViewModel() : ViewModel() {
     val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
     val selectedCoursesLiveData: LiveData<CourseEntity> = SingleLiveEvent()
 
-    fun setCoursesRepo(coursesRepo: CoursesRepo) {
+    init {
         //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте не данные не закачивались заново (это костыль)
         if (coursesLiveData.value == null) {
             _inProgressLiveData.postValue(true)

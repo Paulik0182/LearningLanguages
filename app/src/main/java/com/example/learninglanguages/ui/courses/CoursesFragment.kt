@@ -13,12 +13,13 @@ import com.example.learninglanguages.App
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.domain.repos.CoursesRepo
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
     private val app: App by lazy { requireActivity().application as App }
-    private val viewModel: CoursesViewModel by viewModels()
+    private val viewModel: CoursesViewModel by viewModels {
+        CoursesViewModel.Factory(app.coursesRepo)
+    }
 //    private val viewModel: CoursesViewModel by viewModelsFactory{ExampleViewModel(requireActivity().getString(
 //    Key.KEY_VIEW_MODEL_ID))}
 //    private val _viewModel: ViewModel = ViewModelProviders.of(this).get(CoursesViewModel::class.java)
@@ -36,41 +37,11 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
     private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private val coursesRepo: CoursesRepo by lazy {
-        app.coursesRepo
-    }
-
-    //уникальный id (для того чтобы можно было сохранить состояние экрана за пределами класса
-//    private lateinit var fragmentUid: String
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        //проверка, есть ли это значение, если нет то создаем его
-//        fragmentUid =
-//            savedInstanceState?.getString(Key.FRAGMENT_UUID_KEY) ?: UUID.randomUUID().toString()
-//    }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        //при сохроанении положить ID
-//        outState.putString(Key.FRAGMENT_UUID_KEY, fragmentUid)
-//    }
-
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        return inflater.inflate(R.layout.fragment_courses, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
-
-        viewModel.setCoursesRepo(coursesRepo)
 
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
