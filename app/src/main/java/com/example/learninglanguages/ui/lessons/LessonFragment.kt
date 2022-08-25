@@ -27,9 +27,6 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
 
     private lateinit var lessonsRecyclerView: RecyclerView
 
-    //    private val fragmentUid: Long = arguments?.getLong(Key.COURSE_ID_ARGS_KEY).toString()
-    // TODO: Проблема передачи ID (как передать ID в LessonViewModel
-    //уникальный id (для того чтобы можно было сохранить состояние экрана за пределами класса
     private lateinit var fragmentUid: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +45,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         }
 
         viewModel.coursesLiveData.observe(viewLifecycleOwner) {
-            it?.let { adapter.setData(listOf()) }// пополнение адаптера данными
+            it?.let { adapter.setData(it.lessons) }// пополнение адаптера данными
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
@@ -71,7 +68,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         adapter = LessonsAdapter(
             isFullWidth = true
         ) { lesson ->
-            getController().openLesson(lesson)
+            viewModel.onLessonClick(lesson)
         }
         lessonsRecyclerView.adapter = adapter
     }

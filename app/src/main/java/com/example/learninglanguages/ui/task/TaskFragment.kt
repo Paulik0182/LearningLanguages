@@ -2,22 +2,26 @@ package com.example.learninglanguages.ui.task
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
-import com.example.learninglanguages.ui.task.answer.TasksContract
+import com.example.learninglanguages.ui.task.answer.TasksViewModel
 import com.squareup.picasso.Picasso
 
-class TaskFragment : Fragment(), TasksContract.View {
+class TaskFragment : Fragment(R.layout.fragment_task_v2) {
+
+    private val app: App by lazy { requireActivity().application as App }
+
     private lateinit var taskTv: TextView
     private lateinit var taskImageView: ImageView
 
@@ -29,12 +33,8 @@ class TaskFragment : Fragment(), TasksContract.View {
 
     private lateinit var recyclerView: RecyclerView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_task_v2, container, false)
+    private val viewModel: TasksViewModel by viewModels {
+        TasksViewModel.Factory(app.coursesRepo)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,19 +53,29 @@ class TaskFragment : Fragment(), TasksContract.View {
 
         // если придет null обработается исключение, выполнится код после ?:
         fillView(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))
+
+        viewModel.inProgressLiveData.observe(viewLifecycleOwner) { inProgress ->
+            //сюда приходит значение
+            recyclerView.isVisible = !inProgress
+            progressBar.isVisible = inProgress
+        }
+
+        viewModel.tasksLiveData.observe(viewLifecycleOwner) {
+            adapter.setData(it.variantsAnswer)
+        }
+
+        viewModel.selectedSuccessLiveData.observe(viewLifecycleOwner) {
+            getController().openSuccessScreen()
+        }
     }
 
     //заполняем данными
     private fun fillView(taskEntity: TaskEntity) {
 
-        showProgress(true)
-
         taskTv.text = taskEntity.task
         //работа с картинками
         Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
         taskImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
-
-        showProgress(false)
 
         adapter.setData(taskEntity.variantsAnswer)
         adapter.setOnItemClickListener {
@@ -94,6 +104,19 @@ class TaskFragment : Fragment(), TasksContract.View {
         }
     }
 
+    //рандомный метод получающий список (новый список)
+    private fun getNextTask(): TaskEntity? {
+        val nextTask =
+            taskList.randomOrNull()//означает что рандом может принимать null. Знак ? у TaskEntity обязателен
+        taskList.remove(nextTask) //удаляем из списка одно отобнанное рандомным способом задание
+        return nextTask
+    }
+
+    //  это сравнение двух переменных на равенство. Возвращается true & false
+    private fun checkingAnswer(rightAnswer: String, selectedAnswer: String): Boolean {
+        return rightAnswer == selectedAnswer
+    }
+
     private fun finishLesson() {
 //        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
 //            .show()
@@ -114,20 +137,6 @@ class TaskFragment : Fragment(), TasksContract.View {
         getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
     }
 
-    //рандомный метод получающий список (новый список)
-    private fun getNextTask(): TaskEntity? {
-        val nextTask =
-            taskList.randomOrNull()//означает что рандом может принимать null. Знак ? у TaskEntity обязателен
-        taskList.remove(nextTask) //удаляем из списка одно отобнанное рандомным способом задание
-        return nextTask
-    }
-
-    //  это сравнение двух переменных на равенство. Возвращается true & false
-    private fun checkingAnswer(rightAnswer: String, selectedAnswer: String): Boolean {
-        return rightAnswer == selectedAnswer
-    }
-
-
     private fun initViews(view: View) {
         linearLayout = view.findViewById(R.id.task_liner_layout)
         taskTv = view.findViewById(R.id.task_text_view)
@@ -147,23 +156,5 @@ class TaskFragment : Fragment(), TasksContract.View {
                 putParcelable(Key.THEME_ARGS_KEY, lessonEntity)
             }
         }
-    }
-
-    override fun showProgress(inProgress: Boolean) {
-        if (inProgress) {
-            linearLayout.visibility = View.GONE //скрываем view со списком
-            progressBar.visibility = View.VISIBLE //показываем прогресс загрузки
-        } else {
-            linearLayout.visibility = View.VISIBLE //показываем view со списком
-            progressBar.visibility = View.GONE //скрываем прогресс загрузки
-        }
-    }
-
-    override fun setTask(tasks: TaskEntity) {
-        adapter.setData(tasks.variantsAnswer)
-    }
-
-    override fun openSuccessScreen() {
-        getController().openSuccessScreen()
     }
 }
