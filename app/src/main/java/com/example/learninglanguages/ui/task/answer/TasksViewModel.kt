@@ -27,7 +27,7 @@ class TasksViewModel(
 
     val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()// данные (показать)
     val selectedSuccessLiveData: LiveData<TaskEntity> =
-        SingleLiveEvent()//открываем финишный фрагмент
+        SingleLiveEvent() //открываем финишный фрагмент
 
     init {
         if (tasksLiveData.value == null) {

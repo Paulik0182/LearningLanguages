@@ -16,25 +16,26 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 
+internal const val DEFAULT_COURSE_KEY = -1
+
 class LessonFragment : Fragment(R.layout.fragment_lesson) {
 
     private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
     private lateinit var progressBar: ProgressBar
     private val viewModel: LessonsViewModel by viewModels {
-        LessonsViewModel.Factory(app.coursesRepo, fragmentUid.toLong())
+        LessonsViewModel.Factory(app.coursesRepo, courseId)
     }
 
     private lateinit var lessonsRecyclerView: RecyclerView
 
-    private lateinit var fragmentUid: String
+    private var courseId: Long =
+        arguments?.getLong(Key.COURSE_ID_ARGS_KEY) ?: DEFAULT_COURSE_KEY.toLong()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
-
-        fragmentUid = arguments?.getLong(Key.COURSE_ID_ARGS_KEY).toString()
 
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
@@ -52,8 +53,8 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
             getController().openLesson(it)
         }
 
-        view.findViewById<TextView>(R.id.fragment_id_text_view).text = fragmentUid.toString()
-        Toast.makeText(context, fragmentUid.toString(), Toast.LENGTH_SHORT).show()
+        view.findViewById<TextView>(R.id.fragment_id_text_view).text = courseId.toString()
+        Toast.makeText(context, courseId.toString(), Toast.LENGTH_SHORT).show()
     }
 
     private fun initViews(view: View) {
