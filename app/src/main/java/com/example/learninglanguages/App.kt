@@ -1,25 +1,29 @@
 package com.example.learninglanguages
 
 import android.app.Application
-import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
-import com.example.learninglanguages.domain.repos.CoursesRepo
-import java.util.*
-
+import com.example.learninglanguages.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
 
 /**
  * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
  * этот класс для того чтобы воспользоватся application.
  * Необходимо прописать в манифесте данный класс
  * android:name=".App"
+ *
+ * здесь необходимо инициализировать KOIN. здесь будет начало работы приложения. стартовая точка приложения onCreate
  */
 class App : Application() {
 
-    val coursesRepo: CoursesRepo by lazy {
-//        AssetsCoursesRepoImpl(this)
-        FirebaseLessonsRepoImpl()
-    }
+    override fun onCreate() {
 
-    // Any - это базовый объект, это тип для всего. Map это ключ - значение
-    val rotationFreeStorage: MutableMap<String, Any> = WeakHashMap()
-    val rotationLessonFreeStorage: MutableMap<String, Any> = WeakHashMap()
+        super.onCreate()
+        // Start Koin
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(appModule)
+        }
+    }
 }
