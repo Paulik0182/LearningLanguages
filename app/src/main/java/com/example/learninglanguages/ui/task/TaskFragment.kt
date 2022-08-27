@@ -15,10 +15,9 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
-import com.example.learninglanguages.ui.task.answer.TasksViewModel
 import com.squareup.picasso.Picasso
 
-class TaskFragment : Fragment(R.layout.fragment_task_v2) {
+class TaskFragment : Fragment(R.layout.fragment_task_v2), TaskContract.View {
 
     private val app: App by lazy { requireActivity().application as App }
 
@@ -52,7 +51,7 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
             ArrayList(lessonEntity.tasks)//создали копию всех элементов. Так как мы удаляем по одному заданию делаем так
 
         // если придет null обработается исключение, выполнится код после ?:
-        fillView(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))
+        setTask(getNextTask() ?: throw IllegalArgumentException("Список заданий пуст"))
 
         viewModel.inProgressLiveData.observe(viewLifecycleOwner) { inProgress ->
             //сюда приходит значение
@@ -69,20 +68,6 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         }
     }
 
-    //заполняем данными
-    private fun fillView(taskEntity: TaskEntity) {
-
-        taskTv.text = taskEntity.task
-        //работа с картинками
-        Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
-        taskImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
-
-        adapter.setData(taskEntity.variantsAnswer)
-        adapter.setOnItemClickListener {
-            handleAnswerClick(taskEntity.rightAnswer, it)// передали нажатие на кнопку
-        }
-    }
-
     // обработка нажатия на кнопку
     private fun handleAnswerClick(rightAnswer: String, selectedAnswer: String) {
 
@@ -91,16 +76,12 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         if (isCorrect) {
             val taskEntity = getNextTask()
             if (taskEntity == null) {//обязательно должна быть обработка null
-                finishLesson()
+                openSuccessScreen()
             } else {
-                fillView(taskEntity)
+                setTask(taskEntity)
             }
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Вы ошиблись, попробуйте еще раз!!!",
-                Toast.LENGTH_SHORT
-            ).show()
+            showNotice("Вы ошиблись, попробуйте еще раз!!!")
         }
     }
 
@@ -115,12 +96,6 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     //  это сравнение двух переменных на равенство. Возвращается true & false
     private fun checkingAnswer(rightAnswer: String, selectedAnswer: String): Boolean {
         return rightAnswer == selectedAnswer
-    }
-
-    private fun finishLesson() {
-//        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
-//            .show()
-        getController().openSuccessScreen()
     }
 
     private fun getController(): Controller = activity as Controller
@@ -156,5 +131,37 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
                 putParcelable(Key.THEME_ARGS_KEY, lessonEntity)
             }
         }
+    }
+
+    override fun showProgress(inProgress: Boolean) {
+        recyclerView.isVisible = !inProgress
+        progressBar.isVisible = inProgress
+    }
+
+    //заполняем данными
+    override fun setTask(taskEntity: TaskEntity) {
+        taskTv.text = taskEntity.task
+        //работа с картинками
+        Picasso.get().load(taskEntity.taskImageUrl).into(taskImageView)
+        taskImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
+
+        adapter.setData(taskEntity.variantsAnswer)
+        adapter.setOnItemClickListener {
+            handleAnswerClick(taskEntity.rightAnswer, it)// передали нажатие на кнопку
+        }
+    }
+
+    override fun openSuccessScreen() {
+//        Toast.makeText(requireContext(), "УРА!!! Вы выполнили все задания", Toast.LENGTH_SHORT)
+//            .show()
+        getController().openSuccessScreen()
+    }
+
+    override fun showNotice(notice: String) {
+        Toast.makeText(
+            requireContext(),
+            notice,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

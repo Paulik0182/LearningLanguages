@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.task.answer
+package com.example.learninglanguages.ui.task
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import com.example.learninglanguages.utils.SingleLiveEvent
 
 class TasksViewModel(
     private val coursesRepo: CoursesRepo
-) : ViewModel() {
+) : ViewModel(), TaskContract.Presenter {
 
     //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
     class Factory(private val coursesRepo: CoursesRepo) : ViewModelProvider.Factory {
@@ -42,5 +42,9 @@ class TasksViewModel(
     //это сделано чтобы случайно во фрагменте случайно не изменить список (в этом рельной безописности нет)
     private fun <T> LiveData<T>.mutable(): MutableLiveData<T> {
         return this as MutableLiveData
+    }
+
+    override fun onAnswerClick() {
+        TODO("Not yet implemented")
     }
 }
