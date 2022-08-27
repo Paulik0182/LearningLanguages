@@ -16,7 +16,7 @@ import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 
-internal const val DEFAULT_COURSE_KEY = -1
+internal const val DEFAULT_COURSE_KEY = -1L
 
 class LessonFragment : Fragment(R.layout.fragment_lesson) {
 
@@ -29,13 +29,14 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
 
     private lateinit var lessonsRecyclerView: RecyclerView
 
-    private var courseId: Long =
-        arguments?.getLong(Key.COURSE_ID_ARGS_KEY) ?: DEFAULT_COURSE_KEY.toLong()
+    private var courseId: Long = DEFAULT_COURSE_KEY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews(view)
+
+        courseId = arguments?.getLong(Key.COURSE_ID_ARGS_KEY) ?: DEFAULT_COURSE_KEY
 
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
