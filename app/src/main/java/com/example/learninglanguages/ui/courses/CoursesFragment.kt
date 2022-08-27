@@ -9,29 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.App
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.repos.CoursesRepo
+import org.koin.android.ext.android.inject
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
-    private val app: App by lazy { requireActivity().application as App }
+    private val coursesRepo: CoursesRepo by inject()
     private val viewModel: CoursesViewModel by viewModels {
-        CoursesViewModel.Factory(app.coursesRepo)
+        CoursesViewModel.Factory(coursesRepo)
     }
-//    private val viewModel: CoursesViewModel by viewModelsFactory{ExampleViewModel(requireActivity().getString(
-//    Key.KEY_VIEW_MODEL_ID))}
-//    private val _viewModel: ViewModel = ViewModelProviders.of(this).get(CoursesViewModel::class.java)
-    //в связи с тем что презентер при каждом повороте пересоздается, а это если необходимо сохранять экран, необходимо презентор сохранить вне данного класса
-
-    //этот метод достает из MAP или создает новый презентер
-//    private fun extractViewModel(): CoursesViewModel {
-//        val presenter = app.rotationFreeStorage[fragmentUid] as CoursesViewModel?
-//            ?: CoursesViewModel(coursesRepo)
-//        app.rotationFreeStorage[fragmentUid] = presenter
-//        return presenter
-//    }
 
     private lateinit var adapter: CoursesAdapter
 
