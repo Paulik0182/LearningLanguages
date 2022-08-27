@@ -3,6 +3,7 @@ package com.example.learninglanguages.data
 import android.content.Context
 import com.example.learninglanguages.Key.ASSETS_LESSONS_TASK_KEY
 import com.example.learninglanguages.domain.entities.CourseEntity
+import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -31,6 +32,14 @@ class AssetsCoursesRepoImpl(
     override fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit) {
         getCourses {
             val searchResult = it.find { it.id == id }
+            onSuccess.invoke(searchResult)
+        }
+    }
+
+    override fun getLesson(courseId: Long, lessonId: Long, onSuccess: (LessonEntity?) -> Unit) {
+        getCourse(courseId) { courseEntity ->
+            val searchResult = courseEntity?.lessons?.find { it.id == lessonId }
+                ?: throw IllegalStateException("Урока не существует")
             onSuccess.invoke(searchResult)
         }
     }
