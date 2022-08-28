@@ -6,22 +6,19 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
-import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.example.learninglanguages.ui.task.answer.TasksViewModel
 import com.squareup.picasso.Picasso
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class TaskFragment : Fragment(R.layout.fragment_task_v2) {
-
-    private val coursesRepo: CoursesRepo by inject()
 
     private lateinit var taskTv: TextView
     private lateinit var taskImageView: ImageView
@@ -34,9 +31,7 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
     private lateinit var recyclerView: RecyclerView
 
-    private val viewModel: TasksViewModel by viewModels {
-        TasksViewModel.Factory(coursesRepo)
-    }
+    private val viewModel: TasksViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

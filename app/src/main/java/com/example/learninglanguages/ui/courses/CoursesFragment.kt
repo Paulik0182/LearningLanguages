@@ -6,21 +6,16 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.domain.repos.CoursesRepo
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
-    private val coursesRepo: CoursesRepo by inject()
-    private val viewModel: CoursesViewModel by viewModels {
-        CoursesViewModel.Factory(coursesRepo)
-    }
+    private val viewModel: CoursesViewModel by viewModel()
 
     private lateinit var adapter: CoursesAdapter
 
