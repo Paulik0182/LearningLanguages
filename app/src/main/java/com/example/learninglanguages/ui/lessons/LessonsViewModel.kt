@@ -3,7 +3,6 @@ package com.example.learninglanguages.ui.lessons
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
@@ -13,14 +12,6 @@ class LessonsViewModel(
     private val coursesRepo: CoursesRepo,
     private val lessonId: Long
 ) : ViewModel() {
-
-    //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
-    class Factory(private val coursesRepo: CoursesRepo, private val lessonId: Long) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return LessonsViewModel(coursesRepo, lessonId) as T
-        }
-    }
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
     private val _inProgressLiveData: MutableLiveData<Boolean> = MutableLiveData()
