@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
@@ -13,6 +14,7 @@ import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.ui.courses.CoursesFragment
 import com.example.learninglanguages.ui.lessons.LessonFragment
 import com.example.learninglanguages.ui.task.TaskFragment
+import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 
 class RootActivity : AppCompatActivity(),
     TaskFragment.Controller,
@@ -25,6 +27,7 @@ class RootActivity : AppCompatActivity(),
     var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupKoinFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
 
@@ -81,10 +84,13 @@ class RootActivity : AppCompatActivity(),
 
     private fun openLessonFragment(courseId: Long) {
         Toast.makeText(this, "openLessonFragment", Toast.LENGTH_SHORT).show()
-        val fragment: Fragment = LessonFragment.newInstance(courseId)
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.container_layout, fragment, Key.SHOW_ALL_CONTAINER_KEY)
+            .add<LessonFragment>(
+                containerViewId = R.id.container_layout,
+                args = Bundle().apply { putLong(Key.COURSE_ID_ARGS_KEY, courseId) },
+                tag = Key.SHOW_ALL_CONTAINER_KEY
+            )
 
             //заменить лояут другим лояутов (фрагментом) во избежания бага
             // в представленим нового фрагмента на экране

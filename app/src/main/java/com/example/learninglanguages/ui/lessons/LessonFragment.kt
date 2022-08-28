@@ -84,13 +84,4 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         super.onAttach(context)
         getController()  //Вариант 2. агресивный способ проверки наличия контроллера. Если нет контроллера, приложение свалтится на присоединение к фрагмента к активити
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(courseId: Long) = LessonFragment().apply {
-            arguments = Bundle().apply {
-                putLong(Key.COURSE_ID_ARGS_KEY, courseId)
-            }
-        }
-    }
 }
