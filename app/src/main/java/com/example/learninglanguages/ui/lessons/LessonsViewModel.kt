@@ -8,7 +8,9 @@ import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
+import dagger.Module
 
+@Module
 class LessonsViewModel(
     private val coursesRepo: CoursesRepo,
     private val lessonId: Long

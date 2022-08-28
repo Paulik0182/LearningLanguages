@@ -11,10 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.R
+import com.example.learninglanguages.dagger.AppComponent
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.repos.CoursesRepo
+import javax.inject.Inject
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
+
+    @Inject
+    lateinit var coursesRepo: CoursesRepo
 
     private val app: App by lazy { requireActivity().application as App }
     private val viewModel: CoursesViewModel by viewModels {
@@ -38,10 +44,14 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
     private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var appComponent: AppComponent
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+
+        appComponent.inject(this)
 
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData

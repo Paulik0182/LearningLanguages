@@ -1,6 +1,8 @@
 package com.example.learninglanguages
 
 import android.app.Application
+import android.content.Context
+import com.example.learninglanguages.dagger.AppComponent
 import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import java.util.*
@@ -14,12 +16,27 @@ import java.util.*
  */
 class App : Application() {
 
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = DaggerAppComponent.create()
+    }
+
+
     val coursesRepo: CoursesRepo by lazy {
 //        AssetsCoursesRepoImpl(this)
         FirebaseLessonsRepoImpl()
     }
 
-    // Any - это базовый объект, это тип для всего. Map это ключ - значение
-    val rotationFreeStorage: MutableMap<String, Any> = WeakHashMap()
-    val rotationLessonFreeStorage: MutableMap<String, Any> = WeakHashMap()
 }
+
+// рассширение для Context, суть его в том что он должен всегда должен возвращать Application Component
+// здесь идет проверка каой тип является appComponent, если он не является типом App то будет
+// запрашиватся у текущего контекста будет запрашиватся свой Application Component и рекурсивно
+// возвращатся appComponent
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is App -> appComponent
+        else -> this.applicationContext.appComponent
+    }

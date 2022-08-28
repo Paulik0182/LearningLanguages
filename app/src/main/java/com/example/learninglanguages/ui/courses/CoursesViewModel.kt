@@ -8,6 +8,7 @@ import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
+import dagger.Module
 
 /**
  * Проблемы MVP
@@ -22,6 +23,7 @@ import com.example.learninglanguages.utils.SingleLiveEvent
  * liveData нельзя создать (это абстрактный класс), но у него есть несколько наследников
  */
 
+@Module
 class CoursesViewModel(
     private val coursesRepo: CoursesRepo
 ) : ViewModel() {
