@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.task.answer
+package com.example.learninglanguages.ui.task
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

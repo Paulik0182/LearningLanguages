@@ -13,7 +13,6 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
-import com.example.learninglanguages.ui.task.answer.TasksViewModel
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

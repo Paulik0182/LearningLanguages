@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.task.answer
+package com.example.learninglanguages.ui.task
 
 import com.example.learninglanguages.domain.entities.TaskEntity
 
