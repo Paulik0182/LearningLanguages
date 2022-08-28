@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.learninglanguages.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
 
@@ -22,6 +23,7 @@ class App : Application() {
         super.onCreate()
         // Start Koin
         startKoin {
+            fragmentFactory()//Для создания фрагмента
             androidLogger(Level.DEBUG)//это необходимо для логирования ошибок, что бы все ошибки выводились
             androidContext(this@App)
             modules(appModule)
