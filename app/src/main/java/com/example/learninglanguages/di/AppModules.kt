@@ -15,6 +15,10 @@ package com.example.learninglanguages.di
 
 import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import com.example.learninglanguages.ui.courses.CoursesViewModel
+import com.example.learninglanguages.ui.lessons.LessonsViewModel
+import com.example.learninglanguages.ui.task.answer.TasksViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -22,6 +26,12 @@ val appModule = module {
     single<CoursesRepo> { FirebaseLessonsRepoImpl() }
 //    single<CoursesRepo> {
 //        AssetsCoursesRepoImpl(context = get()) }
+
+    //секция viewModel
+    viewModel { CoursesViewModel(get()) }
+    viewModel { parameters -> LessonsViewModel(get(), parameters.get()) }
+//    viewModel { LessonsViewModel(get(), get()) }
+    viewModel { TasksViewModel(get()) }
 
 //    factory { MySimplePresenter(get()) }
 }
