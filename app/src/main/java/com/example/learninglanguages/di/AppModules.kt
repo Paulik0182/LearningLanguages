@@ -20,7 +20,8 @@ import org.koin.dsl.module
 val appModule = module {
 
     single<CoursesRepo> { FirebaseLessonsRepoImpl() }
-//    single<CoursesRepo> { AssetsCoursesRepoImpl(get()) }
+//    single<CoursesRepo> {
+//        AssetsCoursesRepoImpl(context = get()) }
 
 //    factory { MySimplePresenter(get()) }
 }
