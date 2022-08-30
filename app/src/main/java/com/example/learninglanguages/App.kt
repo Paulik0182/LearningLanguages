@@ -1,0 +1,32 @@
+package com.example.learninglanguages
+
+import android.app.Application
+import com.example.learninglanguages.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.logger.Level
+
+/**
+ * Здесь создаем репозиторий. Репо должна быть одна, а не создаватся каждый раз в каждом фрагменте.
+ * этот класс для того чтобы воспользоватся application.
+ * Необходимо прописать в манифесте данный класс
+ * android:name=".App"
+ *
+ * здесь необходимо инициализировать KOIN. здесь будет начало работы приложения. стартовая точка приложения onCreate
+ */
+class App : Application() {
+
+    override fun onCreate() {
+
+        super.onCreate()
+        // Start Koin
+        startKoin {
+            fragmentFactory()//Для создания фрагмента
+            androidLogger(Level.DEBUG)//это необходимо для логирования ошибок, что бы все ошибки выводились
+            androidContext(this@App)
+            modules(appModule)
+        }
+    }
+}
