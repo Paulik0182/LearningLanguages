@@ -17,5 +17,5 @@ data class LessonEntity(
     @field: PropertyName("victory_image_url")
     @SerializedName("victory_image_url")
     val victoryImageUrl: String? = null,
-    val tasks: List<TaskEntity> = emptyList()
+    val tasks: MutableList<TaskEntity> = mutableListOf()
 ) : Parcelable

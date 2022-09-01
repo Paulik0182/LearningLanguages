@@ -1,24 +1,32 @@
-package com.example.learninglanguages.ui.lessons
+package com.example.learninglanguages.ui.task
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
 
-class LessonsViewModel(
+class TaskViewModel(
     private val coursesRepo: CoursesRepo,
+    private val taskList: MutableList<TaskEntity>,
+    private val answer: Boolean,
+    private val courseId: Long,
     private val lessonId: Long
 ) : ViewModel() {
 
     //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
-    class Factory(private val coursesRepo: CoursesRepo, private val lessonId: Long) :
+    class Factory(
+        private val coursesRepo: CoursesRepo,
+        private val taskList: MutableList<TaskEntity>,
+        private val answer: Boolean,
+        private val courseId: Long,
+        private val lessonId: Long
+    ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return LessonsViewModel(coursesRepo, lessonId) as T
+            return TaskViewModel(coursesRepo, taskList, answer, courseId, lessonId) as T
         }
     }
 
@@ -27,25 +35,40 @@ class LessonsViewModel(
 
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
-    val coursesLiveData: LiveData<CourseEntity> = MutableLiveData()
-    val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
+
+    val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()
+
+    val selectedSuccessLiveData: LiveData<TaskEntity> = SingleLiveEvent()
 
     init {
-        //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте данные не закачивались заново (это костыль)
-        if (coursesLiveData.value == null) {
+        if (tasksLiveData.value == null) {
             _inProgressLiveData.postValue(true)
-            coursesRepo.getCourse(lessonId) {
+            coursesRepo.getLesson(courseId, lessonId) {
                 it?.let {
                     inProgressLiveData.mutable().postValue(false)
-                    coursesLiveData.mutable().postValue(it)
+                    tasksLiveData.mutable().postValue(it.tasks)
                 }
             }
         }
     }
 
-    fun onLessonClick(lessonEntity: LessonEntity) {
-        (selectedLessonsLiveData as MutableLiveData).value =
-            lessonEntity//Вариант когда агресивно приводим к MutableLiveData
+    private fun handleAnswerClick() {
+        if (answer) {
+            val taskEntity = getNextTask()
+            if (taskEntity == null) {
+                selectedSuccessLiveData
+            } else {
+                tasksLiveData
+            }
+        } else {
+            //todo написать Тост, что вместо контекста подставлять.
+        }
+    }
+
+    private fun getNextTask(): TaskEntity? {
+        val nextTask = taskList.randomOrNull()// означает, что рандом может принять null
+        taskList.remove(nextTask)//удаляем из списка одно задание
+        return nextTask
     }
 
     //экстеншен (расширение обычной чужай функции). Можно указать mutable расширение и оно вернет версию MutableLiveData

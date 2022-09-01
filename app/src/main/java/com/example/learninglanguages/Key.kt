@@ -33,4 +33,7 @@ object Key {
 
     //TEG для SingleLiveEvent
     internal const val TAG = "SingleLiveEvent"
+
+    //Уведомления
+    internal const val SHOW_NOTICE_TASK_FRAGMENT_KEY = "Вы ошиблись, попробуйте еще раз!!!"
 }
