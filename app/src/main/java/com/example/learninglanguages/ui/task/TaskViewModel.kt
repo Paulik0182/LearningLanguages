@@ -46,7 +46,7 @@ class TaskViewModel(
             coursesRepo.getLesson(courseId, lessonId) {
                 it?.let {
                     inProgressLiveData.mutable().postValue(false)
-                    tasksLiveData.mutable().postValue(it.tasks)
+                    tasksLiveData.mutable().postValue(it)
                 }
             }
         }

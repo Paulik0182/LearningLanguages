@@ -49,11 +49,11 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
-        val lessonEntity: LessonEntity = arguments?.get(Key.THEME_ARGS_KEY) as LessonEntity
+        val lessonEntity: LessonEntity = arguments?.get(Key.THEME_ID_ARGS_KEY) as LessonEntity
         taskList = ArrayList(lessonEntity.tasks)//создали копию всех элементов
 
-        courseId = arguments?.getLong(Key.THEME_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
-        lessonId = arguments?.getLong(Key.THEME_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
+        courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
+        lessonId = arguments?.getLong(Key.TASK_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
 
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
@@ -111,9 +111,10 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
     companion object {
         @JvmStatic
-        fun newInstance(lessonEntity: LessonEntity) = TaskFragment().apply {
+        fun newInstance(courseId: Long, lessonId: Long) = TaskFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(Key.THEME_ARGS_KEY, lessonEntity)
+                putLong(Key.THEME_ID_ARGS_KEY, courseId)
+                putLong(Key.TASK_ID_ARGS_KEY, lessonId)
             }
         }
     }

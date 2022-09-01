@@ -70,8 +70,8 @@ class RootActivity : AppCompatActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-    private fun openTaskFragment(lessonEntity: LessonEntity) {
-        val fragment: Fragment = TaskFragment.newInstance(lessonEntity)
+    private fun openTaskFragment(courseId: Long, lessonId: Long) {
+        val fragment: Fragment = TaskFragment.newInstance(courseId, lessonId)
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.TEG_TASK_CONTAINER_KEY)
@@ -135,8 +135,8 @@ class RootActivity : AppCompatActivity(),
         finishSuccessFragment()
     }
 
-    override fun openLesson(lessonEntity: LessonEntity) {
-        openTaskFragment(lessonEntity)
+    override fun openLesson(lessonEntity: LessonEntity, taskEntity: Long) {
+        openTaskFragment(lessonEntity.id, taskEntity)
         title = lessonEntity.name
     }
 

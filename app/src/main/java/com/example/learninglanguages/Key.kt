@@ -11,7 +11,8 @@ object Key {
     internal const val KEY_VIEW_MODEL_ID = "KEY_VIEW_MODEL_ID"
 
     //
-    internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
+    internal const val THEME_ID_ARGS_KEY = "THEME_ARGS_KEY"
+    internal const val TASK_ID_ARGS_KEY = "TASK_ARGS_KEY"
     internal const val COURSE_ID_ARGS_KEY = "COURSE_ID_ARGS_KEY"
 
 

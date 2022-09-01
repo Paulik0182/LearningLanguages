@@ -56,7 +56,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
-            getController().openLesson(it)
+            getController().openLesson(it, it.id)
         }
 
         viewModel.selectedCoursesLiveData.observe(viewLifecycleOwner) { courseEntity ->
@@ -91,7 +91,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(lessonEntity: LessonEntity)
+        fun openLesson(lessonEntity: LessonEntity, taskEntity: Long)
         fun openCourse(courseEntity: CourseEntity)
     }
 
