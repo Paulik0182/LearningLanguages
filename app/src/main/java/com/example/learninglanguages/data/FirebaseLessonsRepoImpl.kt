@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.domain.entities.CourseEntity
+import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.google.firebase.database.DatabaseException
 import com.google.firebase.database.ktx.database
@@ -45,6 +46,14 @@ class FirebaseLessonsRepoImpl : CoursesRepo {
     override fun getCourse(id: Long, onSuccess: (CourseEntity?) -> Unit) {
         getCourses { courseEntity ->
             val searchResult = courseEntity.find { it.id == id }
+            onSuccess.invoke(searchResult)
+        }
+    }
+
+    override fun getLesson(courseId: Long, lessonId: Long, onSuccess: (LessonEntity?) -> Unit) {
+        getCourse(courseId) { courseEntity ->
+            val searchResult = courseEntity?.lessons?.find { it.id == lessonId }
+                ?: throw IllegalStateException("Урока не существует")
             onSuccess.invoke(searchResult)
         }
     }

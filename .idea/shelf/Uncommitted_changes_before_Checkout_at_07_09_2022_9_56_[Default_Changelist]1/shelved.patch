@@ -1,0 +1,56 @@
+Index: app/src/main/res/layout/fragment_task_v2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/sea\"\r\n    android:clickable=\"true\"\r\n    android:focusable=\"true\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".ui.task.TaskFragment\">\r\n\r\n    <LinearLayout\r\n        android:id=\"@+id/task_liner_layout\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1.5\"\r\n        android:gravity=\"center\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/progress_task_bar\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_gravity=\"center\" />\r\n\r\n        <androidx.appcompat.widget.AppCompatImageView\r\n            android:id=\"@+id/task_image_view\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_margin=\"@dimen/margin_task\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:maxHeight=\"@dimen/restriction_image\"\r\n            android:scaleType=\"centerCrop\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/task_text_view\"\r\n            style=\"@style/task_tv_style\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_margin=\"@dimen/margin_task\"\r\n            android:text=\"@string/task_english_fragment\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"0dp\"\r\n        android:layout_weight=\"1\"\r\n        android:orientation=\"vertical\">\r\n\r\n        <androidx.recyclerview.widget.RecyclerView\r\n            android:id=\"@+id/answer_recycler_view\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:padding=\"@dimen/default_padding\"\r\n            android:scrollbarStyle=\"outsideOverlay\"\r\n            android:scrollbars=\"vertical\"\r\n            tools:listitem=\"@layout/item_answer\" />\r\n    </LinearLayout>\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_task_v2.xml b/app/src/main/res/layout/fragment_task_v2.xml
+--- a/app/src/main/res/layout/fragment_task_v2.xml	
++++ b/app/src/main/res/layout/fragment_task_v2.xml	
+@@ -48,7 +48,7 @@
+         android:orientation="vertical">
+ 
+         <androidx.recyclerview.widget.RecyclerView
+-            android:id="@+id/answer_recycler_view"
++            android:id="@+id/task_answer_recycler_view"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="@dimen/default_padding"
+Index: app/src/main/java/com/example/learninglanguages/domain/entities/LessonEntity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.learninglanguages.domain.entities\r\n\r\nimport android.os.Parcelable\r\nimport com.google.firebase.database.PropertyName\r\nimport com.google.gson.annotations.SerializedName\r\nimport kotlinx.parcelize.Parcelize\r\n\r\n@Parcelize\r\ndata class LessonEntity(\r\n    val id: Long = 0,\r\n    val name: String = \"\",\r\n    @get: PropertyName(\"image_url\")\r\n    @field: PropertyName(\"image_url\")\r\n    @SerializedName(\"image_url\")\r\n    val imageUrl: String = \"\",\r\n    @get: PropertyName(\"victory_image_url\")\r\n    @field: PropertyName(\"victory_image_url\")\r\n    @SerializedName(\"victory_image_url\")\r\n    val victoryImageUrl: String? = null,\r\n    val tasks: List<TaskEntity> = emptyList()\r\n) : Parcelable
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/learninglanguages/domain/entities/LessonEntity.kt b/app/src/main/java/com/example/learninglanguages/domain/entities/LessonEntity.kt
+--- a/app/src/main/java/com/example/learninglanguages/domain/entities/LessonEntity.kt	
++++ b/app/src/main/java/com/example/learninglanguages/domain/entities/LessonEntity.kt	
+@@ -17,5 +17,5 @@
+     @field: PropertyName("victory_image_url")
+     @SerializedName("victory_image_url")
+     val victoryImageUrl: String? = null,
+-    val tasks: List<TaskEntity> = emptyList()
++    val tasks: MutableList<TaskEntity> = mutableListOf()
+ ) : Parcelable
+\ No newline at end of file
+Index: app/src/main/java/com/example/learninglanguages/Key.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.learninglanguages\r\n\r\nobject Key {\r\n\r\n    //TEG open fragment\r\n    internal const val TEG_TASK_CONTAINER_KEY = \"TEG_TASK_CONTROLLER_LAYOUT_KEY\"\r\n    internal const val TEG_SUCCESS_CONTAINER_KEY = \"TEG_SUCCESS_CONTAINER_KEY\"\r\n    internal const val SHOW_ALL_CONTAINER_KEY = \"SHOW_ALL_CONTAINER_KEY\"\r\n    internal const val FRAGMENT_UUID_KEY = \"FRAGMENT_UUID_KEY\"\r\n    internal const val FRAGMENT_LESSON_UUID_KEY = \"FRAGMENT_LESSON_UUID_KEY\"\r\n    internal const val KEY_VIEW_MODEL_ID = \"KEY_VIEW_MODEL_ID\"\r\n\r\n    //\r\n    internal const val THEME_ARGS_KEY = \"THEME_ARGS_KEY\"\r\n    internal const val COURSE_ID_ARGS_KEY = \"COURSE_ID_ARGS_KEY\"\r\n\r\n\r\n    //Image\r\n    internal const val VICTORY_FINISH_IMAGE_KEY =\r\n        \"https://avatars.mds.yandex.net/get-altay/2447509/2a0000017406f520b2f2412e0e106be83078/XXL\"\r\n\r\n    //res\r\n    internal const val ASSETS_LESSONS_DIR_NAME_KEY =\r\n        \"lessons\"//lessons потому что мы сканируем эту папку\r\n\r\n    //ссылка на бд\r\n    internal const val ASSETS_LESSONS_TASK_KEY =\r\n        \"lessons_task.json\"\r\n\r\n    //ссылка на бд\r\n    internal const val DATABASE_URL_KEY =\r\n        \"https://lessons-147e1-default-rtdb.europe-west1.firebasedatabase.app/\"\r\n\r\n    //TEG для SingleLiveEvent\r\n    internal const val TAG = \"SingleLiveEvent\"\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/learninglanguages/Key.kt b/app/src/main/java/com/example/learninglanguages/Key.kt
+--- a/app/src/main/java/com/example/learninglanguages/Key.kt	
++++ b/app/src/main/java/com/example/learninglanguages/Key.kt	
+@@ -33,4 +33,7 @@
+ 
+     //TEG для SingleLiveEvent
+     internal const val TAG = "SingleLiveEvent"
++
++    //Уведомления
++    internal const val SHOW_NOTICE_TASK_FRAGMENT_KEY = "Вы ошиблись, попробуйте еще раз!!!"
+ }
+\ No newline at end of file

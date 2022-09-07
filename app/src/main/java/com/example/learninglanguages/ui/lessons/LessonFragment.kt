@@ -50,7 +50,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
-            getController().openLesson(it)
+            getController().openLesson(it, it.id)
         }
 
         view.findViewById<TextView>(R.id.fragment_id_text_view).text = courseId.toString()
@@ -77,7 +77,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(lessonEntity: LessonEntity)
+        fun openLesson(lessonEntity: LessonEntity, taskEntity: Long)
     }
 
     override fun onAttach(context: Context) {

@@ -22,7 +22,7 @@ class LessonsViewModel(
     val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
 
     init {
-        //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте не данные не закачивались заново (это костыль)
+        //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте данные не закачивались заново (это костыль)
         if (coursesLiveData.value == null) {
             _inProgressLiveData.postValue(true)
             coursesRepo.getCourse(lessonId) {

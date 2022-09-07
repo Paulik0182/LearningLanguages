@@ -38,7 +38,7 @@ class TaskViewModel(
 
     val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()
 
-    val selectedSuccessLiveData: LiveData<TaskEntity> = SingleLiveEvent()
+    val selectedSuccessLiveData: LiveData<Unit> = SingleLiveEvent()
 
     init {
         if (tasksLiveData.value == null) {
@@ -46,7 +46,7 @@ class TaskViewModel(
             coursesRepo.getLesson(courseId, lessonId) {
                 it?.let {
                     inProgressLiveData.mutable().postValue(false)
-                    tasksLiveData.mutable().postValue(it)
+//                    tasksLiveData.mutable().postValue(it)
                 }
             }
         }

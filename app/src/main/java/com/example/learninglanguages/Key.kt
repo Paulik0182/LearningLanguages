@@ -12,6 +12,8 @@ object Key {
 
     //
     internal const val THEME_ARGS_KEY = "THEME_ARGS_KEY"
+    internal const val THEME_ID_ARGS_KEY = "THEME_ARGS_KEY"
+    internal const val TASK_ID_ARGS_KEY = "TASK_ARGS_KEY"
     internal const val COURSE_ID_ARGS_KEY = "COURSE_ID_ARGS_KEY"
 
 
@@ -33,4 +35,7 @@ object Key {
 
     //TEG для SingleLiveEvent
     internal const val TAG = "SingleLiveEvent"
+
+    //Уведомления
+    internal const val SHOW_NOTICE_TASK_FRAGMENT_KEY = "Вы ошиблись, попробуйте еще раз!!!"
 }
