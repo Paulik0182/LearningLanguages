@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.squareup.picasso.Picasso
 
@@ -34,34 +33,16 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AnswerAdapter
 
-    private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущьность
-    private var answer: Boolean = false
-
     private val viewModel: TaskViewModel by viewModels {
-        TaskViewModel.Factory(app.coursesRepo, taskList, answer, courseId, lessonId)
+        val courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
+        val lessonId = arguments?.getLong(Key.LESSON_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
+        TaskViewModel.Factory(app.coursesRepo, courseId, lessonId)
     }
-
-    private var courseId: Long = DEFAULT_COURSE_ID_KEY
-    private var lessonId: Long = DEFAULT_LESSON_ID_KEY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
-        courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
-        lessonId = arguments?.getLong(Key.LESSON_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
-
-        //данный кулбэк будет вызыватся после viewModel в связи с этим данные еще будут пустыми,
-        // это решение не верное. Лучше сделать копию элементов непосредственно во ViewModel
-        app.coursesRepo.getLesson(courseId, lessonId) {
-            taskList = if (it == null) {
-
-                emptyList<TaskEntity>().toMutableList()
-            } else {
-                ArrayList(it.tasks)//создали копию всех элементов
-            }
-        }
-
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
         viewModel.inProgressLiveData.observe(viewLifecycleOwner) { inProgress ->
@@ -79,7 +60,7 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
             task?.let {
                 adapter.setData(it.variantsAnswer)
                 adapter.setOnItemClickListener { right ->
-                    answer = checkingAnswer(it.rightAnswer, right)
+                    // answer = checkingAnswer(it.rightAnswer, right)
                 }
             }
         }
