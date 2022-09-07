@@ -31,7 +31,9 @@ class CoursesViewModel(
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
     val coursesLiveData: LiveData<List<CourseEntity>> = MutableLiveData()
-    val selectedLessonsLiveData: LiveData<LessonEntity> = SingleLiveEvent()
+
+    //Pair - это такой класс который позволяет принимать два параметра (это класс у которого есть два поля А и Б)
+    val selectedLessonsLiveData: LiveData<Pair<Long, LessonEntity>> = SingleLiveEvent()
     val selectedCoursesLiveData: LiveData<CourseEntity> = SingleLiveEvent()
 
     init {
@@ -45,11 +47,11 @@ class CoursesViewModel(
         }
     }
 
-    fun onLessonClick(lessonEntity: LessonEntity) {
+    fun onLessonClick(courseId: Long, lessonEntity: LessonEntity) {
         //Вариант 2 (не потоко безопмсно) не желательный вариант
 //        selectedLessonsLiveData.value = lessonEntity
-        (selectedLessonsLiveData as MutableLiveData).value =
-            lessonEntity//Вариант когда агресивно приводим к MutableLiveData
+        (selectedLessonsLiveData as MutableLiveData).value = Pair(courseId, lessonEntity)
+        //Вариант когда агресивно приводим к MutableLiveData
     }
 
     fun onCourseClick(courseEntity: CourseEntity) {

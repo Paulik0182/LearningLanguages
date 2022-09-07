@@ -135,8 +135,8 @@ class RootActivity : AppCompatActivity(),
         finishSuccessFragment()
     }
 
-    override fun openLesson(lessonEntity: LessonEntity, taskEntity: Long) {
-        openTaskFragment(lessonEntity.id, taskEntity)
+    override fun openLesson(courseId: Long, lessonEntity: LessonEntity) {
+        openTaskFragment(courseId, lessonEntity.id)
         title = lessonEntity.name
     }
 

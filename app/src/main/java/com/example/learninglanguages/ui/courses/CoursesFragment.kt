@@ -40,7 +40,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
-            getController().openLesson(it, it.id)
+            getController().openLesson(it.first, it.second)
         }
 
         viewModel.selectedCoursesLiveData.observe(viewLifecycleOwner) { courseEntity ->
@@ -63,8 +63,8 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
         //кэшируем адаптер чтобы его потом вызвать
         adapter = CoursesAdapter(
-            onLessonClickListener = {
-                viewModel.onLessonClick(it)
+            onLessonClickListener = { courseId, lessonEntity ->
+                viewModel.onLessonClick(courseId, lessonEntity)
             },
             onShowAllListener = {
                 viewModel.onCourseClick(it)
@@ -75,7 +75,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(lessonEntity: LessonEntity, taskEntity: Long)
+        fun openLesson(courseId: Long, lessonEntity: LessonEntity)
         fun openCourse(courseEntity: CourseEntity)
     }
 

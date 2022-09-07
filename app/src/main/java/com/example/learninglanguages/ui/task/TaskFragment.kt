@@ -3,10 +3,7 @@ package com.example.learninglanguages.ui.task
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -59,8 +56,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
             task?.let {
                 adapter.setData(it.variantsAnswer)
-                adapter.setOnItemClickListener { right ->
-                    // answer = checkingAnswer(it.rightAnswer, right)
+                adapter.setOnItemClickListener {
+                    viewModel.onAnswerSelect(it)
                 }
             }
         }
@@ -68,10 +65,10 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         viewModel.selectedSuccessLiveData.observe(viewLifecycleOwner) {
             getController().openSuccessScreen()
         }
-    }
 
-    private fun checkingAnswer(rightAnswer: String, right: String): Boolean {
-        return rightAnswer == right
+        viewModel.wrongAnswerLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(context, Key.SHOW_NOTICE_TASK_FRAGMENT_KEY, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView(view: View) {
@@ -106,10 +103,4 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
             }
         }
     }
-
-//private var notice: String = showNotice("Key.SHOW_NOTICE_TASK_FRAGMENT_KEY")
-//
-//    private fun showNotice(notice: String) {
-//        Toast.makeText(context, notice, Toast.LENGTH_SHORT).show()
-//    }
 }

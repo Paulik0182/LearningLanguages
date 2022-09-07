@@ -10,11 +10,13 @@ class LessonsAdapter(
     //адаптер принимает на вход данные и слушатель
     private val isFullWidth: Boolean = false,//флажек для переключением между элементами на экране
     private var data: List<LessonEntity> = mutableListOf(),
-    private var listener: (LessonEntity) -> Unit = {},
+    private var courseId: Long = -1,
+    private var listener: (Long, LessonEntity) -> Unit = { _, _ -> },
 ) : RecyclerView.Adapter<LessonViewHolder>() {
 
-    fun setData(newData: List<LessonEntity>) {
+    fun setData(courseId: Long, newData: List<LessonEntity>) {
         data = newData
+        this.courseId = courseId
         notifyDataSetChanged()
     }
 
@@ -30,7 +32,7 @@ class LessonsAdapter(
     }
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(courseId, getItem(position))
     }
 
     private fun getItem(pos: Int): LessonEntity = data[pos]

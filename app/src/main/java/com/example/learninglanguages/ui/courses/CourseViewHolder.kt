@@ -13,14 +13,14 @@ import com.example.learninglanguages.ui.lessons.LessonsAdapter
 
 class CourseViewHolder(
     itemView: View,
-    onLessonClick: (LessonEntity) -> Unit,
+    onLessonClick: (Long, LessonEntity) -> Unit,
     onShowAllClick: (CourseEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
-    private val lessonsAdapter: LessonsAdapter = LessonsAdapter {
+    private val lessonsAdapter: LessonsAdapter = LessonsAdapter { courseId, lessonEntity ->
         //здесь нам должно быть сообщено id курса
-        onLessonClick.invoke(it)
+        onLessonClick.invoke(courseId, lessonEntity)
     }
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
@@ -45,7 +45,7 @@ class CourseViewHolder(
         titleTextView.text = courseEntity.name
 
         //привязываем lessonsAdapter
-        lessonsAdapter.setData(courseEntity.lessons)
+        lessonsAdapter.setData(courseEntity.id, courseEntity.lessons)
     }
 
     init {

@@ -10,8 +10,6 @@ import com.example.learninglanguages.utils.SingleLiveEvent
 
 class TaskViewModel(
     private val coursesRepo: CoursesRepo,
-    private val taskList: MutableList<TaskEntity>,
-    private val answer: Boolean,
     private val courseId: Long,
     private val lessonId: Long
 ) : ViewModel() {
@@ -19,14 +17,12 @@ class TaskViewModel(
     //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
     class Factory(
         private val coursesRepo: CoursesRepo,
-        private val taskList: MutableList<TaskEntity>,
-        private val answer: Boolean,
         private val courseId: Long,
         private val lessonId: Long
     ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TaskViewModel(coursesRepo, taskList, answer, courseId, lessonId) as T
+            return TaskViewModel(coursesRepo, courseId, lessonId) as T
         }
     }
 
@@ -37,8 +33,10 @@ class TaskViewModel(
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
 
     val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()
+    private var tasks: MutableList<TaskEntity> = mutableListOf()
 
     val selectedSuccessLiveData: LiveData<Unit> = SingleLiveEvent()
+    val wrongAnswerLiveData: LiveData<Unit> = SingleLiveEvent()
 
     init {
         if (tasksLiveData.value == null) {
@@ -46,28 +44,33 @@ class TaskViewModel(
             coursesRepo.getLesson(courseId, lessonId) {
                 it?.let {
                     inProgressLiveData.mutable().postValue(false)
-//                    tasksLiveData.mutable().postValue(it)
+                    tasks = it.tasks//сохранили список на старте запуска
+                    tasksLiveData.mutable().postValue(getNextTask())
                 }
             }
         }
     }
 
-    private fun handleAnswerClick() {
-        if (answer) {
+    fun onAnswerSelect(userAnswer: String) {
+        if (checkingAnswer(userAnswer, tasksLiveData.value!!.rightAnswer)) {
             val taskEntity = getNextTask()
             if (taskEntity == null) {
-                selectedSuccessLiveData
+                selectedSuccessLiveData.mutable().postValue(Unit)
             } else {
-                tasksLiveData
+                tasksLiveData.mutable().postValue(taskEntity)
             }
         } else {
-            //todo написать Тост, что вместо контекста подставлять.
+            wrongAnswerLiveData.mutable().postValue(Unit)
         }
     }
 
+    private fun checkingAnswer(userAnswer: String, rightAnswer: String): Boolean {
+        return rightAnswer == userAnswer
+    }
+
     private fun getNextTask(): TaskEntity? {
-        val nextTask = taskList.randomOrNull()// означает, что рандом может принять null
-        taskList.remove(nextTask)//удаляем из списка одно задание
+        val nextTask = tasks.randomOrNull()// означает, что рандом может принять null
+        tasks.remove(nextTask)//удаляем из списка одно задание
         return nextTask
     }
 
