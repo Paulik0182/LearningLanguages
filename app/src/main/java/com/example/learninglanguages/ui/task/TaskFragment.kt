@@ -16,7 +16,6 @@ import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.squareup.picasso.Picasso
 
@@ -35,15 +34,9 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AnswerAdapter
 
-    private lateinit var taskList: MutableList<TaskEntity>//кэшируем сущьность
-    private var answer: Boolean = false
-
     private val viewModel: TaskViewModel by viewModels {
-        TaskViewModel.Factory(app.coursesRepo, taskList, answer, courseId, lessonId)
+        TaskViewModel.Factory(app.coursesRepo, courseId, lessonId)
     }
-
-    private var courseId: Long = DEFAULT_COURSE_ID_KEY
-    private var lessonId: Long = DEFAULT_LESSON_ID_KEY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
