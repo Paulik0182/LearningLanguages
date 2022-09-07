@@ -8,14 +8,25 @@ import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
 
-class TasksViewModel(
-    private val coursesRepo: CoursesRepo
+class TaskViewModel(
+    private val coursesRepo: CoursesRepo,
+    private val taskList: MutableList<TaskEntity>,
+    private val answer: Boolean,
+    private val courseId: Long,
+    private val lessonId: Long
 ) : ViewModel() {
 
     //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
-    class Factory(private val coursesRepo: CoursesRepo) : ViewModelProvider.Factory {
+    class Factory(
+        private val coursesRepo: CoursesRepo,
+        private val taskList: MutableList<TaskEntity>,
+        private val answer: Boolean,
+        private val courseId: Long,
+        private val lessonId: Long
+    ) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TasksViewModel(coursesRepo) as T
+            return TaskViewModel(coursesRepo, taskList, answer, courseId, lessonId) as T
         }
     }
 
@@ -25,17 +36,39 @@ class TasksViewModel(
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
 
-    val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()// данные (показать)
-    val selectedSuccessLiveData: LiveData<TaskEntity> =
-        SingleLiveEvent() //открываем финишный фрагмент
+    val tasksLiveData: LiveData<TaskEntity> = MutableLiveData()
+
+    val selectedSuccessLiveData: LiveData<TaskEntity> = SingleLiveEvent()
 
     init {
         if (tasksLiveData.value == null) {
-            _inProgressLiveData.postValue(false)
-            coursesRepo.getCourses {
-                inProgressLiveData.mutable().postValue(false)
+            _inProgressLiveData.postValue(true)
+            coursesRepo.getLesson(courseId, lessonId) {
+                it?.let {
+                    inProgressLiveData.mutable().postValue(false)
+                    tasksLiveData.mutable().postValue(it)
+                }
             }
         }
+    }
+
+    private fun handleAnswerClick() {
+        if (answer) {
+            val taskEntity = getNextTask()
+            if (taskEntity == null) {
+                selectedSuccessLiveData
+            } else {
+                tasksLiveData
+            }
+        } else {
+            //todo написать Тост, что вместо контекста подставлять.
+        }
+    }
+
+    private fun getNextTask(): TaskEntity? {
+        val nextTask = taskList.randomOrNull()// означает, что рандом может принять null
+        taskList.remove(nextTask)//удаляем из списка одно задание
+        return nextTask
     }
 
     //экстеншен (расширение обычной чужай функции). Можно указать mutable расширение и оно вернет версию MutableLiveData
