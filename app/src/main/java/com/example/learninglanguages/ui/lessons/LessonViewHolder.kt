@@ -8,15 +8,17 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.squareup.picasso.Picasso
 
-class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
+class LessonViewHolder(itemView: View, listener: (Long, LessonEntity) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val coverImageView = itemView.findViewById<ImageView>(R.id.cover_image_view)
     private lateinit var lessonEntity: LessonEntity
+    private var courseId: Long = -1
 
-    fun bind(lessonEntity: LessonEntity) {
+    fun bind(courseId: Long, lessonEntity: LessonEntity) {
         this.lessonEntity = lessonEntity
+        this.courseId = courseId
         titleTextView.text = lessonEntity.name
 //        coverImageView.load(lessonEntity.imageUrl)
         //проверка на наличие катинки
@@ -31,7 +33,7 @@ class LessonViewHolder(itemView: View, listener: (LessonEntity) -> Unit) :
 
     init {
         itemView.setOnClickListener {
-            listener.invoke(lessonEntity)
+            listener.invoke(courseId, lessonEntity)
         }
     }
 }

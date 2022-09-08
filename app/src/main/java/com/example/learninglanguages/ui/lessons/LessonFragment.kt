@@ -47,11 +47,11 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         }
 
         viewModel.coursesLiveData.observe(viewLifecycleOwner) {
-            it?.let { adapter.setData(it.lessons) }// пополнение адаптера данными
+            it?.let { adapter.setData(it.id, it.lessons) }// пополнение адаптера данными
         }
 
         viewModel.selectedLessonsLiveData.observe(viewLifecycleOwner) {
-            getController().openLesson(it, it.id)
+            getController().openLesson(courseId, it)
         }
 
         view.findViewById<TextView>(R.id.fragment_id_text_view).text = courseId.toString()
@@ -69,7 +69,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         //кэшируем адаптер чтобы его потом вызвать //флажек для разметки
         adapter = LessonsAdapter(
             isFullWidth = true
-        ) { lesson ->
+        ) { courseId, lesson ->
             viewModel.onLessonClick(lesson)
         }
         lessonsRecyclerView.adapter = adapter
@@ -78,7 +78,7 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(lessonEntity: LessonEntity, taskEntity: Long)
+        fun openLesson(courseId: Long, lessonEntity: LessonEntity)
     }
 
     override fun onAttach(context: Context) {

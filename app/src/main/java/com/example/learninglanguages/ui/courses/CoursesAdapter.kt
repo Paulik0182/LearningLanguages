@@ -11,7 +11,7 @@ class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseEntity> = mutableListOf(),
     private var onShowAllListener: (CourseEntity) -> Unit = {},
-    private var onLessonClickListener: (LessonEntity) -> Unit = {}
+    private var onLessonClickListener: (Long, LessonEntity) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     fun setData(newData: List<CourseEntity>) {

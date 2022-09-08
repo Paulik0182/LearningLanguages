@@ -3,10 +3,7 @@ package com.example.learninglanguages.ui.task
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.squareup.picasso.Picasso
 
@@ -35,6 +31,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var adapter: AnswerAdapter
 
     private val viewModel: TaskViewModel by viewModels {
+        val courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
+        val lessonId = arguments?.getLong(Key.LESSON_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
         TaskViewModel.Factory(app.coursesRepo, courseId, lessonId)
     }
 
@@ -42,12 +40,6 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
-        val lessonEntity: LessonEntity = arguments?.get(Key.THEME_ID_ARGS_KEY) as LessonEntity
-        taskList = ArrayList(lessonEntity.tasks)//создали копию всех элементов
-
-        courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
-        lessonId = arguments?.getLong(Key.TASK_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
-
         //observe - это наблюдатель
         // подписываемся на inProgressLiveData
         viewModel.inProgressLiveData.observe(viewLifecycleOwner) { inProgress ->
@@ -64,8 +56,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
             task?.let {
                 adapter.setData(it.variantsAnswer)
-                adapter.setOnItemClickListener { right ->
-                    answer = checkingAnswer(it.rightAnswer, right)
+                adapter.setOnItemClickListener {
+                    viewModel.onAnswerSelect(it)
                 }
             }
         }
@@ -73,10 +65,10 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         viewModel.selectedSuccessLiveData.observe(viewLifecycleOwner) {
             getController().openSuccessScreen()
         }
-    }
 
-    private fun checkingAnswer(rightAnswer: String, right: String): Boolean {
-        return rightAnswer == right
+        viewModel.wrongAnswerLiveData.observe(viewLifecycleOwner) {
+            Toast.makeText(context, Key.SHOW_NOTICE_TASK_FRAGMENT_KEY, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView(view: View) {
@@ -107,14 +99,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         fun newInstance(courseId: Long, lessonId: Long) = TaskFragment().apply {
             arguments = Bundle().apply {
                 putLong(Key.THEME_ID_ARGS_KEY, courseId)
-                putLong(Key.TASK_ID_ARGS_KEY, lessonId)
+                putLong(Key.LESSON_ID_ARGS_KEY, lessonId)
             }
         }
     }
-
-//private var notice: String = showNotice("Key.SHOW_NOTICE_TASK_FRAGMENT_KEY")
-//
-//    private fun showNotice(notice: String) {
-//        Toast.makeText(context, notice, Toast.LENGTH_SHORT).show()
-//    }
 }
