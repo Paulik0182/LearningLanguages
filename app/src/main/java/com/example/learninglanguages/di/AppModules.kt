@@ -17,6 +17,7 @@ import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.ui.courses.CoursesViewModel
 import com.example.learninglanguages.ui.lessons.LessonsViewModel
+import com.example.learninglanguages.ui.task.TaskViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -29,6 +30,6 @@ val appModule = module {
     //секция viewModel
     viewModel { CoursesViewModel(get()) }
     viewModel { parameters -> LessonsViewModel(get(), parameters.get()) }
-//    viewModel { TasksViewModel(get()) }
+    viewModel { parameters -> TaskViewModel(get(), parameters.get(), get()) }
 
 }

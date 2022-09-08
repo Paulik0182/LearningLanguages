@@ -3,7 +3,6 @@ package com.example.learninglanguages.ui.task
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.learninglanguages.domain.entities.TaskEntity
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
@@ -13,18 +12,6 @@ class TaskViewModel(
     private val courseId: Long,
     private val lessonId: Long
 ) : ViewModel() {
-
-    //Сделали класс Factory (это объект Фабрика) в которую кладем внутрь модели
-    class Factory(
-        private val coursesRepo: CoursesRepo,
-        private val courseId: Long,
-        private val lessonId: Long
-    ) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TaskViewModel(coursesRepo, courseId, lessonId) as T
-        }
-    }
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
     private val _inProgressLiveData: MutableLiveData<Boolean> = MutableLiveData()

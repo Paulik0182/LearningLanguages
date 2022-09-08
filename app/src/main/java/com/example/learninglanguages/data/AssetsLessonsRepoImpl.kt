@@ -29,7 +29,7 @@ class AssetsLessonsRepoImpl(
             return@map Gson().fromJson(rawJson, LessonEntity::class.java)
         } ?: emptyList()
 
-    override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
-        onSuccess.invoke(getLessons())
-    }
+//    override fun getLessons(onSuccess: (List<LessonEntity>) -> Unit) {
+//        onSuccess.invoke(getLessons())
+//    }
 }

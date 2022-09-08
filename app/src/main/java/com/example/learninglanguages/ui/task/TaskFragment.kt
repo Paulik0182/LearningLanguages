@@ -6,21 +6,19 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 internal const val DEFAULT_COURSE_ID_KEY = -1L
 internal const val DEFAULT_LESSON_ID_KEY = -1L
 
 class TaskFragment : Fragment(R.layout.fragment_task_v2) {
-
-    private val app: App by lazy { requireActivity().application as App }
 
     private lateinit var taskTv: TextView
     private lateinit var taskImageView: ImageView
@@ -30,10 +28,10 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AnswerAdapter
 
-    private val viewModel: TaskViewModel by viewModels {
+    private val viewModel: TaskViewModel by viewModel {
         val courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
         val lessonId = arguments?.getLong(Key.LESSON_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
-        TaskViewModel.Factory(app.coursesRepo, courseId, lessonId)
+        parametersOf(courseId, lessonId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
