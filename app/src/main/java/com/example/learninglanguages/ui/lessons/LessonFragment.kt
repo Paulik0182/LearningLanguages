@@ -8,23 +8,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.LessonEntity
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 internal const val DEFAULT_COURSE_KEY = -1L
 
 class LessonFragment : Fragment(R.layout.fragment_lesson) {
 
-    private val app: App by lazy { requireActivity().application as App }
     private lateinit var adapter: LessonsAdapter
     private lateinit var progressBar: ProgressBar
-    private val viewModel: LessonsViewModel by viewModels {
-        LessonsViewModel.Factory(app.coursesRepo, courseId)
+    private val viewModel: LessonsViewModel by viewModel {
+        parametersOf(courseId)
     }
 
     private lateinit var lessonsRecyclerView: RecyclerView

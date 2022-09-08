@@ -6,20 +6,16 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.App
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
-    private val app: App by lazy { requireActivity().application as App }
-    private val viewModel: CoursesViewModel by viewModels {
-        CoursesViewModel.Factory(app.coursesRepo)
-    }
+    private val viewModel: CoursesViewModel by viewModel()
 //    private val viewModel: CoursesViewModel by viewModelsFactory{ExampleViewModel(requireActivity().getString(
 //    Key.KEY_VIEW_MODEL_ID))}
 //    private val _viewModel: ViewModel = ViewModelProviders.of(this).get(CoursesViewModel::class.java)
