@@ -30,6 +30,12 @@ val appModule = module {
     //секция viewModel
     viewModel { CoursesViewModel(get()) }
     viewModel { parameters -> LessonsViewModel(get(), parameters.get()) }
-    viewModel { parameters -> TaskViewModel(get(), parameters.get(), get()) }
+    viewModel { parameters ->
+        TaskViewModel(
+            get(),
+            courseId = parameters[0],
+            lessonId = parameters[1]
+        )
+    }
 
 }
