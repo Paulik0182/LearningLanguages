@@ -5,12 +5,14 @@ object Key {
     //TEG open fragment
     internal const val TEG_TASK_CONTAINER_KEY = "TEG_TASK_CONTROLLER_LAYOUT_KEY"
     internal const val TEG_SUCCESS_CONTAINER_KEY = "TEG_SUCCESS_CONTAINER_KEY"
+    internal const val TEG_FAVOURITE_CONTAINER_KEY = "TEG_SUCCESS_CONTAINER_KEY"
     internal const val SHOW_ALL_CONTAINER_KEY = "SHOW_ALL_CONTAINER_KEY"
 
     //
     internal const val THEME_ID_ARGS_KEY = "THEME_ARGS_KEY"
     internal const val LESSON_ID_ARGS_KEY = "LESSON_ID_ARGS_KEY"
     internal const val COURSE_ID_ARGS_KEY = "COURSE_ID_ARGS_KEY"
+    internal const val FAVOURITE_ID_ARGS_KEY = "FAVOURITE_ID_ARGS_KEY"
 
 
     //Image

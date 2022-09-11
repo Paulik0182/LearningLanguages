@@ -11,6 +11,7 @@ import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 import com.example.learninglanguages.ui.courses.CoursesFragment
+import com.example.learninglanguages.ui.favourites.FavouritesFragment
 import com.example.learninglanguages.ui.lessons.LessonFragment
 import com.example.learninglanguages.ui.task.TaskFragment
 
@@ -18,7 +19,8 @@ class RootActivity : AppCompatActivity(),
     TaskFragment.Controller,
     SuccessFragment.Controller,
     CoursesFragment.Controller,
-    LessonFragment.Controller {
+    LessonFragment.Controller,
+    FavouritesFragment.Controller {
 
     private val defaultTitle: String by lazy { getString(R.string.app_name) }
 
@@ -50,10 +52,21 @@ class RootActivity : AppCompatActivity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.favourites_icon_menu_items -> {
+                Toast.makeText(this, "Добавили в избранное", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.favourites_icon_filled_menu_items -> {
+                Toast.makeText(this, "Удалили из избранного", Toast.LENGTH_SHORT).show()
+                return true
+            }
             R.id.favourites_menu_items -> {
+                openFavouritesFragment(0)
                 Toast.makeText(this, "Избраное", Toast.LENGTH_SHORT).show()
                 return true
             }
+
             R.id.statistics_menu_item -> {
                 Toast.makeText(this, "Статистика", Toast.LENGTH_SHORT).show()
                 return true
@@ -75,6 +88,15 @@ class RootActivity : AppCompatActivity(),
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.TEG_TASK_CONTAINER_KEY)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun openFavouritesFragment(favouriteId: Long) {
+        val fragment: Fragment = FavouritesFragment.newInstance(favouriteId)
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.container_layout, fragment, Key.TEG_FAVOURITE_CONTAINER_KEY)
             .addToBackStack(null)
             .commit()
     }
@@ -143,5 +165,10 @@ class RootActivity : AppCompatActivity(),
     override fun openCourse(courseEntity: CourseEntity) {
         openLessonFragment(courseEntity.id)
         title = courseEntity.name
+    }
+
+    override fun openFavourite(favouriteId: Long) {
+        openFavouritesFragment(favouriteId)
+        title = "Избранное"
     }
 }
