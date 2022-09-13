@@ -1,7 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
+
+android
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdk 32
@@ -26,14 +31,63 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
     }
 }
 
 dependencies {
 
+    //androidx
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //recyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    //шрифты
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    implementation "io.coil-kt:coil:2.1.0"
+
+    //json
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //CardView
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+    implementation "com.google.firebase:firebase-auth:21.0.8"
+    implementation 'com.google.firebase:firebase-database:20.0.6'
+    //Firebase -> crashlytics, analytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Firebase -> database
+    implementation 'com.google.firebase:firebase-database-ktx'
+
+    // ViewModel
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
+//    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0-alpha01"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
+//    implementation('androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01')
+//    implementation "android.arch.lifecycle:extensions:1.1.1"
+//    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+
+    def lifecycle_version = '2.5.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    //KOIN
+    implementation "io.insert-koin:koin-android:3.2.0"
 }
