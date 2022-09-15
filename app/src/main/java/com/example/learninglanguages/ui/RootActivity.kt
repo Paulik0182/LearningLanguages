@@ -62,7 +62,7 @@ class RootActivity : AppCompatActivity(),
                 return true
             }
             R.id.favourites_menu_items -> {
-                openFavouritesFragment(0)
+                openFavourite(1)
                 Toast.makeText(this, "Избраное", Toast.LENGTH_SHORT).show()
                 return true
             }

@@ -1,7 +1,9 @@
 package com.example.learninglanguages
 
 import android.app.Application
+import com.example.learninglanguages.data.FavoriteRepoImpl
 import com.example.learninglanguages.di.appModule
+import com.example.learninglanguages.domain.repos.FavoriteRepo
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -16,6 +18,10 @@ import org.koin.core.logger.Level
  * здесь необходимо инициализировать KOIN. здесь будет начало работы приложения. стартовая точка приложения onCreate
  */
 class App : Application() {
+
+    val lessonFavoriteRepo: FavoriteRepo by lazy {
+        FavoriteRepoImpl()
+    }
 
 //    val coursesRepo: CoursesRepo by lazy {
 ////        AssetsCoursesRepoImpl(this)
