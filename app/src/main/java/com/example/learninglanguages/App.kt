@@ -3,7 +3,7 @@ package com.example.learninglanguages
 import android.app.Application
 import com.example.learninglanguages.data.FavoriteRepoImpl
 import com.example.learninglanguages.di.appModule
-import com.example.learninglanguages.domain.repos.FavoriteRepo
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -19,7 +19,7 @@ import org.koin.core.logger.Level
  */
 class App : Application() {
 
-    val lessonFavoriteRepo: FavoriteRepo by lazy {
+    val lessonFavoriteRepo: FavoriteLessonsRepo by lazy {
         FavoriteRepoImpl()
     }
 

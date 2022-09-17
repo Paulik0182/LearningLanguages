@@ -13,8 +13,12 @@ package com.example.learninglanguages.di
  * get - ходит по всем зависимостям и ищит ту зависимость которая поможет ему вернуть значение.
  */
 
+import com.example.learninglanguages.data.CoursesWithFavoriteLessonInteractorImpl
+import com.example.learninglanguages.data.FavoriteRepoImpl
 import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
+import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
 import com.example.learninglanguages.domain.repos.CoursesRepo
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 import com.example.learninglanguages.ui.courses.CoursesViewModel
 import com.example.learninglanguages.ui.lessons.LessonsViewModel
 import com.example.learninglanguages.ui.task.TaskViewModel
@@ -24,6 +28,13 @@ import org.koin.dsl.module
 val appModule = module {
 
     single<CoursesRepo> { FirebaseLessonsRepoImpl() }
+    single<FavoriteLessonsRepo> { FavoriteRepoImpl() }
+    single<CoursesWithFavoriteLessonInteractor> {
+        CoursesWithFavoriteLessonInteractorImpl(
+            get(),
+            get()
+        )
+    }
 //    single<CoursesRepo> {
 //        AssetsCoursesRepoImpl(context = get()) }
 

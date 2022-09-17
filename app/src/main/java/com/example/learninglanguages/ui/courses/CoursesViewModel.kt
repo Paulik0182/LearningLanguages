@@ -3,9 +3,9 @@ package com.example.learninglanguages.ui.courses
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.entities.LessonEntity
-import com.example.learninglanguages.domain.repos.CoursesRepo
+import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
 import com.example.learninglanguages.utils.SingleLiveEvent
 
 /**
@@ -22,7 +22,7 @@ import com.example.learninglanguages.utils.SingleLiveEvent
  */
 
 class CoursesViewModel(
-    private val coursesRepo: CoursesRepo
+    private val coursesInteractor: CoursesWithFavoriteLessonInteractor
 ) : ViewModel() {
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
@@ -30,31 +30,31 @@ class CoursesViewModel(
 
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
-    val coursesLiveData: LiveData<List<CourseEntity>> = MutableLiveData()
+    val coursesLiveData: LiveData<List<CourseWithFavoriteLessonEntity>> = MutableLiveData()
 
     //Pair - это такой класс который позволяет принимать два параметра (это класс у которого есть два поля А и Б)
-    val selectedLessonsLiveData: LiveData<Pair<Long, LessonEntity>> = SingleLiveEvent()
-    val selectedCoursesLiveData: LiveData<CourseEntity> = SingleLiveEvent()
+    val selectedLessonsLiveData: LiveData<Pair<Long, FavouriteLessonEntity>> = SingleLiveEvent()
+    val selectedCoursesLiveData: LiveData<CourseWithFavoriteLessonEntity> = SingleLiveEvent()
 
     init {
         //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте не данные не закачивались заново (это костыль)
         if (coursesLiveData.value == null) {
             _inProgressLiveData.postValue(true)
-            coursesRepo.getCourses {
+            coursesInteractor.getCourses {
                 inProgressLiveData.mutable().postValue(false)
                 coursesLiveData.mutable().postValue(it)
             }
         }
     }
 
-    fun onLessonClick(courseId: Long, lessonEntity: LessonEntity) {
+    fun onLessonClick(courseId: Long, lessonEntity: FavouriteLessonEntity) {
         //Вариант 2 (не потоко безопмсно) не желательный вариант
 //        selectedLessonsLiveData.value = lessonEntity
         (selectedLessonsLiveData as MutableLiveData).value = Pair(courseId, lessonEntity)
         //Вариант когда агресивно приводим к MutableLiveData
     }
 
-    fun onCourseClick(courseEntity: CourseEntity) {
+    fun onCourseClick(courseEntity: CourseWithFavoriteLessonEntity) {
         //Вариант 1 (потоко безопмсно) предпочтительный вариант
         //postValue работает с многопоточностью, из любого потока делаем postValue и приходит все на главный поток
         selectedCoursesLiveData.mutable().postValue(courseEntity)

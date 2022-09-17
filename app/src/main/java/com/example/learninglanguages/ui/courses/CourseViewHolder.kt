@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
 import com.example.learninglanguages.ui.lessons.LessonsAdapter
 
 class CourseViewHolder(
     itemView: View,
-    onLessonClick: (Long, LessonEntity) -> Unit,
-    onShowAllClick: (CourseEntity) -> Unit
+    onLessonClick: (Long, FavouriteLessonEntity) -> Unit,
+    onShowAllClick: (CourseWithFavoriteLessonEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
@@ -37,10 +37,10 @@ class CourseViewHolder(
             helper.attachToRecyclerView(this)
         }
 
-    private lateinit var courseEntity: CourseEntity
+    private lateinit var courseEntity: CourseWithFavoriteLessonEntity
 
 
-    fun bind(courseEntity: CourseEntity) {
+    fun bind(courseEntity: CourseWithFavoriteLessonEntity) {
         this.courseEntity = courseEntity
         titleTextView.text = courseEntity.name
 

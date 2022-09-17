@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
 import com.example.learninglanguages.ui.courses.CoursesFragment
 import com.example.learninglanguages.ui.favourites.FavouritesFragment
 import com.example.learninglanguages.ui.lessons.LessonFragment
@@ -157,12 +157,12 @@ class RootActivity : AppCompatActivity(),
         finishSuccessFragment()
     }
 
-    override fun openLesson(courseId: Long, lessonEntity: LessonEntity) {
+    override fun openLesson(courseId: Long, lessonEntity: FavouriteLessonEntity) {
         openTaskFragment(courseId, lessonEntity.id)
         title = lessonEntity.name
     }
 
-    override fun openCourse(courseEntity: CourseEntity) {
+    override fun openCourse(courseEntity: CourseWithFavoriteLessonEntity) {
         openLessonFragment(courseEntity.id)
         title = courseEntity.name
     }

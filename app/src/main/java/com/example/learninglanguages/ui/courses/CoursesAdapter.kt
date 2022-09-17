@@ -1,20 +1,22 @@
 package com.example.learninglanguages.ui.courses
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.CourseEntity
-import com.example.learninglanguages.domain.entities.LessonEntity
+import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
 
 class CoursesAdapter(
     //адаптер принимает на вход данные
-    private var data: List<CourseEntity> = mutableListOf(),
-    private var onShowAllListener: (CourseEntity) -> Unit = {},
-    private var onLessonClickListener: (Long, LessonEntity) -> Unit = { _, _ -> }
+    private var data: List<CourseWithFavoriteLessonEntity> = mutableListOf(),
+    private var onShowAllListener: (CourseWithFavoriteLessonEntity) -> Unit = {},
+    private var onLessonClickListener: (Long, FavouriteLessonEntity) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
-    fun setData(newData: List<CourseEntity>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newData: List<CourseWithFavoriteLessonEntity>) {
         data = newData
         notifyDataSetChanged()
     }
@@ -32,7 +34,7 @@ class CoursesAdapter(
         holder.bind(getItem(position))
     }
 
-    private fun getItem(pos: Int): CourseEntity = data[pos]
+    private fun getItem(pos: Int): CourseWithFavoriteLessonEntity = data[pos]
 
     override fun getItemCount(): Int = data.size
 }

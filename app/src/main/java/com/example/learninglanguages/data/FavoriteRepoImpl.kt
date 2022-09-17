@@ -1,30 +1,26 @@
 package com.example.learninglanguages.data
 
-import com.example.learninglanguages.domain.entities.FavouriteEntity
-import com.example.learninglanguages.domain.repos.FavoriteRepo
+import com.example.learninglanguages.domain.entities.LessonIdEntity
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 
-class FavoriteRepoImpl : FavoriteRepo {
+/**
+ * Set - это такая сущьность котороя позволяет включать в себя один элемент.
+ * То-есть, если он уже есть, в него не будет положено еще раз.
+ */
 
-    private val data: MutableList<FavouriteEntity> = ArrayList()//массив сущьностей
+class FavoriteRepoImpl : FavoriteLessonsRepo {
 
-    override fun addFavorite(favoriteEntity: FavouriteEntity) {
-        data.add(favoriteEntity)//добавили заметку
+    private val data: MutableSet<LessonIdEntity> = HashSet()//массив сущьностей
+
+    override fun addFavorite(lessonId: LessonIdEntity) {
+        data.add(lessonId)//добавили
     }
 
-    override fun getFavorite(): List<FavouriteEntity> {
-        return ArrayList(data)
+    override fun removeEntity(lessonId: LessonIdEntity) {
+        data.remove(lessonId)//удалили
     }
 
-    init {
-        addFavorite(
-            FavouriteEntity(
-                1
-            )
-        )
-        addFavorite(
-            FavouriteEntity(
-                2
-            )
-        )
+    override fun getFavorites(): List<LessonIdEntity> {
+        return ArrayList(data)//получили
     }
 }
