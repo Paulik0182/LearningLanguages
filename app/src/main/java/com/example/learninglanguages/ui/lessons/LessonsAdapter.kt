@@ -26,9 +26,13 @@ class LessonsAdapter(
         return LessonViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 //условие выбора загрузки фрагмента
-                if (isFullWidth) R.layout.item_lesson_full_width
-                else
-                    R.layout.item_lesson, parent, false
+                if (isFullWidth) {
+                    R.layout.item_lesson_full_width
+                } else {
+                    R.layout.item_lesson
+                },
+                parent,
+                false
             ), listener
         )
     }

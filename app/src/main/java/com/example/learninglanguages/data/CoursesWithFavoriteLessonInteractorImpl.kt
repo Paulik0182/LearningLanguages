@@ -12,18 +12,36 @@ import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 
 class CoursesWithFavoriteLessonInteractorImpl(
     private val coursesRepo: CoursesRepo,
-    private val favoriteRepo: FavoriteLessonsRepo
+    private val favoriteLessonsRepo: FavoriteLessonsRepo
 ) : CoursesWithFavoriteLessonInteractor {
 
     override fun getCourses(onSuccess: (MutableList<CourseWithFavoriteLessonEntity>) -> Unit) {
         coursesRepo.getCourses { courseList ->
-            onSuccess(courseList.map { it.mapToCourseWithFavoriteLessonEntity() }.toMutableList())
+            val rawCourses =
+                courseList.map { it.mapToCourseWithFavoriteLessonEntity() }.toMutableList()
+            // проходимся по всем курсам и делаем преобразование
+            rawCourses.forEach { course ->
+                course.lessons.forEach { lesson ->
+                    lesson.isFavorite = favoriteLessonsRepo.isFavorite(
+                        course.id,
+                        lesson.id
+                    )//каждому уроку проставляем информацию из репозитория
+                }
+            }
+            onSuccess(rawCourses)
         }
     }
 
     override fun getCourse(id: Long, onSuccess: (CourseWithFavoriteLessonEntity?) -> Unit) {
         coursesRepo.getCourse(id) {
-            onSuccess(it?.mapToCourseWithFavoriteLessonEntity())
+            val rawCourse = it?.mapToCourseWithFavoriteLessonEntity()
+            rawCourse?.lessons?.forEach { lesson ->
+                lesson.isFavorite = favoriteLessonsRepo.isFavorite(
+                    id,
+                    lesson.id
+                )//каждому уроку проставляем информацию из репозитория
+            }
+            onSuccess(rawCourse)
         }
     }
 
@@ -32,8 +50,10 @@ class CoursesWithFavoriteLessonInteractorImpl(
         lessonId: Long,
         onSuccess: (FavouriteLessonEntity?) -> Unit
     ) {
+        val isFavorite =
+            favoriteLessonsRepo.isFavorite(courseId, lessonId)//получаем информацию какой урок
         coursesRepo.getLesson(courseId, lessonId) {
-            onSuccess(it?.mapToFavoriteLesson())
+            onSuccess(it?.mapToFavoriteLesson(isFavorite))
         }
     }
 }

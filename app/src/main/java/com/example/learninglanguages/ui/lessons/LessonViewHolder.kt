@@ -3,6 +3,7 @@ package com.example.learninglanguages.ui.lessons
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
@@ -13,6 +14,7 @@ class LessonViewHolder(itemView: View, listener: (Long, FavouriteLessonEntity) -
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val coverImageView = itemView.findViewById<ImageView>(R.id.cover_image_view)
+    private val favoriteImageView = itemView.findViewById<ImageView>(R.id.favorite_image_view)
     private lateinit var lessonEntity: FavouriteLessonEntity
     private var courseId: Long = -1
 
@@ -29,6 +31,7 @@ class LessonViewHolder(itemView: View, listener: (Long, FavouriteLessonEntity) -
                 .into(coverImageView)
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
         }
+        favoriteImageView.isVisible = lessonEntity.isFavorite
     }
 
     init {

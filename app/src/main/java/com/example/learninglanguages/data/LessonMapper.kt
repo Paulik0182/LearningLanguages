@@ -6,9 +6,12 @@ import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 
 /**
- * экстэншены. Копируем один объект в другой.
+ * Расширения (extensions). Копируем один объект в другой.
  * Мы здесь скопировали сущьность (преобразовали) и добавили (модифицировали)
  * старую сущьность новыми полями.
+ * extensions - позволяет расширять класс путём добавления нового функционала без
+ * необходимости наследования от такого класса и использования паттернов. Это реализовано с помощью
+ * специальных выражений, называемых расширения.
  */
 
 fun LessonEntity.mapToFavoriteLesson(isFavorite: Boolean = false): FavouriteLessonEntity {
