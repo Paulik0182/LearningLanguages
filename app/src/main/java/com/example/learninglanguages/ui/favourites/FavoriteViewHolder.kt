@@ -2,14 +2,14 @@ package com.example.learninglanguages.ui.favourites
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.LessonIdEntity
 
-class FavoriteViewHolder(itemView: View, listener: (FavouriteLessonEntity) -> Unit) :
+class FavoriteViewHolder(itemView: View, listener: (LessonIdEntity) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
 
-    private lateinit var favourite: FavouriteLessonEntity
+    private lateinit var favourite: LessonIdEntity
 
-    fun bind(favouriteEntity: FavouriteLessonEntity) {
+    fun bind(favouriteEntity: LessonIdEntity) {
         this.favourite = favouriteEntity
     }
 

@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.App
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.LessonIdEntity
 import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 
 class FavouritesFragment : Fragment(R.layout.fragment_lesson) {
 
     private val app: App by lazy { requireActivity().application as App }
 
-    private lateinit var favoriteList: MutableList<FavouriteLessonEntity>//кэшируем данные
+    private lateinit var favoriteList: MutableList<LessonIdEntity>//кэшируем данные
 
     private lateinit var adapter: FavoritesAdapter
 
-    private val listener = { favoriteEntity: FavouriteLessonEntity ->
+    private val listener = { favoriteEntity: LessonIdEntity ->
         fillView(favoriteEntity)
     }
 
@@ -35,7 +35,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_lesson) {
 
         initView(view)
 
-        adapter.setData(favoriteRepo.getFavorites() as MutableList<FavouriteLessonEntity>)
+        adapter.setData(favoriteRepo.getFavorites() as MutableList<LessonIdEntity>)
 
         adapter.setOnItemClickListener {
             TODO()
@@ -49,7 +49,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_lesson) {
         recyclerView.adapter = adapter
     }
 
-    private fun fillView(favouriteEntity: FavouriteLessonEntity) {
+    private fun fillView(favouriteEntity: LessonIdEntity) {
         adapter.setData(favoriteList)
     }
 

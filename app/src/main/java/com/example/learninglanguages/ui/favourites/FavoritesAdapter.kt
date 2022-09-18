@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.LessonIdEntity
 
 class FavoritesAdapter(
-    private var data: MutableList<FavouriteLessonEntity> = mutableListOf(),
-    private var listener: (FavouriteLessonEntity) -> Unit = {}
+    private var data: MutableList<LessonIdEntity> = mutableListOf(),
+    private var listener: (LessonIdEntity) -> Unit = {}
 ) : RecyclerView.Adapter<FavoriteViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(favorite: MutableList<FavouriteLessonEntity>) {
+    fun setData(favorite: MutableList<LessonIdEntity>) {
         data = favorite
         notifyDataSetChanged()//обнавили данные
     }
 
-    fun setOnItemClickListener(listener: (FavouriteLessonEntity) -> Unit) {
+    fun setOnItemClickListener(listener: (LessonIdEntity) -> Unit) {
         this.listener = listener
     }
 
@@ -33,7 +33,7 @@ class FavoritesAdapter(
         holder.bind(getItem(position))
     }
 
-    private fun getItem(position: Int): FavouriteLessonEntity = data[position]
+    private fun getItem(position: Int): LessonIdEntity = data[position]
 
     override fun getItemCount(): Int = data.size
 
