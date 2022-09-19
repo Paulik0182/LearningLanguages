@@ -2,7 +2,7 @@ package com.example.learninglanguages.data
 
 import com.example.learninglanguages.domain.entities.CourseEntity
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.domain.entities.LessonEntity
 
 /**
@@ -14,8 +14,8 @@ import com.example.learninglanguages.domain.entities.LessonEntity
  * специальных выражений, называемых расширения.
  */
 
-fun LessonEntity.mapToFavoriteLesson(isFavorite: Boolean = false): FavouriteLessonEntity {
-    return FavouriteLessonEntity(
+fun LessonEntity.mapToFavoriteLesson(isFavorite: Boolean = false): FavoriteLessonEntity {
+    return FavoriteLessonEntity(
         id = this.id,
         name = name,
         imageUrl = imageUrl,

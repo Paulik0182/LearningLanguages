@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.ui.lessons.LessonsAdapter
 
 class CourseViewHolder(
     itemView: View,
-    onLessonClick: (Long, FavouriteLessonEntity) -> Unit,
+    onLessonClick: (Long, FavoriteLessonEntity) -> Unit,
     onShowAllClick: (CourseWithFavoriteLessonEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {

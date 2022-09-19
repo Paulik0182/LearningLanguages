@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 
 class CoursesAdapter(
     //адаптер принимает на вход данные
     private var data: List<CourseWithFavoriteLessonEntity> = mutableListOf(),
     private var onShowAllListener: (CourseWithFavoriteLessonEntity) -> Unit = {},
-    private var onLessonClickListener: (Long, FavouriteLessonEntity) -> Unit = { _, _ -> }
+    private var onLessonClickListener: (Long, FavoriteLessonEntity) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")

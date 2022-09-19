@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.favourites
+package com.example.learninglanguages.ui.favorites
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.example.learninglanguages.ui.favourites
+package com.example.learninglanguages.ui.favorites
 
 import android.content.Context
 import android.os.Bundle

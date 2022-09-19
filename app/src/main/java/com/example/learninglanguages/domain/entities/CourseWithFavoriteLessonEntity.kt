@@ -8,5 +8,5 @@ data class CourseWithFavoriteLessonEntity(
     val id: Long = 0,
     val name: String = "",
     val logoUrl: String? = null,
-    val lessons: MutableList<FavouriteLessonEntity> = mutableListOf(),
+    val lessons: MutableList<FavoriteLessonEntity> = mutableListOf(),
 ) : Parcelable

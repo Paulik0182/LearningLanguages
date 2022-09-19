@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
 import com.example.learninglanguages.utils.SingleLiveEvent
 
@@ -19,7 +19,7 @@ class LessonsViewModel(
     // сразу когда чтото будет кластся в inProgressLiveData, сразу все подписчики будут получать изменения
     val inProgressLiveData: LiveData<Boolean> = _inProgressLiveData
     val coursesLiveData: LiveData<CourseWithFavoriteLessonEntity> = MutableLiveData()
-    val selectedLessonsLiveData: LiveData<FavouriteLessonEntity> = SingleLiveEvent()
+    val selectedLessonsLiveData: LiveData<FavoriteLessonEntity> = SingleLiveEvent()
 
     init {
         //проверяе на наличие данных в coursesLiveData. Это необходимо для того чтобы при повороте данные не закачивались заново (это костыль)
@@ -34,7 +34,7 @@ class LessonsViewModel(
         }
     }
 
-    fun onLessonClick(lessonEntity: FavouriteLessonEntity) {
+    fun onLessonClick(lessonEntity: FavoriteLessonEntity) {
         (selectedLessonsLiveData as MutableLiveData).value =
             lessonEntity//Вариант когда агресивно приводим к MutableLiveData
     }

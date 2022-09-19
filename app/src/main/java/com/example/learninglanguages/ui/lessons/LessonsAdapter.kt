@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 
 class LessonsAdapter(
     //адаптер принимает на вход данные и слушатель
     private val isFullWidth: Boolean = false,//флажек для переключением между элементами на экране
-    private var data: List<FavouriteLessonEntity> = mutableListOf(),
+    private var data: List<FavoriteLessonEntity> = mutableListOf(),
     private var courseId: Long = -1,
-    private var listener: (Long, FavouriteLessonEntity) -> Unit = { _, _ -> },
+    private var listener: (Long, FavoriteLessonEntity) -> Unit = { _, _ -> },
 ) : RecyclerView.Adapter<LessonViewHolder>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(courseId: Long, newData: List<FavouriteLessonEntity>) {
+    fun setData(courseId: Long, newData: List<FavoriteLessonEntity>) {
         data = newData
         this.courseId = courseId
         notifyDataSetChanged()
@@ -41,7 +41,7 @@ class LessonsAdapter(
         holder.bind(courseId, getItem(position))
     }
 
-    private fun getItem(pos: Int): FavouriteLessonEntity = data[pos]
+    private fun getItem(pos: Int): FavoriteLessonEntity = data[pos]
 
     override fun getItemCount(): Int = data.size
 }

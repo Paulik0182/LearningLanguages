@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
@@ -75,7 +75,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openLesson(courseId: Long, lessonEntity: FavouriteLessonEntity)
+        fun openLesson(courseId: Long, lessonEntity: FavoriteLessonEntity)
         fun openCourse(courseEntity: CourseWithFavoriteLessonEntity)
     }
 

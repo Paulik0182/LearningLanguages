@@ -5,7 +5,7 @@ package com.example.learninglanguages.data
  * нужны два репозитория на вход
  */
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
@@ -48,7 +48,7 @@ class CoursesWithFavoriteLessonInteractorImpl(
     override fun getLesson(
         courseId: Long,
         lessonId: Long,
-        onSuccess: (FavouriteLessonEntity?) -> Unit
+        onSuccess: (FavoriteLessonEntity?) -> Unit
     ) {
         val isFavorite =
             favoriteLessonsRepo.isFavorite(courseId, lessonId)//получаем информацию какой урок

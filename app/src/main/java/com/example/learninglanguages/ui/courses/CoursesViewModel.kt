@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
 import com.example.learninglanguages.utils.SingleLiveEvent
 
@@ -33,7 +33,7 @@ class CoursesViewModel(
     val coursesLiveData: LiveData<List<CourseWithFavoriteLessonEntity>> = MutableLiveData()
 
     //Pair - это такой класс который позволяет принимать два параметра (это класс у которого есть два поля А и Б)
-    val selectedLessonsLiveData: LiveData<Pair<Long, FavouriteLessonEntity>> = SingleLiveEvent()
+    val selectedLessonsLiveData: LiveData<Pair<Long, FavoriteLessonEntity>> = SingleLiveEvent()
     val selectedCoursesLiveData: LiveData<CourseWithFavoriteLessonEntity> = SingleLiveEvent()
 
     init {
@@ -47,7 +47,7 @@ class CoursesViewModel(
         }
     }
 
-    fun onLessonClick(courseId: Long, lessonEntity: FavouriteLessonEntity) {
+    fun onLessonClick(courseId: Long, lessonEntity: FavoriteLessonEntity) {
         //Вариант 2 (не потоко безопмсно) не желательный вариант
 //        selectedLessonsLiveData.value = lessonEntity
         (selectedLessonsLiveData as MutableLiveData).value = Pair(courseId, lessonEntity)

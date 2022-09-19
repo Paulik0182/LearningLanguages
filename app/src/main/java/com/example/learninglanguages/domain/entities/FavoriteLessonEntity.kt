@@ -10,7 +10,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class FavouriteLessonEntity(
+data class FavoriteLessonEntity(
     val id: Long = 0,
     val name: String = "",
     val imageUrl: String = "",

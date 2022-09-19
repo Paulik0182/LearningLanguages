@@ -11,10 +11,10 @@ package com.example.learninglanguages.domain.interactor
  */
 
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
-import com.example.learninglanguages.domain.entities.FavouriteLessonEntity
+import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 
 interface CoursesWithFavoriteLessonInteractor {
     fun getCourses(onSuccess: (MutableList<CourseWithFavoriteLessonEntity>) -> Unit)
     fun getCourse(id: Long, onSuccess: (CourseWithFavoriteLessonEntity?) -> Unit)
-    fun getLesson(courseId: Long, lessonId: Long, onSuccess: (FavouriteLessonEntity?) -> Unit)
+    fun getLesson(courseId: Long, lessonId: Long, onSuccess: (FavoriteLessonEntity?) -> Unit)
 }
