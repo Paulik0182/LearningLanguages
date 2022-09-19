@@ -16,6 +16,7 @@ class FavoriteRepoImpl : FavoriteLessonsRepo {
         data.add(LessonIdEntity(1, 10))
         data.add(LessonIdEntity(2, 501))
         data.add(LessonIdEntity(3, 77))
+        data.add(LessonIdEntity(1, 30))
     }
 
     override fun addFavorite(lessonId: LessonIdEntity) {

@@ -56,7 +56,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_lesson) {
     private fun getController(): Controller = activity as Controller
 
     interface Controller {
-        fun openFavourite(favouriteId: Long)
+        fun openFavourite()
     }
 
     override fun onAttach(context: Context) {
@@ -66,9 +66,9 @@ class FavouritesFragment : Fragment(R.layout.fragment_lesson) {
 
     companion object {
         @JvmStatic
-        fun newInstance(favouriteId: Long) = FavouritesFragment().apply {
+        fun newInstance() = FavouritesFragment().apply {
             arguments = Bundle().apply {
-                putLong(Key.FAVOURITE_ID_ARGS_KEY, favouriteId)
+                putString(Key.FAVOURITE_ID_ARGS_KEY, "favouriteId")
             }
         }
     }

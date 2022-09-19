@@ -62,7 +62,7 @@ class RootActivity : AppCompatActivity(),
                 return true
             }
             R.id.favourites_menu_items -> {
-                openFavourite(1)
+                openFavourite()
                 Toast.makeText(this, "Избраное", Toast.LENGTH_SHORT).show()
                 return true
             }
@@ -92,8 +92,8 @@ class RootActivity : AppCompatActivity(),
             .commit()
     }
 
-    private fun openFavouritesFragment(favouriteId: Long) {
-        val fragment: Fragment = FavouritesFragment.newInstance(favouriteId)
+    private fun openFavouritesFragment() {
+        val fragment: Fragment = FavouritesFragment.newInstance()
         supportFragmentManager
             .beginTransaction()
             .add(R.id.container_layout, fragment, Key.TEG_FAVOURITE_CONTAINER_KEY)
@@ -167,8 +167,8 @@ class RootActivity : AppCompatActivity(),
         title = courseEntity.name
     }
 
-    override fun openFavourite(favouriteId: Long) {
-        openFavouritesFragment(favouriteId)
+    override fun openFavourite() {
+        openFavouritesFragment()
         title = "Избранное"
     }
 }

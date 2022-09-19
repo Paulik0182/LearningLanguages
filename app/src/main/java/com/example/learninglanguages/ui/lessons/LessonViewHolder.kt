@@ -36,6 +36,7 @@ class LessonViewHolder(
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
         }
         favoriteImageView.isVisible = lessonEntity.isFavorite
+//        favoriteImageView.isVisible = likesStorage.isFavorite(courseId, lessonEntity.id)
 //        likesStorage.isFavorite(courseId, lessonEntity.id)
     }
 
