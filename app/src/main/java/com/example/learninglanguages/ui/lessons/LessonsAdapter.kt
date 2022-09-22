@@ -35,7 +35,7 @@ class LessonsAdapter(
                 },
                 parent,
                 false
-            ), likesRepo,
+            ),
             listener
         )
     }
