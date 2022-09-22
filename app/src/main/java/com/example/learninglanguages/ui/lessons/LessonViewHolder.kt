@@ -12,15 +12,15 @@ import com.squareup.picasso.Picasso
 
 class LessonViewHolder(
     itemView: View,
+    private var likesStorage: FavoriteLessonsRepo,
     listener: (Long, FavoriteLessonEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val coverImageView = itemView.findViewById<ImageView>(R.id.cover_image_view)
-    private val favoriteImageView = itemView.findViewById<ImageView>(R.id.favorite_image_view)
+    private var favoriteImageView = itemView.findViewById<ImageView>(R.id.favorite_image_view)
     private lateinit var lessonEntity: FavoriteLessonEntity
-    private lateinit var likesStorage: FavoriteLessonsRepo
     private var courseId: Long = -1
 
     fun bind(courseId: Long, lessonEntity: FavoriteLessonEntity) {
@@ -35,9 +35,7 @@ class LessonViewHolder(
                 .into(coverImageView)
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
         }
-        favoriteImageView.isVisible = lessonEntity.isFavorite
-//        favoriteImageView.isVisible = likesStorage.isFavorite(courseId, lessonEntity.id)
-//        likesStorage.isFavorite(courseId, lessonEntity.id)
+        favoriteImageView.isVisible = likesStorage.isFavorite(courseId, lessonEntity.id)
     }
 
     init {

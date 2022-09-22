@@ -9,19 +9,22 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 import com.example.learninglanguages.ui.lessons.LessonsAdapter
 
 class CourseViewHolder(
     itemView: View,
+    favoritesRepo: FavoriteLessonsRepo,
     onLessonClick: (Long, FavoriteLessonEntity) -> Unit,
     onShowAllClick: (CourseWithFavoriteLessonEntity) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
-    private val lessonsAdapter: LessonsAdapter = LessonsAdapter { courseId, lessonEntity ->
-        //здесь нам должно быть сообщено id курса
-        onLessonClick.invoke(courseId, lessonEntity)
-    }
+    private val lessonsAdapter: LessonsAdapter =
+        LessonsAdapter(likesRepo = favoritesRepo) { courseId, lessonEntity ->
+            //здесь нам должно быть сообщено id курса
+            onLessonClick.invoke(courseId, lessonEntity)
+        }
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val showAllTextView = itemView.findViewById<TextView>(R.id.show_all_text_view)

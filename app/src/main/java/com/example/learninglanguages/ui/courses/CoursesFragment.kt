@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.CourseWithFavoriteLessonEntity
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoursesFragment : Fragment(R.layout.fragment_courses) {
@@ -18,6 +20,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
     private val viewModel: CoursesViewModel by viewModel()
 
     private lateinit var adapter: CoursesAdapter
+    private val favoriteRepo: FavoriteLessonsRepo by inject()//используется Koin
 
     private lateinit var coursesRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
@@ -63,6 +66,7 @@ class CoursesFragment : Fragment(R.layout.fragment_courses) {
 
         //кэшируем адаптер чтобы его потом вызвать
         adapter = CoursesAdapter(
+            favoritesRepo = favoriteRepo,
             onLessonClickListener = { courseId, lessonEntity ->
                 viewModel.onLessonClick(courseId, lessonEntity)
             },

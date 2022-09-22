@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
+import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 
 class LessonsAdapter(
     //адаптер принимает на вход данные и слушатель
     private val isFullWidth: Boolean = false,//флажек для переключением между элементами на экране
     private var data: List<FavoriteLessonEntity> = mutableListOf(),
     private var courseId: Long = -1,
+    private val likesRepo: FavoriteLessonsRepo,
     private var listener: (Long, FavoriteLessonEntity) -> Unit = { _, _ -> },
 ) : RecyclerView.Adapter<LessonViewHolder>() {
 
@@ -33,7 +35,8 @@ class LessonsAdapter(
                 },
                 parent,
                 false
-            ), listener
+            ), likesRepo,
+            listener
         )
     }
 
