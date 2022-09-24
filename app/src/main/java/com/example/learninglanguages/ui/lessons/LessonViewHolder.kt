@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
+import com.example.learninglanguages.domain.entities.LessonIdEntity
 import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 import com.squareup.picasso.Picasso
 
@@ -14,8 +15,8 @@ class LessonViewHolder(
     itemView: View,
     private var likesStorage: FavoriteLessonsRepo,
     listener: (Long, FavoriteLessonEntity) -> Unit
-) :
-    RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
+
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val coverImageView = itemView.findViewById<ImageView>(R.id.cover_image_view)
@@ -43,5 +44,18 @@ class LessonViewHolder(
             listener.invoke(courseId, lessonEntity)
         }
 
+        //обрабатываем нажатие на сердечко (доставка в репозиторий и подписка обновлений)
+        favoriteImageView.setOnClickListener {
+            //изменяем лайк
+            val isFavorite =
+                likesStorage.isFavorite(courseId, lessonEntity.id)// ткекущее состояние урока (id)
+            val lessonEntity = LessonIdEntity(courseId, lessonEntity.id)// сущьность у которой лайк
+            if (isFavorite) {//если фаворит то -
+                likesStorage.removeEntity(lessonEntity)//удалили урок
+            } else {
+                likesStorage.addFavorite(lessonEntity)//добавили урок
+            }
+            it.isVisible = !it.isVisible//обновили состояние, сердечко исчезает
+        }
     }
 }
