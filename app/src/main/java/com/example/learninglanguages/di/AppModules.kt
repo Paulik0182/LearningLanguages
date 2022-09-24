@@ -47,7 +47,8 @@ val appModule = module {
         TaskViewModel(
             get(),
             courseId = parameters[0],
-            lessonId = parameters[1]
+            lessonId = parameters[1],
+            get()
         )
     }
 

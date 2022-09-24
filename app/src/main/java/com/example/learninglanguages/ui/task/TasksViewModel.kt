@@ -3,14 +3,17 @@ package com.example.learninglanguages.ui.task
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.learninglanguages.domain.entities.LessonIdEntity
 import com.example.learninglanguages.domain.entities.TaskEntity
+import com.example.learninglanguages.domain.interactor.FavoriteInteractor
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.utils.SingleLiveEvent
 
 class TaskViewModel(
     private val coursesRepo: CoursesRepo,
     private val courseId: Long,
-    private val lessonId: Long
+    private val lessonId: Long,
+    private val favoriteInteractor: FavoriteInteractor
 ) : ViewModel() {
 
     //одно из решений над Mutable (это стандартно принятый этот метод)
@@ -25,6 +28,9 @@ class TaskViewModel(
     val selectedSuccessLiveData: LiveData<Unit> = SingleLiveEvent()
     val wrongAnswerLiveData: LiveData<Unit> = SingleLiveEvent()
 
+    //изменение лайка
+    val isFavoriteLiveData: LiveData<Boolean> = MutableLiveData()
+
     init {
         if (tasksLiveData.value == null) {
             _inProgressLiveData.postValue(true)
@@ -35,6 +41,11 @@ class TaskViewModel(
                     tasksLiveData.mutable().postValue(getNextTask())
                 }
             }
+        }
+
+        //подписка на старте (изменение лайков)
+        favoriteInteractor.onLikeChange(LessonIdEntity(courseId, lessonId)) {
+            isFavoriteLiveData.mutable().postValue(it)
         }
     }
 
@@ -65,5 +76,9 @@ class TaskViewModel(
     //это сделано чтобы случайно во фрагменте случайно не изменить список (в этом рельной безописности нет)
     private fun <T> LiveData<T>.mutable(): MutableLiveData<T> {
         return this as MutableLiveData
+    }
+
+    fun onLikeClick() {
+        favoriteInteractor.changeLike(LessonIdEntity(courseId, lessonId))
     }
 }

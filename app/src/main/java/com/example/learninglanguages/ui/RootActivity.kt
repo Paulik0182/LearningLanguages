@@ -1,8 +1,6 @@
 package com.example.learninglanguages.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -42,45 +40,6 @@ class RootActivity : AppCompatActivity(),
     //для созранения состояния экрана (как вариант)
     override fun onRetainCustomNonConfigurationInstance(): Any? {
         return super.onRetainCustomNonConfigurationInstance()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-
-            R.id.favourites_icon_menu_items -> {
-                Toast.makeText(this, "Добавили в избранное", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.favourites_icon_filled_menu_items -> {
-                Toast.makeText(this, "Удалили из избранного", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.favourites_menu_items -> {
-                openFavourite()
-                Toast.makeText(this, "Избраное", Toast.LENGTH_SHORT).show()
-                return true
-            }
-
-            R.id.statistics_menu_item -> {
-                Toast.makeText(this, "Статистика", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.settings_menu_item -> {
-                Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.about_app_menu_item -> {
-                Toast.makeText(this, "О приложении", Toast.LENGTH_SHORT).show()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun openTaskFragment(courseId: Long, lessonId: Long) {

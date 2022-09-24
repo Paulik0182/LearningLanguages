@@ -2,6 +2,9 @@ package com.example.learninglanguages.ui.task
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.core.view.isVisible
@@ -28,6 +31,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AnswerAdapter
 
+    private lateinit var favoriteMenuItem: MenuItem
+
     private val viewModel: TaskViewModel by viewModel {
         val courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
         val lessonId = arguments?.getLong(Key.LESSON_ID_ARGS_KEY) ?: DEFAULT_LESSON_ID_KEY
@@ -36,6 +41,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         initView(view)
         //observe - это наблюдатель
@@ -67,6 +74,22 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         viewModel.wrongAnswerLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(context, Key.SHOW_NOTICE_TASK_FRAGMENT_KEY, Toast.LENGTH_SHORT).show()
         }
+
+        //лайки
+        viewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {
+            //альтернатива написания if
+//            if (it){
+//                favoriteMenuItem.setIcon(R.drawable.favourites_icon_filled)
+////                Toast.makeText(requireContext(), "Добавили в избранное", Toast.LENGTH_SHORT).show()
+//            }else{
+//                favoriteMenuItem.setIcon(R.drawable.favourites_icon)
+//                Toast.makeText(requireContext(), "Удалили из избранного", Toast.LENGTH_SHORT).show()
+//            }
+            favoriteMenuItem.setIcon(
+                if (it) R.drawable.favourites_icon_filled
+                else R.drawable.favourites_icon
+            )
+        }
     }
 
     private fun initView(view: View) {
@@ -79,6 +102,22 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = AnswerAdapter()
         recyclerView.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        favoriteMenuItem = menu.findItem(R.id.favourites_icon_menu_items)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.favourites_icon_menu_items -> {
+                viewModel.onLikeClick()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     interface Controller {
