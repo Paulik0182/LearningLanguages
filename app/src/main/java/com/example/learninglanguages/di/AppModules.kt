@@ -14,9 +14,11 @@ package com.example.learninglanguages.di
  */
 
 import com.example.learninglanguages.data.CoursesWithFavoriteLessonInteractorImpl
+import com.example.learninglanguages.data.FavoriteInteractionImpl
 import com.example.learninglanguages.data.FavoriteRepoImpl
 import com.example.learninglanguages.data.FirebaseLessonsRepoImpl
 import com.example.learninglanguages.domain.interactor.CoursesWithFavoriteLessonInteractor
+import com.example.learninglanguages.domain.interactor.FavoriteInteractor
 import com.example.learninglanguages.domain.repos.CoursesRepo
 import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
 import com.example.learninglanguages.ui.courses.CoursesViewModel
@@ -35,8 +37,8 @@ val appModule = module {
             get()
         )
     }
-//    single<CoursesRepo> {
-//        AssetsCoursesRepoImpl(context = get()) }
+
+    single<FavoriteInteractor> { FavoriteInteractionImpl(get()) }
 
     //секция viewModel
     viewModel { CoursesViewModel(get()) }

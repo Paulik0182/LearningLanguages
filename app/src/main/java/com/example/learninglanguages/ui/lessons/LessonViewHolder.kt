@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
 import com.example.learninglanguages.domain.entities.LessonIdEntity
-import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
+import com.example.learninglanguages.domain.interactor.FavoriteInteractor
 import com.squareup.picasso.Picasso
+import org.koin.java.KoinJavaComponent.inject
 
 class LessonViewHolder(
     itemView: View,
-    private var likesStorage: FavoriteLessonsRepo,
     listener: (Long, FavoriteLessonEntity) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
 
+    private val likeInteractor: FavoriteInteractor by inject(FavoriteInteractor::class.java)
 
     private val titleTextView = itemView.findViewById<TextView>(R.id.title_text_view)
     private val coverImageView = itemView.findViewById<ImageView>(R.id.cover_image_view)
@@ -36,7 +37,11 @@ class LessonViewHolder(
                 .into(coverImageView)
 //        coverImageView.scaleType = ImageView.ScaleType.FIT_XY// растягиваем картинку на весь элемент
         }
-        favoriteImageView.isVisible = likesStorage.isFavorite(courseId, lessonEntity.id)
+        //на старте делаем полное обновление состояния лайка. Подписываемся на какоето значение
+        likeInteractor.onLikeChange(LessonIdEntity(courseId, lessonEntity.id)) { isFavorite ->
+            //здесь ожидается какоето значение
+            favoriteImageView.isVisible = isFavorite
+        }
     }
 
     init {
@@ -46,16 +51,8 @@ class LessonViewHolder(
 
         //обрабатываем нажатие на сердечко (доставка в репозиторий и подписка обновлений)
         favoriteImageView.setOnClickListener {
-            //изменяем лайк
-            val isFavorite =
-                likesStorage.isFavorite(courseId, lessonEntity.id)// ткекущее состояние урока (id)
-            val lessonEntity = LessonIdEntity(courseId, lessonEntity.id)// сущьность у которой лайк
-            if (isFavorite) {//если фаворит то -
-                likesStorage.removeEntity(lessonEntity)//удалили урок
-            } else {
-                likesStorage.addFavorite(lessonEntity)//добавили урок
-            }
-            it.isVisible = !it.isVisible//обновили состояние, сердечко исчезает
+            //Берем данные и просто в БД переворачиваем значения, а потом в likeInteractor придут значения
+            likeInteractor.changeLike(LessonIdEntity(courseId, lessonEntity.id))
         }
     }
 }

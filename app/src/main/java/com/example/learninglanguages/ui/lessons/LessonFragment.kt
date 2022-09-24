@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
 import com.example.learninglanguages.domain.entities.FavoriteLessonEntity
-import com.example.learninglanguages.domain.repos.FavoriteLessonsRepo
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -27,8 +25,6 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
     private val viewModel: LessonsViewModel by viewModel {
         parametersOf(courseId)
     }
-
-    private val favoritesRepo: FavoriteLessonsRepo by inject()//
 
     private lateinit var lessonsRecyclerView: RecyclerView
 
@@ -72,7 +68,6 @@ class LessonFragment : Fragment(R.layout.fragment_lesson) {
         //кэшируем адаптер чтобы его потом вызвать //флажек для разметки
         adapter = LessonsAdapter(
             isFullWidth = true,
-            likesRepo = favoritesRepo
         ) { courseId, lesson ->
             viewModel.onLessonClick(lesson)
         }
