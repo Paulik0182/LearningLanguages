@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learninglanguages.Key
 import com.example.learninglanguages.R
+import com.example.learninglanguages.domain.interactor.FavoriteInteractor
 import com.example.learninglanguages.ui.task.answer.AnswerAdapter
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import org.koin.java.KoinJavaComponent
 
 internal const val DEFAULT_COURSE_ID_KEY = -1L
 internal const val DEFAULT_LESSON_ID_KEY = -1L
@@ -32,6 +34,8 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     private lateinit var adapter: AnswerAdapter
 
     private lateinit var favoriteMenuItem: MenuItem
+
+    private val likeInteractor: FavoriteInteractor by KoinJavaComponent.inject(FavoriteInteractor::class.java)
 
     private val viewModel: TaskViewModel by viewModel {
         val courseId = arguments?.getLong(Key.THEME_ID_ARGS_KEY) ?: DEFAULT_COURSE_ID_KEY
@@ -77,14 +81,6 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
         //лайки
         viewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {
-            //альтернатива написания if
-//            if (it){
-//                favoriteMenuItem.setIcon(R.drawable.favourites_icon_filled)
-////                Toast.makeText(requireContext(), "Добавили в избранное", Toast.LENGTH_SHORT).show()
-//            }else{
-//                favoriteMenuItem.setIcon(R.drawable.favourites_icon)
-//                Toast.makeText(requireContext(), "Удалили из избранного", Toast.LENGTH_SHORT).show()
-//            }
             favoriteMenuItem.setIcon(
                 if (it) R.drawable.favourites_icon_filled
                 else R.drawable.favourites_icon
@@ -114,6 +110,21 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
 
             R.id.favourites_icon_menu_items -> {
                 viewModel.onLikeClick()
+                viewModel.isFavoriteLiveData.value.let {
+                    if (it == true) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Удалили из избранного",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Добавили в избранное",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
                 return true
             }
         }
