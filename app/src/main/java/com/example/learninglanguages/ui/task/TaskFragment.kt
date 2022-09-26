@@ -79,13 +79,17 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
             Toast.makeText(context, Key.SHOW_NOTICE_TASK_FRAGMENT_KEY, Toast.LENGTH_SHORT).show()
         }
 
-        //лайки
-        viewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {
-            favoriteMenuItem.setIcon(
-                if (it) R.drawable.favourites_icon_filled
-                else R.drawable.favourites_icon
-            )
-        }
+        /**
+         * лайки (в данном случае приложение не стабильно работает. Иногда меню не успевает первым
+         * создастся, а данные уже приходят, поэтому приложение падает. Подписку делаем в методе
+         * onCreateOptionsMenu)
+         */
+//        viewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {
+//            favoriteMenuItem.setIcon(
+//                if (it) R.drawable.favourites_icon_filled
+//                else R.drawable.favourites_icon
+//            )
+//        }
     }
 
     private fun initView(view: View) {
@@ -103,6 +107,13 @@ class TaskFragment : Fragment(R.layout.fragment_task_v2) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
         favoriteMenuItem = menu.findItem(R.id.favourites_icon_menu_items)
+        //лайки
+        viewModel.isFavoriteLiveData.observe(viewLifecycleOwner) {
+            favoriteMenuItem.setIcon(
+                if (it) R.drawable.favourites_icon_filled
+                else R.drawable.favourites_icon
+            )
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
