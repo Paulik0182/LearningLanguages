@@ -1,14 +1,14 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        google()
+        google()// для подключения репозитория (Firebase)
         mavenCentral()
     }
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google()// для подключения репозитория (Firebase)
         mavenCentral()
     }
 }
